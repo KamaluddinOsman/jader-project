@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item"><a href="/"><i class="fa fa-dashboard"></i> {{__('lang.master')}}
                             </a></li>
                         <li class="breadcrumb-item active"><i
-                                class="fa fa-dashboard"></i> {{__('lang.storePending')}}</li>
+                                class="fa fa-dashboard"></i> {{__('lang.rejected')}}</li>
                     </ol>
                 </div>
             </div>
@@ -35,15 +35,14 @@
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>{{__('lang.image')}}</th>
-                        <th>{{__('lang.name')}}</th>
-                        <th>{{__('lang.show')}}</th>
-                        <th>{{__('lang.status')}}</th>
-                        <th>{{__('lang.action')}}</th>
+                        <tr>
+                            <th>#</th>
+                            <th>{{__('lang.image')}}</th>
+                            <th>{{__('lang.name')}}</th>
+                            <th>{{__('lang.show')}}</th>
+                            <th>{{__('lang.action')}}</th>
 
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
                     @if(count($records))
@@ -56,13 +55,7 @@
                                 <td>{{$record->name}}</td>
                                 <td><a href="{{url('store/'.$record->id)}}" class="btn btn-success"><i
                                             class="fa fa-eye"></i></a></td>
-                                <td>
-                                    @if($record->activated == 0)
-                                        <a href="{{url('store/active/'.$record->id)}}" class="btn btn-info">
-                                            {{__('lang.pending')}}
-                                        </a>
-                                    @endif
-                                </td>
+
                                 <td>
                                     <form style="display: inline-block" method="POST"
                                           action="{{route('store.destroy', $record->id)}}">
@@ -75,12 +68,6 @@
                                             </a>
                                         </div>
                                     </form>
-
-                                    <button type="button" style="display: inline-block" data-storeId="{{$record->id}}"
-                                            class="btn btn-primary"
-                                            data-toggle="modal" data-target="#cancelStore">
-                                        <i class="fa fa-window-close"></i>
-                                    </button>
                                 </td>
 
                             </tr>
@@ -100,7 +87,6 @@
                         <th>{{__('lang.image')}}</th>
                         <th>{{__('lang.name')}}</th>
                         <th>{{__('lang.show')}}</th>
-                        <th>{{__('lang.status')}}</th>
                         <th>{{__('lang.action')}}</th>
                     </tr>
                     </tfoot>

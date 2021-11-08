@@ -32,45 +32,44 @@
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>{{__('lang.name')}}</th>
-                        <th>{{__('lang.type')}}</th>
-                        <th>{{__('lang.money')}}</th>
-                        <th>{{__('lang.show')}}</th>
-
-                    </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>{{__('lang.name')}}</th>
+                            <th>{{__('lang.type')}}</th>
+                            <th>{{__('lang.money')}}</th>
+                            <th>{{__('lang.show')}}</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @if(count($records))
+                        @if(count($records))
 
-                        @foreach($records as $record)
-                            <tr>
-                                <td>{{$record->id}}</td>
-                                @if($record->car_id !== null)
-                                    <td>{{$record->car->client->full_name}} ({{$record->car->number}})</td>
-                                    <td>سائق</td>
-                                @elseif($record->store_id !== null)
-                                    <td>{{$record->store->client->full_name}} ({{$record->store->name}})</td>
-                                    <td>منشأه</td>
-                                @elseif($record->user_id !== null)
-                                    <td>{{$record->client->full_name}}</td>
-                                    <td>عميل</td>
-                                @endif
-                                <td>{{$record->total_money}}</td>
-                                <td><a href="{{url('money/'.$record->id)}}" class="btn btn-success"><i
-                                            class="fa fa-eye"></i></a></td>
+                            @foreach($records as $record)
+                                <tr>
+                                    <td>{{$record->id}}</td>
+                                    @if($record->car_id !== null)
+                                        <td>{{$record->car->client->full_name}} ({{$record->car->number}})</td>
+                                        <td>سائق</td>
+                                    @elseif($record->store_id !== null)
+                                        <td>{{$record->store->client->full_name}} ({{$record->store->name}})</td>
+                                        <td>منشأه</td>
+                                    @elseif($record->user_id !== null)
+                                        <td>{{$record->client->full_name}}</td>
+                                        <td>عميل</td>
+                                    @endif
+                                    <td>{{$record->total_money}}</td>
+                                    <td><a href="{{url('money/'.$record->id)}}" class="btn btn-success"><i
+                                                class="fa fa-eye"></i></a></td>
 
-                            </tr>
-                        @endforeach
+                                </tr>
+                            @endforeach
 
-                    @else
+                        @else
 
-                        <div class="alert alert-warning alert-block">
-                            <strong>{{__('lang.ThereAreNoData')}}</strong>
-                        </div>
+                            <div class="alert alert-warning alert-block">
+                                <strong>{{__('lang.ThereAreNoData')}}</strong>
+                            </div>
 
-                    @endif
+                        @endif
                     </tbody>
                     <tfoot>
                     <tr>

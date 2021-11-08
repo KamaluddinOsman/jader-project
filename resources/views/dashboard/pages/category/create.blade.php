@@ -1,14 +1,14 @@
 
 @inject('model','App\Category')
     {!! Form::model($model,[
-            'action' => ['Admin\CategoryController@store'],
+            'action' => ['Dashboard\CategoryController@store'],
             'enctype' => 'multipart/form-data',
     ]) !!}
 
-    @include('/admin/category/form')
+    @include('/dashboard/pages/category/form')
 
-    <div class="form-group">
+    {{-- <div class="form-group">
         <button class="btn btn-primary" type="submit">Save</button>
-    </div>
+    </div> --}}
 
     {!! Form::close() !!}

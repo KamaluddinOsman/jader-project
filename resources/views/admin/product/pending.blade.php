@@ -32,57 +32,57 @@
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>{{__('lang.image')}}</th>
-                        <th>{{__('lang.name')}}</th>
-                        <th>{{__('lang.store')}}</th>
-                        <th>{{__('lang.spacialCategory')}}</th>
-                        <th>{{__('lang.action')}}</th>
+                        <tr>
+                            <th>#</th>
+                            <th>{{__('lang.image')}}</th>
+                            <th>{{__('lang.name')}}</th>
+                            <th>{{__('lang.store')}}</th>
+                            <th>{{__('lang.spacialCategory')}}</th>
+                            <th>{{__('lang.action')}}</th>
 
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
-                    @if(count($records))
+                        @if(count($records))
 
-                        @foreach($records as $record)
-                            <tr>
-                                <td>{{$record->id}}</td>
-                                <td><img style="width: 50px; height: 50px" src="{{asset($record->image1)}}"></td>
-                                <td>{{$record->name ?? ''}}</td>
-                                <td>{{$record->store->name  ?? ''}}</td>
-                                <td>{{$record->spacialCategory->name  ?? ''}}</td>
-                                <td style="display: inline-block">
-                                    <a style="display: inline-block" href="{{url('product/'.$record->id)}}" class="btn btn-success" title="عرض"><i class="fa fa-eye"></i></a>
+                            @foreach($records as $record)
+                                <tr>
+                                    <td>{{$record->id}}</td>
+                                    <td><img style="width: 50px; height: 50px" src="{{asset($record->image1)}}"></td>
+                                    <td>{{$record->name ?? ''}}</td>
+                                    <td>{{$record->store->name  ?? ''}}</td>
+                                    <td>{{$record->spacialCategory->name  ?? ''}}</td>
+                                    <td style="display: inline-block">
+                                        <a style="display: inline-block" href="{{url('product/'.$record->id)}}" class="btn btn-success" title="عرض"><i class="fa fa-eye"></i></a>
 
-                                    <form style="display: inline-block" method="POST" action="{{route('product.destroy', $record->id)}}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
+                                        <form style="display: inline-block" method="POST" action="{{route('product.destroy', $record->id)}}">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
 
-                                        <div class="form-group">
-                                            <a class="btn btn-danger btn-mini deleteRecord">
-                                                <i class="fa fa-trash" title="حذف"></i>
-                                            </a>
-                                        </div>
-                                    </form>
+                                            <div class="form-group">
+                                                <a class="btn btn-danger btn-mini deleteRecord">
+                                                    <i class="fa fa-trash" title="حذف"></i>
+                                                </a>
+                                            </div>
+                                        </form>
 
-                                    <a style="display: inline-block" href="{{url('product/active/'.$record->id)}}" class="btn btn-secondary" title="تفعيل"><i class="fa fa-check"></i></a>
+                                        <a style="display: inline-block" href="{{url('product/active/'.$record->id)}}" class="btn btn-secondary" title="تفعيل"><i class="fa fa-check"></i></a>
 
-                                    <button type="button" style="display: inline-block" data-productId="{{$record->id}}"
-                                            class="btn btn-primary"
-                                            data-toggle="modal" data-target="#cancelProduct" title="كنسلة">
-                                        <i class="fa fa-window-close"></i>
-                                    </button>
-                            </tr>
-                        @endforeach
+                                        <button type="button" style="display: inline-block" data-productId="{{$record->id}}"
+                                                class="btn btn-primary"
+                                                data-toggle="modal" data-target="#cancelProduct" title="كنسلة">
+                                            <i class="fa fa-window-close"></i>
+                                        </button>
+                                </tr>
+                            @endforeach
 
-                    @else
+                        @else
 
-                        <div class="alert alert-warning alert-block">
-                            <strong>{{__('lang.ThereAreNoData')}}</strong>
-                        </div>
+                            <div class="alert alert-warning alert-block">
+                                <strong>{{__('lang.ThereAreNoData')}}</strong>
+                            </div>
 
-                    @endif
+                        @endif
                     </tbody>
                     <tfoot>
                     <tr>

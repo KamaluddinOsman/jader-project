@@ -39,59 +39,51 @@
                     <tr>
                         <th>#</th>
                         <th>{{__('lang.name')}}</th>
-{{--                        <th>{{__('lang.addC')}}</th>--}}
                         <th>{{__('lang.edit')}}</th>
                         <th>{{__('lang.delete')}}</th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($records))
-                        @foreach($records as $record)
-                            <tr>
-                                <td>{{$record->id}}</td>
-{{--                                <a href="{{url(route('city.district.index',$record->id))}}">--}}
-                                <td>{{$record->name}}</td>
-{{--                                <td>--}}
-{{--                                    <button type="button" style="margin-bottom: 8px" class="btn btn-success"--}}
-{{--                                            data-idcity="{{$record->id}}" data-toggle="modal"--}}
-{{--                                            data-target="#AddDistrict"><i class="fa fa-plus"></i></button>--}}
-{{--                                </td>--}}
-                                <td>
-                                    <button type="button" style="margin-bottom: 8px" class="btn btn-primary"
-                                            data-myname="{{$record->name}}" data-cityid="{{$record->id}}"
-                                            data-toggle="modal" data-target="#EditCity"><i class="fa fa-edit"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <form method="POST" action="{{route('city.destroy', $record->id)}}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
+                        @if(count($records))
+                            @foreach($records as $record)
+                                <tr>
+                                    <td>{{$record->id}}</td>
+                                    <td>{{$record->name}}</td>
+                                    <td>
+                                        <button type="button" style="margin-bottom: 8px" class="btn btn-primary"
+                                                data-myname="{{$record->name}}" data-cityid="{{$record->id}}"
+                                                data-toggle="modal" data-target="#EditCity"><i class="fa fa-edit"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="{{route('city.destroy', $record->id)}}">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
 
-                                        <div class="form-group">
-                                            <a class="btn btn-danger btn-mini deleteRecord">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </div>
-                                    </form>
-                                </td>
+                                            <div class="form-group">
+                                                <a class="btn btn-danger btn-mini deleteRecord">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </td>
 
-                            </tr>
-                        @endforeach
+                                </tr>
+                            @endforeach
 
-                    @else
+                        @else
 
-                        <div class="alert alert-warning alert-block">
-                            <strong>{{__('lang.ThereAreNoData')}}</strong>
-                        </div>
+                            <div class="alert alert-warning alert-block">
+                                <strong>{{__('lang.ThereAreNoData')}}</strong>
+                            </div>
 
-                    @endif
+                        @endif
                     </tbody>
                     <tfoot>
                     <tr>
                         <th>#</th>
                         <th>{{__('lang.name')}}</th>
-{{--                        <th>{{__('lang.addC')}}</th>--}}
                         <th>{{__('lang.edit')}}</th>
                         <th>{{__('lang.delete')}}</th>
                     </tr>

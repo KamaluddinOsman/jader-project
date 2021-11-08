@@ -66,6 +66,9 @@ Route::group(
                 Route::get('/MarkAllSeen', 'DashboardController@MarkAllSeen');
 
                 Route::get('/', 'DashboardController@index')->name('dashboard.index');
+                
+                Route::resource('city.district', 'CityDistrictController');
+                Route::delete('city.district/{id}', 'CityDistrictController@destroy')->name('city.district.destroy');
 
                 Route::group(['prefix' => 'category'], function () {
                     Route::get('/', 'CategoryController@index')->name('category.index');
@@ -75,19 +78,6 @@ Route::group(
                     Route::delete('/{id}', 'CategoryController@destroy')->name('category.destroy');
                     Route::get('/active/{id}', 'CategoryController@active')->name('category.active');
                 });
-            });
-        });
-
-
-        //All the below must be overwritten
-        Route::group(['namespace' => 'Admin'], function () {
-            Route::group(['middleware' => ['auth', 'Auto-checked-permission']], function () {
-//                Route::group(['middleware' => ['auth']],function (){
-
-                //mark all seen notification
-                // Route::get('/MarkAllSeen', 'AdminController@MarkAllSeen');
-
-                // Route::get('/', 'AdminController@index');
 
                 Route::group(['prefix' => 'city'], function () {
                     Route::get('/', 'CityController@index')->name('city.index');
@@ -96,35 +86,6 @@ Route::group(
                     Route::put('/{id}', 'CityController@update')->name('city.update');
                     Route::delete('/{id}', 'CityController@destroy')->name('city.destroy');
                 });
-                Route::resource('city.district', 'CityDistrictController');
-                Route::delete('city.district/{id}', 'CityDistrictController@destroy')->name('city.district.destroy');
-
-
-                Route::group(['prefix' => 'user'], function () {
-                    Route::get('/change-password', 'UserController@editPassword')->name('password.change');
-                    Route::post('/change-password', 'UserController@updatePassword')->name('password.update');
-                    Route::get('/create', 'UserController@create')->name('user.create');
-                    Route::get('/', 'UserController@index')->name('user.index');
-                    Route::post('/', 'UserController@store')->name('user.store');
-                    Route::get('/{id}', 'UserController@show')->name('user.show');
-                    Route::get('/{id}/edit', 'UserController@edit')->name('user.edit');
-                    Route::put('/{id}', 'UserController@update')->name('user.update');
-                    Route::delete('/delete/{id}', 'UserController@delete')->name('user.destroy');
-                });
-
-                Route::get('edit/password', 'UserController@editPassword');
-                Route::post('update/password', 'UserController@updatePassword');
-
-                Route::group(['prefix' => 'role'], function () {
-                    Route::get('/create', 'RoleController@create')->name('role.create');
-                    Route::get('/', 'RoleController@index')->name('role.index');
-                    Route::post('/', 'RoleController@store')->name('role.store');
-                    Route::get('/{id}', 'RoleController@show')->name('role.show');
-                    Route::get('/{id}/edit', 'RoleController@edit')->name('role.edit');
-                    Route::put('/{id}', 'RoleController@update')->name('role.update');
-                    Route::delete('/delete/{id}', 'RoleController@delete')->name('role.destroy');
-                });
-
 
                 Route::group(['prefix' => 'store'], function () {
                     Route::get('pending', 'StoreController@pend');
@@ -139,16 +100,6 @@ Route::group(
                     Route::get('/active/{id}', 'StoreController@active')->name('store.active');
                     Route::post('/cancel', 'StoreController@cancel')->name('store.cancel');
                     Route::get('/getcategory/{id}', 'StoreController@getcategory');
-                });
-
-                Route::group(['prefix' => 'delivery-cost'], function () {
-                    Route::get('/', 'DeliversCostsController@index')->name('deliveryCost.index');
-                    Route::get('/create', 'DeliversCostsController@create')->name('deliveryCost.create');
-                    Route::get('/{id}/edit', 'DeliversCostsController@edit')->name('deliveryCost.edit');
-                    Route::post('/', 'DeliversCostsController@store')->name('deliveryCost.store');
-                    Route::get('/{id}', 'DeliversCostsController@show')->name('deliveryCost.show');
-                    Route::put('/{id}', 'DeliversCostsController@update')->name('deliveryCost.update');
-                    Route::delete('/{id}', 'DeliversCostsController@delete')->name('deliveryCost.delete');
                 });
 
                 Route::group(['prefix' => 'product'], function () {
@@ -170,6 +121,93 @@ Route::group(
                     Route::post('/cancel', 'ProductController@cancel')->name('product.cancel');
                 });
 
+                Route::group(['prefix' => 'product'], function () {
+                    Route::get('/', 'ProductController@index')->name('product.index');
+                    Route::post('/', 'ProductController@store')->name('product.store');
+                    Route::get('/{id}', 'ProductController@show')->name('product.show');
+                    Route::put('/{id}', 'ProductController@update')->name('product.update');
+                    Route::delete('/{id}', 'ProductController@destroy')->name('product.destroy');
+                });
+
+                Route::group(['prefix' => 'offer'], function () {
+                    Route::get('/', 'OfferController@index')->name('offer.index');
+                    Route::get('/{id}', 'OfferController@show')->name('offer.show');
+                    Route::delete('/{id}', 'OfferController@destroy')->name('offer.destroy');
+                    Route::get('/active/{id}', 'OfferController@active')->name('offer.active');
+                });
+
+                Route::group(['prefix' => 'client'], function () {
+                    Route::get('/', 'ClientController@index')->name('client.index');
+                    Route::get('/create', 'ClientController@create')->name('client.create');
+                    Route::post('/', 'ClientController@store')->name('client.store');
+                    Route::get('/{id}', 'ClientController@show')->name('client.show');
+                    Route::get('/{id}/edit', 'ClientController@edit')->name('client.edit');
+                    Route::put('/{id}', 'ClientController@update')->name('client.update');
+                    Route::delete('/{id}', 'ClientController@destroy')->name('client.destroy');
+                    Route::get('/active/{id}', 'ClientController@active')->name('store.active');
+                    Route::get('/showdetailsorder/{order_id}', 'ClientController@showdetailsorder');
+                });
+
+                Route::group(['prefix' => 'user'], function () {
+                    Route::get('/change-password', 'UserController@editPassword')->name('password.change');
+                    Route::post('/change-password', 'UserController@updatePassword')->name('password.update');
+                    Route::get('/create', 'UserController@create')->name('user.create');
+                    Route::get('/', 'UserController@index')->name('user.index');
+                    Route::post('/', 'UserController@store')->name('user.store');
+                    Route::get('/{id}', 'UserController@show')->name('user.show');
+                    Route::get('/{id}/edit', 'UserController@edit')->name('user.edit');
+                    Route::put('/{id}', 'UserController@update')->name('user.update');
+                    Route::delete('/delete/{id}', 'UserController@delete')->name('user.destroy');
+                });
+
+                Route::group(['prefix' => 'notification'], function () {
+                    Route::get('/create', 'NotificationController@create');
+                    Route::post('/send', 'NotificationController@store')->name('notification.send');
+                });
+
+                Route::group(['prefix' => 'role'], function () {
+                    Route::get('/create', 'RoleController@create')->name('role.create');
+                    Route::get('/', 'RoleController@index')->name('role.index');
+                    Route::post('/', 'RoleController@store')->name('role.store');
+                    Route::get('/{id}', 'RoleController@show')->name('role.show');
+                    Route::get('/{id}/edit', 'RoleController@edit')->name('role.edit');
+                    Route::put('/{id}', 'RoleController@update')->name('role.update');
+                    Route::delete('/delete/{id}', 'RoleController@delete')->name('role.destroy');
+                });
+
+                Route::group(['prefix' => 'money'], function () {
+                    Route::get('/transactions', 'MoneyAccountController@index');
+                    Route::get('/create', 'MoneyAccountController@create');
+                    Route::get('/getclient/{type}', 'MoneyAccountController@getclient');
+                    Route::get('/getAccounts/{id}', 'MoneyAccountController@getAccounts');
+                    Route::post('/transactions', 'MoneyAccountController@store')->name('transactions.money');
+                    Route::get('/{id}', 'MoneyAccountController@show')->name('transactions.show');
+                });
+                
+            });
+        });
+
+
+        //All the below must be overwritten
+        Route::group(['namespace' => 'Admin'], function () {
+            Route::group(['middleware' => ['auth', 'Auto-checked-permission']], function () {
+//                Route::group(['middleware' => ['auth']],function (){
+
+                Route::get('edit/password', 'UserController@editPassword');
+                Route::post('update/password', 'UserController@updatePassword');
+
+
+                Route::group(['prefix' => 'delivery-cost'], function () {
+                    Route::get('/', 'DeliversCostsController@index')->name('deliveryCost.index');
+                    Route::get('/create', 'DeliversCostsController@create')->name('deliveryCost.create');
+                    Route::get('/{id}/edit', 'DeliversCostsController@edit')->name('deliveryCost.edit');
+                    Route::post('/', 'DeliversCostsController@store')->name('deliveryCost.store');
+                    Route::get('/{id}', 'DeliversCostsController@show')->name('deliveryCost.show');
+                    Route::put('/{id}', 'DeliversCostsController@update')->name('deliveryCost.update');
+                    Route::delete('/{id}', 'DeliversCostsController@delete')->name('deliveryCost.delete');
+                });
+
+
                 Route::group(['prefix' => 'car'], function () {
                     Route::get('pending', 'CarController@pend');
                     Route::get('rejected', 'CarController@rejected');
@@ -185,14 +223,6 @@ Route::group(
 
                 });
 
-                // Route::group(['prefix' => 'category'], function () {
-                //     Route::get('/', 'CategoryController@index')->name('category.index');
-                //     Route::post('/', 'CategoryController@store')->name('category.store');
-                //     Route::get('/{id}', 'CategoryController@show')->name('category.show');
-                //     Route::put('/{id}', 'CategoryController@update')->name('category.update');
-                //     Route::delete('/{id}', 'CategoryController@destroy')->name('category.destroy');
-                //     Route::get('/active/{id}', 'CategoryController@active')->name('category.active');
-                // });
 
                 // coupons
                 Route::group(['prefix' => 'coupons'], function () {
@@ -233,34 +263,6 @@ Route::group(
                     Route::delete('/{id}', 'LogController@destroy')->name('log.destroy');
                 });
 
-                Route::group(['prefix' => 'client'], function () {
-                    Route::get('/', 'ClientController@index')->name('client.index');
-                    Route::get('/create', 'ClientController@create')->name('client.create');
-                    Route::post('/', 'ClientController@store')->name('client.store');
-                    Route::get('/{id}', 'ClientController@show')->name('client.show');
-                    Route::get('/{id}/edit', 'ClientController@edit')->name('client.edit');
-                    Route::put('/{id}', 'ClientController@update')->name('client.update');
-                    Route::delete('/{id}', 'ClientController@destroy')->name('client.destroy');
-                    Route::get('/active/{id}', 'ClientController@active')->name('store.active');
-                    Route::get('/showdetailsorder/{order_id}', 'ClientController@showdetailsorder');
-                });
-
-                Route::group(['prefix' => 'product'], function () {
-                    Route::get('/', 'ProductController@index')->name('product.index');
-                    Route::post('/', 'ProductController@store')->name('product.store');
-                    Route::get('/{id}', 'ProductController@show')->name('product.show');
-                    Route::put('/{id}', 'ProductController@update')->name('product.update');
-                    Route::delete('/{id}', 'ProductController@destroy')->name('product.destroy');
-                });
-
-                Route::group(['prefix' => 'offer'], function () {
-                    Route::get('/', 'OfferController@index')->name('offer.index');
-                    Route::get('/{id}', 'OfferController@show')->name('offer.show');
-                    Route::delete('/{id}', 'OfferController@destroy')->name('offer.destroy');
-                    Route::get('/active/{id}', 'OfferController@active')->name('offer.active');
-                });
-
-
                 Route::group(['prefix' => 'banner'], function () {
                     Route::get('/', 'BannerController@index')->name('banner.index');
                     Route::post('/', 'BannerController@store')->name('banner.store');
@@ -268,20 +270,6 @@ Route::group(
                     Route::put('/{id}', 'BannerController@update')->name('banner.update');
                     Route::delete('/{id}', 'BannerController@destroy')->name('banner.destroy');
                     Route::get('/active/{id}', 'BannerController@active')->name('banner.active');
-                });
-
-                Route::group(['prefix' => 'notification'], function () {
-                    Route::get('/create', 'NotificationController@create');
-                    Route::post('/send', 'NotificationController@store')->name('notification.send');
-                });
-
-                Route::group(['prefix' => 'money'], function () {
-                    Route::get('/transactions', 'MoneyAccountController@index');
-                    Route::get('/create', 'MoneyAccountController@create');
-                    Route::get('/getclient/{type}', 'MoneyAccountController@getclient');
-                    Route::get('/getAccounts/{id}', 'MoneyAccountController@getAccounts');
-                    Route::post('/transactions', 'MoneyAccountController@store')->name('transactions.money');
-                    Route::get('/{id}', 'MoneyAccountController@show')->name('transactions.show');
                 });
 
                 Route::group(['prefix' => 'support'], function () {

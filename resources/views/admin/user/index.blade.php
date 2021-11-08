@@ -33,54 +33,48 @@
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
-                        <tr>
+                            <tr>
 
-                            <th>#</th>
-                            <th>{{__('lang.name')}} </th>
-                            <th>{{__('lang.email')}}  </th>
-                            <th> الرتبه</th>
-                            <th> {{__('lang.edit')}}  </th>
-                            <th>{{__('lang.delete')}} </th>
-
-                        </tr>
+                                <th>#</th>
+                                <th>{{__('lang.name')}} </th>
+                                <th>{{__('lang.email')}}  </th>
+                                <th> الرتبه</th>
+                                <th> {{__('lang.edit')}}  </th>
+                                <th>{{__('lang.delete')}} </th>
+                            </tr>
                         </thead>
                         <tbody>
+                            @foreach($users as $user)
+                                <tr>
+                                    <td>{{$user->id}}</td>
+                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->email}}</td>
+                                    <td>
+                                        @foreach($user->roles as $role)
+                                            <span class="label label-success">{{$role->display_name}}</span>
+                                        @endforeach
+                                    </td>
 
+                                    <td>
+                                        <a href="{{url(route('user.edit',$user->id))}}" class="btn btn-warning">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
 
-                        @foreach($users as $user)
-                            <tr>
-                                <td>{{$user->id}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>
-{{--                                    @dd($user->roles)--}}
-                                    @foreach($user->roles as $role)
-                                        <span class="label label-success">{{$role->display_name}}</span>
-                                    @endforeach
-                                </td>
+                                    <td>
+                                        <form method="POST" action="{{route('user.destroy', $user->id)}}">
+                                            {{ csrf_field() }}
+                                            {{ method_field('delete') }}
 
-                                <td>
-                                    <a href="{{url(route('user.edit',$user->id))}}" class="btn btn-warning">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </td>
-
-                                <td>
-                                    <form method="POST" action="{{route('user.destroy', $user->id)}}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('delete') }}
-
-                                        <div class="form-group">
-                                            <a class="btn btn-danger btn-mini deleteRecord">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-
-
+                                            <div class="form-group">
+                                                <a class="btn btn-danger btn-mini deleteRecord">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                         <tr>

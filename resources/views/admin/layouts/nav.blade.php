@@ -84,7 +84,6 @@
         <p>
             {{__('lang.product')}}
             <i class="fas fa-angle-left right"></i>
-{{--            <span class="badge badge-info right">{{$countPending}}</span>--}}
         </p>
     </a>
     <ul class="nav nav-treeview">

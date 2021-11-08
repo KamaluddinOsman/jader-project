@@ -37,50 +37,46 @@
 
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>الاسم </th>
-                            <th>الإسم المعروض </th>
-                            <th>تعديل</th>
-                            <th>حذف</th>
+                    <tr>
+                        <th>#</th>
+                        <th>الاسم </th>
+                        <th>الإسم المعروض </th>
+                        <th>تعديل</th>
+                        <th>حذف</th>
 
-                        </tr>
-                        </thead>
-                        <tbody>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(count($records))
 
+                        @foreach($records as $record)
+                            <tr>
+                                <td>{{$record->id}}</td>
+                                <td>{{$record->name}}</td>
+                                <td>{{$record->display_name}}</td>
+                                <td><a href="{{url(route('role.edit',$record->id))}}" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
+                                <td>
+                                    <form method="POST" action="{{route('role.destroy', $record->id)}}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('delete') }}
 
-                        @if(count($records))
+                                        <div class="form-group">
+                                            <a class="btn btn-danger btn-mini deleteRecord">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </form>
+                            </tr>
+                        @endforeach
 
-                            @foreach($records as $record)
-                                <tr>
-                                    <td>{{$record->id}}</td>
-                                    <td>{{$record->name}}</td>
-                                    <td>{{$record->display_name}}</td>
-                                    <td><a href="{{url(route('role.edit',$record->id))}}" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
-                                    <td>
-                                        <form method="POST" action="{{route('role.destroy', $record->id)}}">
-                                            {{ csrf_field() }}
-                                            {{ method_field('delete') }}
+                    @else
 
-                                            <div class="form-group">
-                                                <a class="btn btn-danger btn-mini deleteRecord">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                            </div>
-                                        </form>
-                                </tr>
-                            @endforeach
+                        <div class="alert alert-warning alert-block">
+                            <strong>لا يوجد بيانات</strong>
+                        </div>
 
-                        @else
-
-                            <div class="alert alert-warning alert-block">
-                                <strong>لا يوجد بيانات</strong>
-                            </div>
-
-                        @endif
-
-
-                        </tbody>
+                    @endif
+                </tbody>
                         <tfoot>
                         <tr>
                             <th>#</th>
