@@ -50,12 +50,53 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{route('notification.send')}}" method="post">
+                        {{-- <form action="{{route('notification.send')}}" method="post"> --}}
+                        <form action="javascript: void(0)" method="post">
                             @csrf
             
                             <section class="container">
+
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">{{ __('notification.sendNotification') }}</h4>
+                                                <div class="mb-3 row">
+                                                    <label class="col-md-2 col-form-label">{{__('notification.type')}}</label>
+                                                    <div class="col-md-10">
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option value="client">Client</option>
+                                                            <option value="car">Car</option>
+                                                            <option value="store">Store</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+            
+                                                <div class="mb-3 row">
+                                                    <label for="example-text-input" class="col-md-2 col-form-label">{{__('notification.title')}}</label>
+                                                    <div class="col-md-10">
+                                                        {!! Form::text('title',null,['class' => 'form-control', 'id' => 'title']) !!}
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 row">
+                                                    <label for="example-text-input" class="col-md-2 col-form-label">{{__('notification.body')}}</label>
+                                                    <div class="col-md-10">
+                                                        {!! Form::text('body',null,['class' => 'form-control', 'id' => 'body']) !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+            
+                                            <div  style="margin: 0 0 30px 30px" class="form-group">
+                                                <button class="btn btn-primary submit-btn" >{{ __('notification.send') }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    {{-- <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
                                                 <h3 class="card-title">{{__('lang.notificationSend')}}</h3>
@@ -66,30 +107,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlSelect1">{{__('lang.type')}}</label>
-                                                    <select name="type" class="form-control select2" id="exampleFormControlSelect1">
-                                                        <option value="client">Client</option>
-                                                        <option value="car">Car</option>
-                                                        <option value="store">Store</option>
-                                                    </select>
-                                                </div>
-            
-                                                <div class="form-group">
-                                                    <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">{{__('lang.title')}} </label>
-                                                    {!! Form::text('title',null,[
-                                                      'class' => 'form-control',
-                                                      'id' => 'title'
-                                                    ]) !!}
-                                                </div>
-            
-                                                <div class="form-group">
-                                                    <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">{{__('lang.body')}} </label>
-                                                    {!! Form::text('body',null,[
-                                                      'class' => 'form-control',
-                                                      'id' => 'body'
-                                                    ]) !!}
-                                                </div>
+                                                
                                             </div>
             
                                             <div class="clearfix"></div>
@@ -103,7 +121,7 @@
                                 </div>
             
                             </section>
-                            <div class="clearfix"></div>
+                            <div class="clearfix"></div> --}}
                         </form>
                     </div>
                 </div>
@@ -112,70 +130,6 @@
         </div>
         <!-- end row -->
 
-    </div>
-
-     <!-- Edit Category Modal -->
-    <div class="modal fade" id="editCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="editCategoryLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editCategoryLabel">
-                        {{__('lang.EditCategory')}}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{route('category.update','category')}}" method="post" enctype="multipart/form-data">
-                        {{method_field('PUT')}}
-                        {{csrf_field()}}
-                        <input type="hidden" name="category_id" id="category_id" value="">
-                        {{-- @include('/dashboard/pages/store/form') --}}
-                        {{-- <button class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button> --}}
-                
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button 
-                                class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <!-- Add Category Modal-->
-    <div class="modal fade" id="addCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCategoryLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryLabel">
-                        {{__('lang.Addcategory')}}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{-- @include('/dashboard/pages/store/create') --}}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                    <button 
-                        class="btn btn-primary" type="submit"> {{__('lang.add')}}</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
     </div>
 @endsection
 @section('scripts')

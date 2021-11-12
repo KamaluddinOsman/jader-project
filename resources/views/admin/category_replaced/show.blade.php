@@ -45,53 +45,53 @@
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{__('lang.image')}}</th>
-                                    <th>{{__('lang.name')}}</th>
-                                    <th>{{__('lang.edit')}}</th>
-                                    <th>{{__('lang.active')}}</th>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{{__('lang.image')}}</th>
+                                        <th>{{__('lang.name')}}</th>
+                                        <th>{{__('lang.edit')}}</th>
+                                        <th>{{__('lang.active')}}</th>
 
-                                </tr>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @if(count($records))
+                                    @if(count($records))
 
-                                    @foreach($records as $record)
-                                        <tr>
-                                            <td>{{$record->id}}</td>
-                                            <td><img style="width: 50px; height: 50px" src="{{asset($record->getOriginal('image'))}}"></td>
-                                            @if($record->child($record->id) == false)
-                                               <td><a href="{{url('category/'.$record->id)}}">{{$record->name}}</a></td>
-                                            @else
-                                                <td>{{$record->name}}</td>
-                                            @endif
-                                            <td><button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-myname="{{$record->name}}" data-categoryid="{{$record->id}}" data-parentid="{{$record->parent_id}}" data-toggle="modal" data-target="#Editcategory"><i class="fa fa-edit"></i></button></td>
-
-                                            <td>
-                                                @if($record->activated == 1)
-
-                                                    <div class="checkbox">
-                                                        <input data-url="{{url('category/active/'.$record->id)}}" data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck" type="checkbox" data-on="{{__('lang.active')}}" data-off="{{__('lang.block')}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
-                                                    </div>
-
+                                        @foreach($records as $record)
+                                            <tr>
+                                                <td>{{$record->id}}</td>
+                                                <td><img style="width: 50px; height: 50px" src="{{asset($record->getOriginal('image'))}}"></td>
+                                                @if($record->child($record->id) == false)
+                                                <td><a href="{{url('category/'.$record->id)}}">{{$record->name}}</a></td>
                                                 @else
-                                                    <div class="checkbox">
-                                                        <input data-url="{{url('category/active/'.$record->id)}}" data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck" type="checkbox" data-on="{{__('lang.active')}}" data-off="{{__('lang.block')}}"  data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
-                                                    </div>
-
+                                                    <td>{{$record->name}}</td>
                                                 @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                <td><button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-myname="{{$record->name}}" data-categoryid="{{$record->id}}" data-parentid="{{$record->parent_id}}" data-toggle="modal" data-target="#Editcategory"><i class="fa fa-edit"></i></button></td>
 
-                                @else
+                                                <td>
+                                                    @if($record->activated == 1)
 
-                                    <div class="alert alert-warning alert-block">
-                                        <strong>{{__('lang.ThereAreNoData')}}</strong>
-                                    </div>
+                                                        <div class="checkbox">
+                                                            <input data-url="{{url('category/active/'.$record->id)}}" data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck" type="checkbox" data-on="{{__('lang.active')}}" data-off="{{__('lang.block')}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+                                                        </div>
 
-                                @endif
+                                                    @else
+                                                        <div class="checkbox">
+                                                            <input data-url="{{url('category/active/'.$record->id)}}" data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck" type="checkbox" data-on="{{__('lang.active')}}" data-off="{{__('lang.block')}}"  data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+                                                        </div>
+
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    @else
+
+                                        <div class="alert alert-warning alert-block">
+                                            <strong>{{__('lang.ThereAreNoData')}}</strong>
+                                        </div>
+
+                                    @endif
                                 </tbody>
                                 <tfoot>
                                 <tr>

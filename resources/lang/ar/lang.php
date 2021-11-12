@@ -114,21 +114,5 @@ return[
     'accounts' => 'الحسابات',
     'moneyTransactions' => 'التحويلات',
     'setting' => 'الإعدادات',
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 ];

@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('offer.offerTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('offer.offerTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -36,8 +36,9 @@
                 <div class="card">
                     <div class="card-body">
                         <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addCategory">
-                            {{__('lang.addCategory')}}
+                                {{-- data-bs-target="#addCategory"> --}}
+                                data-bs-target="javascript: void(0);">
+                            {{__('offer.addOffer')}}
                         </button>
                     </div>
                 </div>
@@ -50,7 +51,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatable-buttons"
+                        <table id="tech-companies-1"
                             class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
@@ -96,22 +97,26 @@
         
                                             <td>
                                                 <div class="checkbox">
-                                                    <input data-url="{{url('offer/active/'.$record->id)}}"
+                                                    <input data-url="{{url('offer/active/'.$record->id)}}" switch="bool"
                                                         data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck"
                                                         type="checkbox" data-on="{{__('lang.active')}}"
                                                         data-off="{{__('lang.waiting')}}"
                                                         {{$record->status == 1 ? 'checked' : '' }} data-toggle="toggle"
                                                         data-onstyle="success" data-offstyle="warning">
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
                                                 </div>
                                             </td>
                                             <td style="display: inline-block">
-                                                <form style="display: inline-block" method="POST" action="{{route('offer.destroy', $record->id)}}">
+                                                {{-- <form style="display: inline-block" method="POST" action="{{route('offer.destroy', $record->id)}}">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('DELETE') }} --}}
+                                                <form style="display: inline-block" method="POST" action="javascript: void(0)">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
         
                                                     <div class="form-group">
                                                         <a class="btn btn-danger btn-mini deleteRecord">
-                                                            <i class="fa fa-trash"></i>
+                                                            <i class="mdi mdi-delete-alert"></i>
                                                         </a>
                                                     </div>
                                                 </form>

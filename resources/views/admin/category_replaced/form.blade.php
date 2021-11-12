@@ -29,17 +29,6 @@
         {{ Form::select('parent_id', $category, null, array('class'=>'form-control select2', 'id' => 'parent_id', 'placeholder'=>'Category')) }}
     </div> --}}
 
-    <div class="mb-3 row">
-        <label class="col-md-2 col-form-label">{{__('lang.category')}}</label>
-        <div class="col-md-10">
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Select</option>
-                <option>Large select</option>
-                <option>Small select</option>
-            </select>
-        </div>
-    </div>
-
     {{-- <div class="form-group">
         <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">{{__('lang.image')}} </label>
         <div class="col-md-4">

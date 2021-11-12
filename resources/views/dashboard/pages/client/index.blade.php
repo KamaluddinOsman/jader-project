@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('client.clientTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('client.clientTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="card-body">
                         <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#addCategory">
-                            {{__('lang.addCategory')}}
+                            {{__('client.addClient')}}
                         </button>
                     </div>
                 </div>
@@ -71,30 +71,54 @@
                                         <tr>
                                             <td>{{$record->id}}</td>
                                             <td>{{$record->first_name .' '. $record->last_name}}</td>
-                                            <td><a href="{{url('client/'.$record->id)}}" class="btn btn-success"><i class="fa fa-eye"></i></a></td>
-                                            <td><a href="{{url('client/'.$record->id.'/edit')}}" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
+                                            <td>
+                                                {{-- <a href="{{url('client/'.$record->id)}}" class="btn btn-success"> --}}
+                                                <a href="javascript: void(0)" class="btn btn-success">
+                                                    <i class="mdi mdi-file-eye"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{-- <a href="{{url('client/'.$record->id.'/edit')}}" class="btn btn-warning"> --}}
+                                                <a href="javascript: void(0);" class="btn btn-warning">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </td>
                                             <td>
                                                 @if($record->activated == 1)
-
                                                     <div class="checkbox">
-                                                        <input data-url="{{url('client/active/'.$record->id)}}" data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck" type="checkbox" data-on="{{__('lang.active')}}" data-off="{{__('lang.block')}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+                                                        <input class="activeCheck" name="activeCheck" type="checkbox" switch="bool" checked
+                                                                data-toggle="toggle"
+                                                                data-url="{{url('client/active/'.$record->id)}}" data-token="{{csrf_token()}}" 
+                                                                data-on="{{__('lang.active')}}" 
+                                                                data-off="{{__('lang.block')}}"
+                                                                data-onstyle="success"
+                                                                data-offstyle="danger">
+                                                        <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
                                                     </div>
-
                                                 @else
                                                     <div class="checkbox">
-                                                        <input data-url="{{url('client/active/'.$record->id)}}" data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck" type="checkbox" data-on="{{__('lang.active')}}" data-off="{{__('lang.block')}}"  data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+                                                        <input class="activeCheck" name="activeCheck" type="checkbox"
+                                                                data-url="{{url('client/active/'.$record->id)}}"
+                                                                data-token="{{csrf_token()}}"
+                                                                data-on="{{__('lang.active')}}"
+                                                                data-off="{{__('lang.block')}}"
+                                                                data-toggle="toggle"
+                                                                data-onstyle="success"
+                                                                data-offstyle="danger">
                                                     </div>
-
                                                 @endif
                                             </td>
                                             <td>
-                                                <form method="POST" action="{{route('client.destroy', $record->id)}}">
+                                                {{-- <form method="POST" action="{{route('client.destroy', $record->id)}}">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('DELETE') }} --}}
+                                                <form method="POST" action="javascript: void(0)">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
 
                                                     <div class="form-group">
                                                         <a class="btn btn-danger btn-mini deleteRecord">
-                                                            <i class="fa fa-trash"></i>
+                                                            <i class="mdi mdi-delete-alert"></i>
                                                         </a>
                                                     </div>
                                                 </form>

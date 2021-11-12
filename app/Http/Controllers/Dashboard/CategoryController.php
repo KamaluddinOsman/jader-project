@@ -31,7 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        
     }
 
     /**
@@ -46,8 +46,6 @@ class CategoryController extends Controller
         $rules = [
             'name'   => 'required' ,
             'image'  => 'required|mimes:jpeg,jpg,png',
-            'parent_id'  => 'required',
-
         ];
 
         $this->validate($request,$rules);
@@ -84,7 +82,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         $records = Category::with('parent')->where('parent_id', $id)->get();
-        return view('admin.category.show')->with(compact('records'));
+        return view('dashboard.pages.category.show')->with(compact('records'));
 
     }
 
@@ -96,7 +94,6 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-
     }
 
     /**
@@ -107,10 +104,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request,$id)
     {
+        // return($request->all());
         RequestLog::create(['content' => $request->except('_token'), 'service' => 'update category']);
 
         $rules = [
-            // 'name'=> 'required' ,
+            'name'=> 'required' ,
         ];
         $message = [
             'name.required'=> 'يجب ادخال اسم الفئة' ,
@@ -121,7 +119,7 @@ class CategoryController extends Controller
         $records = Category::findOrFail($request->category_id);
         if($file = $request->file('image')){
             // return $records;
-            if ($records->image == null){
+            if ($records->image != null){
                 unlink(public_path().'/'.$records->image);
             }
             $fileName = time().$file->getClientOriginalName();
@@ -131,7 +129,8 @@ class CategoryController extends Controller
             }
         }
 
-        $records->save();
+        $records->name = $request->name;
+        $records->update();
         flash()->success(__('lang.doneSave'));
         return redirect('/category');
     }

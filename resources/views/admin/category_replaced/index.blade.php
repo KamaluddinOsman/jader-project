@@ -44,13 +44,13 @@
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{__('lang.image')}}</th>
-                                    <th>{{__('lang.name')}}</th>
-                                    <th>{{__('lang.edit')}}</th>
-                                    <th>{{__('lang.active')}}</th>
-                                </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{{__('lang.image')}}</th>
+                                        <th>{{__('lang.name')}}</th>
+                                        <th>{{__('lang.edit')}}</th>
+                                        <th>{{__('lang.active')}}</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     @if(count($records))
@@ -148,6 +148,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    
                     @include('/admin/category/create')
                 </div>
                 <div class="modal-footer">

@@ -45,11 +45,11 @@
                         <span>{{__('lang.rejected')}}</span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{url('/store/create')}}" class="waves-effect">
                         <span>{{__('lang.addR')}} </span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
 
@@ -107,11 +107,11 @@
                         <span>{{__('lang.rejected')}}</span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{url('/car/create')}}" class="nav-link">
                         <span>{{__('lang.addCar')}} </span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
 
