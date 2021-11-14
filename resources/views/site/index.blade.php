@@ -41,14 +41,14 @@
 	<link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
 
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="{{asset('site/css/animate.css')}}">
+	<link rel="stylesheet" href="{{ asset('site/css/animate.css') }}">
 
         <!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="{{asset('site/css/icomoon.css')}}">
+	<link rel="stylesheet" href="{{ asset('site/css/icomoon.css') }}">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="{{asset('site/css/bootstrap.css')}}">
+	<link rel="stylesheet" href="{{ asset('site/css/bootstrap.css') }}">
 	<!-- Theme style  -->
-	<link rel="stylesheet" href="{{asset('site/css/style.css')}}">
+	<link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>

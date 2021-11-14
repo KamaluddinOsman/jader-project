@@ -1,48 +1,48 @@
 <div id="sidebar-menu">
     <!-- Left Menu Start -->
     <ul class="metismenu list-unstyled" id="side-menu">
-        <li class="menu-title">Menu</li>
+        <li class="menu-title">{{ __('dashboard.menu') }}</li>
 
         <li>
             <a href="{{ route('dashboard.index') }}" class="waves-effect">
                 <i class="mdi mdi-airplay"></i>
-                <span>Dashboard</span>
+                <span>{{ __('dashboard.dashboard') }}</span>
             </a>
         </li>
         
         <li>
             <a href="{{ route('category.index') }}" class=" waves-effect">
                 <i class="mdi mdi-file-tree"></i>
-                <span>{{__('lang.category')}}</span>
+                <span>{{__('dashboard.menuItemCategory')}}</span>
             </a>
         </li>
 
         <li>
             <a href="{{ route('city.index') }}" class=" waves-effect">
                 <i class="mdi mdi-map-marker-outline"></i>
-                <span>{{__('lang.district')}}</span>
+                <span>{{__('dashboard.menuItemCity')}}</span>
             </a>
         </li>
 
         <li>
             <a href="javascript: void(0);" class="has-arrow waves-effect">
                 <i class="mdi mdi-store"></i>
-                <span>{{__('lang.store')}}</span>
+                <span>{{__('dashboard.menuItemStore')}}</span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
                 <li>
                     <a href="{{url('/store')}}" class="waves-effect">
-                        <span>{{__('lang.store')}} </span>
+                        <span>{{__('dashboard.menuItemStoreSub1')}} </span>
                     </a>
                 </li>
                 <li>
                     <a href="{{url('/store/pending')}}" class="waves-effect">
-                        <span>{{__('lang.pending')}}</span>
+                        <span>{{__('dashboard.menuItemStoreSub2')}}</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{url('/store/rejected')}}" class="waves-effect">
-                        <span>{{__('lang.rejected')}}</span>
+                        <span>{{__('dashboard.menuItemStoreSub3')}}</span>
                     </a>
                 </li>
                 {{-- <li>
@@ -56,23 +56,23 @@
         <li>
             <a href="javascript: void(0);" class="has-arrow waves-effect">
                 <i class="mdi mdi-basket-fill"></i>
-                <span>{{__('lang.product')}}</span>
+                <span>{{__('dashboard.menuItemProduct')}}</span>
             </a>
                 
             <ul class="sub-menu" aria-expanded="false">
                 <li>
                     <a href="{{url('/product')}}" class="waves-effect">
-                        <span>{{__('lang.product')}} </span>
+                        <span>{{__('dashboard.menuItemProductSub1')}} </span>
                     </a>
                 </li>
                 <li>
                     <a href="{{url('/product/pending')}}" class="waves-effect">
-                        <span>{{__('lang.pending')}} </span>
+                        <span>{{__('dashboard.menuItemProductSub2')}} </span>
                     </a>
                 </li>
                 <li>
                     <a href="{{url('/product/rejected')}}" class="waves-effect">
-                        <span>{{__('lang.rejected')}} </span>
+                        <span>{{__('dashboard.menuItemProductSub3')}} </span>
                     </a>
                 </li>
             </ul>
@@ -81,30 +81,30 @@
         <li>
             <a href="{{url('/offer')}}" class=" waves-effect">
                 <i class="mdi mdi-coin"></i>
-                <span>{{__('lang.offer')}}</span>
+                <span>{{__('dashboard.menuItemOffer')}}</span>
             </a>
         </li>
 
         <li>
             <a href="javascript: void(0);" class="has-arrow waves-effect">
                 <i class="mdi mdi-car"></i>
-                <span>{{__('lang.car')}}</span>
+                <span>{{__('dashboard.menuItemCar')}}</span>
             </a>
                 
             <ul class="sub-menu" aria-expanded="false">
                 <li>
                     <a href="{{url('/car')}}" class="nav-link">
-                        <span>{{__('lang.car')}} </span>
+                        <span>{{__('dashboard.menuItemCarSub1')}} </span>
                     </a>
                 </li>
                 <li>
                     <a href="{{url('/car/pending')}}" class="nav-link">
-                        <span>{{__('lang.pending')}}</span>
+                        <span>{{__('dashboard.menuItemCarSub2')}}</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{url('/car/rejected')}}" class="nav-link">
-                        <span>{{__('lang.rejected')}}</span>
+                        <span>{{__('dashboard.menuItemCarSub3')}}</span>
                     </a>
                 </li>
                 {{-- <li>
@@ -118,7 +118,7 @@
         <li>
             <a href="{{url('client')}}" class="waves-effect">
                 <i class="mdi mdi-human"></i>
-                <span>{{__('lang.client')}} </span>
+                <span>{{__('dashboard.menuItemClient')}} </span>
             </a>
             {{-- <ul class="sub-menu" aria-expanded="false">
                 <li>
@@ -137,7 +137,7 @@
         <li>
             <a href="{{url('user')}}" class="waves-effect">
                 <i class="mdi mdi-account"></i>
-                <span>{{__('lang.user')}} </span>
+                <span>{{__('dashboard.menuItemUser')}} </span>
             </a>
             {{-- <ul class="sub-menu" aria-expanded="false">
                 <li>
@@ -156,21 +156,21 @@
         <li>
             <a href="{{url('notification/create')}}" class="waves-effect">
                 <i class="mdi mdi-bell"></i>
-                <span>{{__('lang.notification')}}</span>
+                <span>{{__('dashboard.menuItemNotification')}}</span>
             </a>
         </li>
 
         <li>
             <a href="{{url('/role')}}" class="waves-effect">
                 <i class="mdi mdi-account-key"></i>
-                <span>{{__('lang.roles')}}</span>
+                <span>{{__('dashboard.menuItemRole')}}</span>
             </a>
         </li>
 
         <li>
             <a href="{{url('money/transactions')}}" class="waves-effect">
                 <i class="mdi mdi-account-switch"></i>
-                <span>{{__('lang.accounts')}}</span>
+                <span>{{__('dashboard.menuItemTransaction')}}</span>
             </a>
             {{-- <ul class="sub-menu" aria-expanded="false">
         
@@ -193,7 +193,7 @@
         <li>
             <a href="javascript: void(0);" class="has-arrow waves-effect">
                 <i class="mdi mdi-settings"></i>
-                <span>{{__('lang.setting')}}</span>
+                <span>{{__('dashboard.menuItemSetting')}}</span>
             </a>
             {{-- <ul class="sub-menu" aria-expanded="false">
                 <li>

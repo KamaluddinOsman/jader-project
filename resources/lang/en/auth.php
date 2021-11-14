@@ -13,7 +13,17 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'bageTitle'     => 'Jader - Dashboard',
+    'userName'      => 'Username',
+    'email'         => 'Email',
+    'password'      => 'Password',
+    'rememberMe'    => 'Remember me',
+    'login'         => 'Login',
+
+    'failed'            => 'These credentials do not match our records.',
+    'throttle'          => 'Too many login attempts. Please try again in :seconds seconds.',
+
+    'welcomeMessage1'   => 'Welcome Back !',
+    'welcomeMessage2'   => 'Sign in to continue to Jader Dashboard.',
 
 ];
