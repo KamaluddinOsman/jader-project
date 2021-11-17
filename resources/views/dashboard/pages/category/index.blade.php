@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('lang.category')}}
+    @section('page-title')
+        {{ __('category.category') }} | {{ __('auth.bageTitle') }}             
     @endsection
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -10,6 +10,13 @@
     <!-- Responsive datatable examples -->
     <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
+    @section('embed-style')
+        <style>
+            th, td {
+                text-align: center;
+            }
+        </style>
+    @endsection
 @endsection
 @section('content')
     <div class="page-content">
@@ -59,11 +66,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{__('lang.image')}}</th>
-                                    <th>{{__('lang.name')}}</th>
-                                    <th>{{__('lang.edit')}}</th>
-                                    <th>{{__('lang.active')}}</th>
-                                    <th></th>
+                                    <th>{{__('category.imageColumn')}}</th>
+                                    <th>{{__('category.nameColumn')}}</th>
+                                    <th>{{__('category.editColumn')}}</th>
+                                    <th>{{__('category.activeColumn')}}</th>
                                 </tr>
                             </thead>
 
@@ -73,8 +79,9 @@
                                     @foreach($records as $record)
                                         <tr>
                                             <td>{{$record->id}}</td>
-                                            <td><img style="width: 50px; height: 50px"
-                                                    src="{{asset($record->getOriginal('image'))}}"></td>
+                                            <td>
+                                                <img style="width: 50px; height: 50px" src="{{asset($record->getOriginal('image'))}}">
+                                            </td>
                                             @if($record->child($record->id) == false)
                                                 <td>
                                                     <a href="{{url('category/'.$record->id)}}">{{$record->name}}</a>
@@ -100,23 +107,22 @@
                                                     data-url="{{url('category/active/'.$record->id)}}"
                                                     data-token="{{csrf_token()}}" class="form-label activeCheck"
                                                     name="activeCheck"/>
-                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('category.activeCategory')}}" data-off-label="{{__('category.blockCategory')}}"></label>
                                                 @else
                                                     <input type="checkbox" id="{{$record->id}}" switch="bool" 
                                                     data-url="{{url('category/active/'.$record->id)}}"
                                                     data-token="{{csrf_token()}}" class="form-label activeCheck"
                                                     name="activeCheck"/>
-                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('category.activeCategory')}}" data-off-label="{{__('category.blockCategory')}}"></label>
                                                 @endif
                                             </td>
-                                            <td></td>
                                         </tr>
                                     @endforeach
 
                                 @else
 
                                     <div class="alert alert-warning alert-block">
-                                        <strong>{{__('lang.ThereAreNoData')}}</strong>
+                                        <strong>{{__('category.noData')}}</strong>
                                     </div>
 
                                 @endif
@@ -139,7 +145,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editCategoryLabel">
-                        {{__('lang.EditCategory')}}
+                        {{__('category.editCategory')}}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -152,7 +158,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button>
+                            <button class="btn btn-primary" type="submit"> {{__('category.editCategory')}}</button>
                         </div>
                     </form>
                 </div>
@@ -222,6 +228,7 @@
                 // }
 
             });
+            // location.reload();
         });
         
 

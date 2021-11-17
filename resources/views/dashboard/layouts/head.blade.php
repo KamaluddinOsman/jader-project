@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8" />
-    @yield('page-title')
+    <title>@yield('page-title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -16,4 +16,6 @@
     
     <link href="{{ App::isLocale('ar') ? asset('dashboard/css/custom-rtl.css') :  asset('dashboard/css/custom.css') }}" rel="stylesheet" type="text/css" />
 
+    @yield('embed-style')
+    
 </head>

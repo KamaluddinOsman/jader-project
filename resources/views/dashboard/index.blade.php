@@ -1,4 +1,7 @@
 @extends('dashboard.layouts.main')
+@section('page-title')
+    {{ __('dashboard.dashboard') }} | {{ __('auth.bageTitle') }}             
+@endsection
 @section('content')
     <div class="page-content">
 

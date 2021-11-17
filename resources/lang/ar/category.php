@@ -1,9 +1,21 @@
 <?php
 
     return[
-        'category'      => 'Category',
-        'categoryTable' => 'Category Table',
-        'addCategory'   => 'Add Category',
-        'editCategory'  => 'Edit Category',
+        'category'      => 'التصنيفات',
+        'categoryTable' => 'جدول التصنيفات',
+        'addCategory'   => 'اضافة تصنيف',
+        'editCategory'  => 'تعديل تصنيف',
+
+        //Catrgoty Table
+        'imageColumn'   => 'صورة',
+        'nameColumn'    => 'الاسم',
+        'editColumn'    => 'تعديل',
+        'activeColumn'  => 'تفعيل',
+
+        'activeCategory'    => 'تفعيل',
+        'blockCategory'     => 'تعطيل',
+
+        //Messages
+        'noData' => 'لا توجد بيانات',
 
     ];
