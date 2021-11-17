@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('account.accountTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('account.accountTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -36,8 +36,9 @@
                 <div class="card">
                     <div class="card-body">
                         <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addCategory">
-                            {{__('lang.addCategory')}}
+                                {{-- data-bs-target="#addCategory"> --}}
+                                data-bs-target="javascript: void(0)">
+                            {{__('account.addAccount')}}
                         </button>
                     </div>
                 </div>
@@ -80,8 +81,12 @@
                                                 <td>عميل</td>
                                             @endif
                                             <td>{{$record->total_money}}</td>
-                                            <td><a href="{{url('money/'.$record->id)}}" class="btn btn-success"><i
-                                                        class="fa fa-eye"></i></a></td>
+                                            <td>
+                                                {{-- <a href="{{url('money/'.$record->id)}}" class="btn btn-success"> --}}
+                                                <a href="javascript: void(0);" class="btn btn-success">
+                                                    <i class="mdi mdi-file-eye"></i>
+                                                </a>
+                                            </td>
         
                                         </tr>
                                     @endforeach

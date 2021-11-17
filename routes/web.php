@@ -13,7 +13,7 @@
 
 Route::get('/soon', function () {
     return view('site.index');
-});
+})->name('site.index');
 
 //Clear Cache facade value:
 use Illuminate\Support\Facades\Auth;
@@ -23,29 +23,30 @@ Route::get('/1', function () {
     return '<h1>Cache facade value cleared</h1>';
 });
 
-//Reoptimized class loader:
-Route::get('/2', function () {
-    $exitCode = Artisan::call('optimize');
-    return '<h1>Reoptimized class loader</h1>';
-});
-
-//Route cache:
-Route::get('/3', function () {
-    $exitCode = Artisan::call('route:cache');
-    return '<h1>Routes cached</h1>';
-});
-
 //Clear Route cache:
-Route::get('/4', function () {
+Route::get('/2', function () {
     $exitCode = Artisan::call('route:clear');
     return '<h1>Route cache cleared</h1>';
 });
 
 //Clear View cache:
-Route::get('/5', function () {
+Route::get('/3', function () {
     $exitCode = Artisan::call('view:clear');
     return '<h1>View cache cleared</h1>';
 });
+//Reoptimized class loader:
+Route::get('/4', function () {
+    $exitCode = Artisan::call('optimize');
+    return '<h1>Reoptimized class loader</h1>';
+});
+
+//Route cache:
+Route::get('/5', function () {
+    $exitCode = Artisan::call('route:cache');
+    return '<h1>Routes cached</h1>';
+});
+
+
 
 //Clear Config cache:
 Route::get('/config-cache', function () {
@@ -183,6 +184,21 @@ Route::group(
                     Route::post('/transactions', 'MoneyAccountController@store')->name('transactions.money');
                     Route::get('/{id}', 'MoneyAccountController@show')->name('transactions.show');
                 });
+
+                Route::group(['prefix' => 'car'], function () {
+                    Route::get('pending', 'CarController@pend');
+                    Route::get('rejected', 'CarController@rejected');
+                    Route::get('/', 'CarController@index')->name('car.index');
+                    Route::get('/create', 'CarController@create')->name('car.create');
+                    Route::get('/{id}/edit', 'CarController@edit')->name('car.edit');
+                    Route::post('/', 'CarController@store')->name('car.store');
+                    Route::get('/{id}', 'CarController@show')->name('car.show');
+                    Route::put('/{id}', 'CarController@update')->name('car.update');
+                    Route::delete('/{id}', 'CarController@destroy')->name('car.destroy');
+                    Route::get('/active/{id}', 'CarController@active')->name('car.active');
+                    Route::post('/cancel', 'CarController@cancel')->name('car.cancel');
+
+                });
                 
             });
         });
@@ -207,22 +223,20 @@ Route::group(
                     Route::delete('/{id}', 'DeliversCostsController@delete')->name('deliveryCost.delete');
                 });
 
+                // Route::group(['prefix' => 'car'], function () {
+                //     Route::get('pending', 'CarController@pend');
+                //     Route::get('rejected', 'CarController@rejected');
+                //     Route::get('/', 'CarController@index')->name('car.index');
+                //     Route::get('/create', 'CarController@create')->name('car.create');
+                //     Route::get('/{id}/edit', 'CarController@edit')->name('car.edit');
+                //     Route::post('/', 'CarController@store')->name('car.store');
+                //     Route::get('/{id}', 'CarController@show')->name('car.show');
+                //     Route::put('/{id}', 'CarController@update')->name('car.update');
+                //     Route::delete('/{id}', 'CarController@destroy')->name('car.destroy');
+                //     Route::get('/active/{id}', 'CarController@active')->name('car.active');
+                //     Route::post('/cancel', 'CarController@cancel')->name('car.cancel');
 
-                Route::group(['prefix' => 'car'], function () {
-                    Route::get('pending', 'CarController@pend');
-                    Route::get('rejected', 'CarController@rejected');
-                    Route::get('/', 'CarController@index')->name('car.index');
-                    Route::get('/create', 'CarController@create')->name('car.create');
-                    Route::get('/{id}/edit', 'CarController@edit')->name('car.edit');
-                    Route::post('/', 'CarController@store')->name('car.store');
-                    Route::get('/{id}', 'CarController@show')->name('car.show');
-                    Route::put('/{id}', 'CarController@update')->name('car.update');
-                    Route::delete('/{id}', 'CarController@destroy')->name('car.destroy');
-                    Route::get('/active/{id}', 'CarController@active')->name('car.active');
-                    Route::post('/cancel', 'CarController@cancel')->name('car.cancel');
-
-                });
-
+                // });
 
                 // coupons
                 Route::group(['prefix' => 'coupons'], function () {
@@ -288,7 +302,12 @@ Route::group(
 
     });
 
-
-Auth::routes();
+    Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+    ],function () {
+        Auth::routes();
+    });
 
 

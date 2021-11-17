@@ -8,9 +8,5 @@
     <script src="{{ asset('dashboard/libs/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
 
     @yield('scripts')
-    <!-- apexcharts -->
-    {{-- <script src="{{ asset('dashboard/libs/apexcharts/apexcharts.min.js') }}"></script>
-
-    <script src="{{ asset('dashboard/js/pages/dashboard-2.init.js') }}"></script> --}}
 
     <script src="{{ asset('dashboard/js/app.js') }}"></script>

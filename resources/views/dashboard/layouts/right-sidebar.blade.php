@@ -17,8 +17,8 @@
             </div>
 
             <div class="form-check form-switch mb-3">
-                <input type="checkbox" class="form-check-input theme-choice" id="light-mode-switch" checked />
-                <label class="form-check-label" for="light-mode-switch">Light Mode</label>
+                <input type="checkbox" class="form-check-input theme-choice" id="light-mode-switch-1" checked />
+                <label class="form-check-label" for="light-mode-switch-1">Light Mode</label>
             </div>
 
             <div class="mb-2">
@@ -26,18 +26,18 @@
             </div>
 
             <div class="form-check form-switch mb-3">
-                <input type="checkbox" class="form-check-input theme-choice" id="dark-mode-switch"
+                <input type="checkbox" class="form-check-input theme-choice" id="dark-mode-switch-1"
                     data-bsStyle="{{ asset('dashboard/css/bootstrap-dark.min.css') }}" data-appStyle="{{ asset('dashboard/css/app-dark.min.css') }}" />
-                <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
+                <label class="form-check-label" for="dark-mode-switch-1">Dark Mode</label>
             </div>
 
             <div class="mb-2">
                 <img src="{{ asset('dashboard/images/layouts/layout-3.jpg') }}" class="img-fluid img-thumbnail" alt="">
             </div>
             <div class="form-check form-switch mb-5">
-                <input type="checkbox" class="form-check-input theme-choice" id="rtl-mode-switch"
+                <input type="checkbox" class="form-check-input theme-choice" id="rtl-mode-switch-1"
                     data-appStyle="{{ asset('dashboard/css/app-rtl.min.css') }}" />
-                <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
+                <label class="form-check-label" for="rtl-mode-switch-1">RTL Mode</label>
             </div>
 
         </div>

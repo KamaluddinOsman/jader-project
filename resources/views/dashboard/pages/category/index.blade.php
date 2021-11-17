@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('lang.category')}}
+    @section('page-title')
+        {{ __('category.category') }} | {{ __('auth.bageTitle') }}             
     @endsection
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -10,6 +10,13 @@
     <!-- Responsive datatable examples -->
     <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
+    @section('embed-style')
+        <style>
+            th, td {
+                text-align: center;
+            }
+        </style>
+    @endsection
 @endsection
 @section('content')
     <div class="page-content">
@@ -18,12 +25,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('category.categoryTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('category.categoryTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -31,13 +38,16 @@
         </div>
         <!-- end page title -->
 
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
+    
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#addCategory">
-                            {{__('lang.addCategory')}}
+                            {{__('category.addCategory')}}
                         </button>
                     </div>
                 </div>
@@ -56,11 +66,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{__('lang.image')}}</th>
-                                    <th>{{__('lang.name')}}</th>
-                                    <th>{{__('lang.edit')}}</th>
-                                    <th>{{__('lang.active')}}</th>
-                                    <th></th>
+                                    <th>{{__('category.imageColumn')}}</th>
+                                    <th>{{__('category.nameColumn')}}</th>
+                                    <th>{{__('category.editColumn')}}</th>
+                                    <th>{{__('category.activeColumn')}}</th>
                                 </tr>
                             </thead>
 
@@ -70,8 +79,9 @@
                                     @foreach($records as $record)
                                         <tr>
                                             <td>{{$record->id}}</td>
-                                            <td><img style="width: 50px; height: 50px"
-                                                    src="{{asset($record->getOriginal('image'))}}"></td>
+                                            <td>
+                                                <img style="width: 50px; height: 50px" src="{{asset($record->getOriginal('image'))}}">
+                                            </td>
                                             @if($record->child($record->id) == false)
                                                 <td>
                                                     <a href="{{url('category/'.$record->id)}}">{{$record->name}}</a>
@@ -87,7 +97,7 @@
                                                     data-categoryid="{{$record->id}}"
                                                     data-parentid="{{$record->parent_id}}"
                                                     data-bs-target="#editCategory">
-                                                    <i class="fas fa-pencil-alt"></i>
+                                                    <i class="dripicons-document-edit"></i>
                                                 </button>
                                             </td>
 
@@ -95,28 +105,24 @@
                                                 @if($record->activated == 1)
                                                     <input type="checkbox" id="{{$record->id}}" switch="bool" checked 
                                                     data-url="{{url('category/active/'.$record->id)}}"
-                                                    data-token="{{csrf_token()}}" class="form-label"
+                                                    data-token="{{csrf_token()}}" class="form-label activeCheck"
                                                     name="activeCheck"/>
-                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}"
-                                                        data-off-label="{{__('lang.block')}}"></label>
-
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('category.activeCategory')}}" data-off-label="{{__('category.blockCategory')}}"></label>
                                                 @else
                                                     <input type="checkbox" id="{{$record->id}}" switch="bool" 
                                                     data-url="{{url('category/active/'.$record->id)}}"
-                                                    data-token="{{csrf_token()}}" class="form-label"
+                                                    data-token="{{csrf_token()}}" class="form-label activeCheck"
                                                     name="activeCheck"/>
-                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}"
-                                                        data-off-label="{{__('lang.block')}}"></label>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('category.activeCategory')}}" data-off-label="{{__('category.blockCategory')}}"></label>
                                                 @endif
                                             </td>
-                                            <td></td>
                                         </tr>
                                     @endforeach
 
                                 @else
 
                                     <div class="alert alert-warning alert-block">
-                                        <strong>{{__('lang.ThereAreNoData')}}</strong>
+                                        <strong>{{__('category.noData')}}</strong>
                                     </div>
 
                                 @endif
@@ -139,10 +145,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editCategoryLabel">
-                        {{__('lang.EditCategory')}}
+                        {{__('category.editCategory')}}
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{route('category.update','category')}}" method="post" enctype="multipart/form-data">
@@ -150,13 +155,10 @@
                         {{csrf_field()}}
                         <input type="hidden" name="category_id" id="category_id" value="">
                         @include('/dashboard/pages/category/form')
-                        {{-- <button class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button> --}}
-                
+
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button 
-                                class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit"> {{__('category.editCategory')}}</button>
                         </div>
                     </form>
                 </div>
@@ -175,19 +177,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addCategoryLabel">
-                        {{__('lang.Addcategory')}}
+                        {{__('category.addCategory')}}
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     @include('/dashboard/pages/category/create')
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                    <button 
-                        class="btn btn-primary" type="submit"> {{__('lang.add')}}</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -218,4 +213,45 @@
 
     {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
 
+    <script>
+        // Changing Category Status
+        $('.activeCheck').change(function () {
+            var url = this.getAttribute('data-url');
+            var token = this.getAttribute('data-token');
+            // console.log(url);
+            $.ajax({
+                type: 'get',
+                data: {_token: token},
+                url: url,
+                // success: function (data) {
+                //     console.log(data);
+                // }
+
+            });
+            // location.reload();
+        });
+        
+
+        // Edit Category
+        $('#editCategory').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var name = button.data('myname') // Extract info from data-* attributes
+            var category_id = button.data('categoryid') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-body #name').val(name);
+            modal.find('.modal-body #category_id').val(category_id);
+        });
+
+        // $('#Addvariety').on('show.bs.modal', function (event) {
+        //     var button = $(event.relatedTarget) // Button that triggered the modal
+        //     var category_id = button.data('idcategory') // Extract info from data-* attributes
+        //     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        //     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        //     var modal = $(this)
+        //     modal.find('.modal-body #id_category').val(category_id);
+        // });
+
+    </script>
 @endsection

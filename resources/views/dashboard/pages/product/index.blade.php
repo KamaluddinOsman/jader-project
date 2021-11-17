@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('product.productTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('product.productTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -36,8 +36,9 @@
                 <div class="card">
                     <div class="card-body">
                         <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addCategory">
-                            {{__('lang.addCategory')}}
+                                {{-- data-bs-target="#addCategory"> --}}
+                                data-bs-target="javascript: void(0);">
+                            {{__('product.addProduct')}}
                         </button>
                     </div>
                 </div>
@@ -76,15 +77,19 @@
                                             <td>{{$record->store->name  ?? ''}}</td>
                                             <td>{{$record->spacialCategory->name  ?? ''}}</td>
                                             <td style="display: inline-block">
-                                                <a style="display: inline-block" href="{{url('product/'.$record->id)}}" class="btn btn-success"><i class="fa fa-eye"></i></a>
+                                                {{-- <a style="display: inline-block" href="{{url('product/'.$record->id)}}" class="btn btn-success"> --}}
+                                                <a style="display: inline-block" href="javascript: void(0);" class="btn btn-success">
+                                                    <i class="mdi mdi-file-eye"></i>
+                                                </a>
         
-                                                <form style="display: inline-block" method="POST" action="{{route('product.destroy', $record->id)}}">
+                                                {{-- <form style="display: inline-block" method="POST" action="{{route('product.destroy', $record->id)}}"> --}}
+                                                <form style="display: inline-block" method="POST" action="javascript: void();">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
         
                                                     <div class="form-group">
                                                         <a class="btn btn-danger btn-mini deleteRecord">
-                                                            <i class="fa fa-trash"></i>
+                                                            <i class="mdi mdi-delete-alert"></i>
                                                         </a>
                                                     </div>
                                                 </form>

@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('city.cityTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('city.cityTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
         </div>
         <!-- end page title -->
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <!-- end col -->
-        </div>
+        </div> --}}
         <!-- end row -->
 
         <div class="row">
@@ -74,8 +74,12 @@
                                             <td><img style="width: 50px; height: 50px"
                                                     src="{{asset($record->getOriginal('logo'))}}"></td>
                                             <td>{{$record->name}}</td>
-                                            <td><a href="{{url('store/'.$record->id)}}" class="btn btn-success"><i
-                                                        class="fa fa-eye"></i></a></td>
+                                            <td>
+                                                {{-- <a href="{{url('store/'.$record->id)}}" class="btn btn-success"> --}}
+                                                <a href="javascript: void(0);" class="btn btn-success">
+                                                    <i class="mdi mdi-file-eye"></i>
+                                                </a>
+                                            </td>
                                             <td>
                                                 @if($record->activated == 0)
                                                     <a href="{{url('store/active/'.$record->id)}}" class="btn btn-info">
@@ -84,22 +88,29 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <form style="display: inline-block" method="POST"
+                                                {{-- <form style="display: inline-block" method="POST"
                                                     action="{{route('store.destroy', $record->id)}}">
                                                     {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
+                                                    {{ method_field('DELETE') }} --}}
         
+                                                    <form style="display: inline-block" method="POST"
+                                                    action="javascript: void(0);">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('DELETE') }}
                                                     <div class="form-group">
-                                                        <a class="btn btn-danger btn-mini deleteRecord">
-                                                            <i class="fa fa-trash"></i>
+                                                        <a class="btn btn-danger btn-mini deleteRecord" title="Delete">
+                                                            <i class="mdi mdi-delete-alert"></i>
                                                         </a>
                                                     </div>
                                                 </form>
         
-                                                <button type="button" style="display: inline-block" data-storeId="{{$record->id}}"
+                                                <button type="button" style="display: inline-block"
                                                         class="btn btn-primary"
-                                                        data-toggle="modal" data-target="#cancelStore">
-                                                    <i class="fa fa-window-close"></i>
+                                                        data-storeId="{{$record->id}}"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#cancelStore"
+                                                        title="Cancel">
+                                                    <i class="dripicons-document-delete"></i>
                                                 </button>
                                             </td>
         
@@ -125,69 +136,37 @@
 
     </div>
 
-     <!-- Edit Category Modal -->
-    <div class="modal fade" id="editCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="editCategoryLabel"
+    <!-- Cancel Store Modal -->
+    <div class="modal fade" id="cancelStore" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="cancelStoreLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editCategoryLabel">
-                        {{__('lang.EditCategory')}}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLongTitle">الغاء طلب الإنضمام</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{route('category.update','category')}}" method="post" enctype="multipart/form-data">
-                        {{method_field('PUT')}}
-                        {{csrf_field()}}
-                        <input type="hidden" name="category_id" id="category_id" value="">
-                        {{-- @include('/dashboard/pages/store/form') --}}
-                        {{-- <button class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button> --}}
-                
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button 
-                                class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button>
+                <form action="{{route('store.cancel')}}" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            @csrf
+                            <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label"> سبب
+                                الالغاء </label>
+                            <textarea class="form-control" name="body"></textarea>
+                            <input type="hidden" name="store_id" id="store_id" value="">
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit"> حفظ</button>
+                    </div>
+                </form>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal -->
 
-    <!-- Add Category Modal-->
-    <div class="modal fade" id="addCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCategoryLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryLabel">
-                        {{__('lang.Addcategory')}}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{-- @include('/dashboard/pages/store/create') --}}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                    <button 
-                        class="btn btn-primary" type="submit"> {{__('lang.add')}}</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
 @endsection
 @section('scripts')
     <!-- Required datatable js -->
@@ -212,4 +191,12 @@
 
     {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
 
+    <script>
+        $('#cancelStore').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var store_id = button.data('storeid') // Extract info from data-* attributes
+            var modal = $(this)
+            modal.find('.modal-body #store_id').val(store_id);
+        });
+    </script>
 @endsection

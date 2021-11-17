@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('user.userTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard')}}</a></li>
+                            <li class="breadcrumb-item active">{{ __('user.userTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -36,8 +36,9 @@
                 <div class="card">
                     <div class="card-body">
                         <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addCategory">
-                            {{__('lang.addCategory')}}
+                                {{-- data-bs-target="#addCategory"> --}}
+                                data-bs-target="javascript: void(0)">
+                            {{__('user.addUser')}}
                         </button>
                     </div>
                 </div>
@@ -78,19 +79,23 @@
                                         </td>
     
                                         <td>
-                                            <a href="{{url(route('user.edit',$user->id))}}" class="btn btn-warning">
-                                                <i class="fa fa-edit"></i>
+                                            {{-- <a href="{{url(route('user.edit',$user->id))}}" class="btn btn-warning"> --}}
+                                            <a href="javascript: void(0)" class="btn btn-warning">
+                                                <i class="dripicons-document-edit"></i>
                                             </a>
                                         </td>
     
                                         <td>
-                                            <form method="POST" action="{{route('user.destroy', $user->id)}}">
+                                            {{-- <form method="POST" action="{{route('user.destroy', $user->id)}}">
+                                                {{ csrf_field() }}
+                                                {{ method_field('delete') }} --}}
+                                            <form method="POST" action="javascript: void(0)">
                                                 {{ csrf_field() }}
                                                 {{ method_field('delete') }}
     
                                                 <div class="form-group">
                                                     <a class="btn btn-danger btn-mini deleteRecord">
-                                                        <i class="fa fa-trash"></i>
+                                                        <i class="mdi mdi-delete-alert"></i>
                                                     </a>
                                                 </div>
                                             </form>

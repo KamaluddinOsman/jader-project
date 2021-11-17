@@ -1,21 +1,21 @@
 <head>
     <meta charset="utf-8" />
-    <title>{{__('lang.everything')}}
-        @yield('title')
-    </title>
+    <title>@yield('page-title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('dashboard/images/favicon.ico') }}">
 
     @yield('head')
 
     <!-- Bootstrap Css -->
-    <link href="{{ asset('dashboard/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="{{ App::isLocale('ar') ? asset('dashboard/css/bootstrap-rtl.min.css') : asset('dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
-    <link href="{{ asset('dashboard/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ App::isLocale('ar') ? asset('dashboard/css/icons-rtl.min.css') : asset('dashboard/css/icons-rtl.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
-    <link href="{{ asset('dashboard/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="{{ App::isLocale('ar') ? asset('dashboard/css/app-rtl.min.css') : asset('dashboard/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    
+    <link href="{{ App::isLocale('ar') ? asset('dashboard/css/custom-rtl.css') :  asset('dashboard/css/custom.css') }}" rel="stylesheet" type="text/css" />
 
+    @yield('embed-style')
+    
 </head>

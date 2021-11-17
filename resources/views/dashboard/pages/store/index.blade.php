@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('store.storeTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('store.storeTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -31,19 +31,19 @@
         </div>
         <!-- end page title -->
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#addCategory">
-                            {{__('lang.addCategory')}}
+                            {{__('store.addStore')}}
                         </button>
                     </div>
                 </div>
             </div>
             <!-- end col -->
-        </div>
+        </div> --}}
         <!-- end row -->
 
         <div class="row">
@@ -75,23 +75,45 @@
                                             <td><img style="width: 50px; height: 50px"
                                                     src="{{asset($record->getOriginal('logo'))}}"></td>
                                             <td>{{$record->name}}</td>
-                                            <td><a href="{{url('store/'.$record->id)}}" class="btn btn-success"><i
-                                                        class="fa fa-eye"></i></a></td>
-                                            <td><a href="{{url('store/'.$record->id.'/edit')}}" class="btn btn-warning"><i
-                                                        class="fa fa-edit"></i></a></td>
                                             <td>
-                                                <div class="checkbox">
-                                                    <input data-url="{{url('store/active/'.$record->id)}}" data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck" type="checkbox" data-on="{{__('lang.active')}}" data-off="{{__('lang.block')}}" {{$record->active == 1 ? 'checked' : '' }} data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
-                                                </div>
+                                                {{-- <a href="{{url('store/'.$record->id)}}" class="btn btn-success"> --}}
+                                                <a href="javascript: void(0);" class="btn btn-success">
+                                                    <i class="mdi mdi-file-eye"></i>
+                                                </a>
                                             </td>
                                             <td>
-                                                <form method="POST" action="{{route('store.destroy', $record->id)}}">
+                                                {{-- <a href="{{url('store/'.$record->id.'/edit')}}" class="btn btn-warning"> --}}
+                                                <a href="javascript: void(0);" class="btn btn-primary">
+                                                    <i class="dripicons-document-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{-- <div class="checkbox">
+                                                    <input data-url="{{url('store/active/'.$record->id)}}" data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck" type="checkbox" data-on="{{__('lang.active')}}" data-off="{{__('lang.block')}}" {{$record->active == 1 ? 'checked' : '' }} data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+                                                </div> --}}
+                                                @if($record->activated == 1)
+                                                    <input type="checkbox" id="{{$record->id}}" switch="bool" checked 
+                                                    data-url="{{url('store/active/'.$record->id)}}"
+                                                    data-token="{{csrf_token()}}" class="form-label activeCheck"
+                                                    name="activeCheck"/>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
+                                                @else
+                                                    <input type="checkbox" id="{{$record->id}}" switch="bool" checked
+                                                    data-url="{{url('store/active/'.$record->id)}}"
+                                                    data-token="{{csrf_token()}}" class="form-label activeCheck"
+                                                    name="activeCheck"/>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{-- <form method="POST" action="{{route('store.destroy', $record->id)}}"> --}}
+                                                <form method="POST" action="#">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
 
                                                     <div class="form-group">
                                                         <a class="btn btn-danger btn-mini deleteRecord">
-                                                            <i class="fa fa-trash"></i>
+                                                            <i class="mdi mdi-delete-alert"></i>
                                                         </a>
                                                     </div>
                                                 </form>
@@ -204,5 +226,23 @@
     <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
 
     {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
+
+    <script>
+        // Changing Category Status
+        $('.activeCheck').change(function () {
+            var url = this.getAttribute('data-url');
+            var token = this.getAttribute('data-token');
+            // console.log(url);
+            $.ajax({
+                type: 'get',
+                data: {_token: token},
+                url: url,
+                // success: function (data) {
+                //     console.log(data);
+                // }
+
+            });
+        });
+    </script>
 
 @endsection
