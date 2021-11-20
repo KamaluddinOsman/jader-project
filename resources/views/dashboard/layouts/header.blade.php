@@ -65,12 +65,12 @@
                         </span>
                     </a>
 
-                    <a href="index.html" class="logo logo-light">
+                    <a href="javascript: void(0)" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{ asset('dashboard/images/logo-sm.png') }}" alt="" height="20">
+                            <img src="{{ asset('dashboard/images/jader-logo.png') }}" alt="Wafeer" height="30">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('dashboard/images/logo-light.png') }}" alt="" height="19">
+                            <img src="{{ asset('dashboard/images/jader-logo.png') }}" alt="Wafeer" height="50px">
                         </span>
                     </a>
                 </div>

@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 @section('head')
     @section('title')
-            {{__('lang.category')}}
+            {{__('institution.Institution')}}
     @endsection
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">{{ __('store.storeTable') }}</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('institution.institutionTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('store.storeTable') }}</li>
+                            <li class="breadcrumb-item active">{{ __('institution.institutionTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="card-body">
                         <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#addCategory">
-                            {{__('store.addStore')}}
+                            {{__('institution.addStore')}}
                         </button>
                     </div>
                 </div>
@@ -57,12 +57,12 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{__('lang.image')}}</th>
-                                    <th>{{__('lang.name')}}</th>
-                                    <th>{{__('lang.show')}}</th>
-                                    <th>{{__('lang.edit')}}</th>
-                                    <th>{{__('lang.status')}}</th>
-                                    <th>{{__('lang.delete')}}</th>
+                                    <th>{{__('institution.imageColumn')}}</th>
+                                    <th>{{__('institution.nameColumn')}}</th>
+                                    <th>{{__('institution.showColumn')}}</th>
+                                    <th>{{__('institution.editColumn')}}</th>
+                                    <th>{{__('institution.statusColumn')}}</th>
+                                    <th>{{__('institution.deleteColumn')}}</th>
                                 </tr>
                             </thead>
 
@@ -82,7 +82,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                {{-- <a href="{{url('store/'.$record->id.'/edit')}}" class="btn btn-warning"> --}}
+                                                {{-- <a href="{{url('store/'.$record->id.'/edit')}}" class="btn btn-primary"> --}}
                                                 <a href="javascript: void(0);" class="btn btn-primary">
                                                     <i class="dripicons-document-edit"></i>
                                                 </a>
@@ -96,13 +96,13 @@
                                                     data-url="{{url('store/active/'.$record->id)}}"
                                                     data-token="{{csrf_token()}}" class="form-label activeCheck"
                                                     name="activeCheck"/>
-                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('institution.activeInstitution')}}" data-off-label="{{__('institution.blockInstitution')}}"></label>
                                                 @else
                                                     <input type="checkbox" id="{{$record->id}}" switch="bool" checked
                                                     data-url="{{url('store/active/'.$record->id)}}"
                                                     data-token="{{csrf_token()}}" class="form-label activeCheck"
                                                     name="activeCheck"/>
-                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('institution.activeInstitution')}}" data-off-label="{{__('institution.blockInstitution')}}"></label>
                                                 @endif
                                             </td>
                                             <td>
@@ -124,7 +124,7 @@
                                 @else
 
                                     <div class="alert alert-warning alert-block">
-                                        <strong>{{__('lang.ThereAreNoData')}}</strong>
+                                        <strong>{{__('institution.noData')}}</strong>
                                     </div>
 
                                 @endif
@@ -148,7 +148,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editCategoryLabel">
-                        {{__('lang.EditCategory')}}
+                        {{__('institution.editInstitution')}}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
@@ -165,7 +165,7 @@
                             <button type="button" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Close</button>
                             <button 
-                                class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button>
+                                class="btn btn-primary" type="submit"> {{__('institution.editInstitution')}}</button>
                         </div>
                     </form>
                 </div>
@@ -184,7 +184,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addCategoryLabel">
-                        {{__('lang.Addcategory')}}
+                        {{__('institution.addInstitution')}}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
@@ -196,7 +196,7 @@
                     <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Close</button>
                     <button 
-                        class="btn btn-primary" type="submit"> {{__('lang.add')}}</button>
+                        class="btn btn-primary" type="submit"> {{__('institution.addInstitution')}}</button>
                 </div>
             </div>
             <!-- /.modal-content -->
