@@ -1,5 +1,5 @@
 
-@extends('admin.layouts.layout')
+@extends('dashboard.layouts.main')
 @inject('model','App\Store')
 @section('title')
     {{__('lang.edit')}}
@@ -26,19 +26,19 @@
     <br>
     <br>
 
-    @include('admin.layouts.flash-message')
+    @include('dashboard.layouts.flash-message')
     @include('flash::message')
     <div class="box">
         <div class="box-body">
             {!! Form::model($records,[
-          'action' => ['Admin\StoreController@update',$records->id],
+          'action' => ['Dashboard\StoreController@update',$records->id],
           'method' => 'put',
           'enctype' => 'multipart/form-data',
 
         ]) !!}
 
             <div class="col">
-                    @include('/admin/store/form')
+                    @include('/dashboard/pages/store/form')
             </div>
 
 <div class="clearfix"></div>

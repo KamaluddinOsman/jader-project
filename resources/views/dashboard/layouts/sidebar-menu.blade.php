@@ -27,22 +27,22 @@
         <li>
             <a href="javascript: void(0);" class="has-arrow waves-effect">
                 <i class="mdi mdi-store"></i>
-                <span>{{__('dashboard.menuItemStore')}}</span>
+                <span>{{__('dashboard.menuItemInstitution')}}</span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
                 <li>
                     <a href="{{url('/store')}}" class="waves-effect">
-                        <span>{{__('dashboard.menuItemStoreSub1')}} </span>
+                        <span>{{__('dashboard.menuItemInstitutionSub1')}} </span>
                     </a>
                 </li>
                 <li>
                     <a href="{{url('/store/pending')}}" class="waves-effect">
-                        <span>{{__('dashboard.menuItemStoreSub2')}}</span>
+                        <span>{{__('dashboard.menuItemInstitutionSub2')}}</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{url('/store/rejected')}}" class="waves-effect">
-                        <span>{{__('dashboard.menuItemStoreSub3')}}</span>
+                        <span>{{__('dashboard.menuItemInstitutionSub3')}}</span>
                     </a>
                 </li>
                 {{-- <li>

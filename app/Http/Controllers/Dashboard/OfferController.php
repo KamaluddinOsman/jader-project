@@ -18,6 +18,7 @@ class OfferController extends Controller
   public function index()
   {
       $records = Offer::with('product')->orderBy('id', 'desc')->get();
+    //   return $records;
       return view('dashboard.pages.offer.index')->with(compact('records'));
   }
 
