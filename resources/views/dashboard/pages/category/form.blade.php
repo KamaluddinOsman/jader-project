@@ -18,7 +18,7 @@
 <div class="mb-3 row">
     <label class="col-md-2 col-form-label">{{__('lang.category')}}</label>
     <div class="col-md-10">
-        {{ Form::select('parent_id', $category, null, array('class'=>'form-select', 'id' => 'parent_id', 'placeholder'=>'Category')) }}
+        {{ Form::select('cls', $category, null, array('class'=>'form-select', 'id' => 'parent_id', 'placeholder'=>'Category')) }}
     </div>
 </div>
 

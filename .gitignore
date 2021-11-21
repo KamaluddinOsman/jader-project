@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/logs
 /vendor
 .env
 .env.backup
@@ -10,7 +11,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-<<<<<<< HEAD
-=======
 .DS_Store
->>>>>>> cfbcdca087ac8e3d769362633daf31d7dedf7b0e

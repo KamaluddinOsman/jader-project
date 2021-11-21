@@ -224,10 +224,10 @@ $client = $client->pluck('full_name', 'id')->toArray();
                     </div>
 
                     <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
         </div>
-    </div>
     </div>
 </section>
 <!-- /.content -->

@@ -31,6 +31,9 @@
         </div>
         <!-- end page title -->
 
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
+        
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -286,17 +289,12 @@
         $('.activeCheck').change(function () {
             var url = this.getAttribute('data-url');
             var token = this.getAttribute('data-token');
-            // console.log(url);
             $.ajax({
                 type: 'get',
                 data: {_token: token},
                 url: url,
-                // success: function (data) {
-                //     console.log(data);
-                // }
-
             });
-            location.reload();
+            location.href = "/offer";
         });
     </script>
 

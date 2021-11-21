@@ -42,6 +42,9 @@
         </div>
         <!-- end page title -->
 
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
+        
         <div class="row">
             <div class="col-12">
                 <div class="card">

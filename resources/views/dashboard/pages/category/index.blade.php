@@ -218,17 +218,12 @@
         $('.activeCheck').change(function () {
             var url = this.getAttribute('data-url');
             var token = this.getAttribute('data-token');
-            // console.log(url);
             $.ajax({
                 type: 'get',
                 data: {_token: token},
                 url: url,
-                // success: function (data) {
-                //     console.log(data);
-                // }
-
             });
-            // location.reload();
+            location.href = "/category";
         });
         
 
