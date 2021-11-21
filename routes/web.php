@@ -223,21 +223,6 @@ Route::group(
                     Route::delete('/{id}', 'DeliversCostsController@delete')->name('deliveryCost.delete');
                 });
 
-                // Route::group(['prefix' => 'car'], function () {
-                //     Route::get('pending', 'CarController@pend');
-                //     Route::get('rejected', 'CarController@rejected');
-                //     Route::get('/', 'CarController@index')->name('car.index');
-                //     Route::get('/create', 'CarController@create')->name('car.create');
-                //     Route::get('/{id}/edit', 'CarController@edit')->name('car.edit');
-                //     Route::post('/', 'CarController@store')->name('car.store');
-                //     Route::get('/{id}', 'CarController@show')->name('car.show');
-                //     Route::put('/{id}', 'CarController@update')->name('car.update');
-                //     Route::delete('/{id}', 'CarController@destroy')->name('car.destroy');
-                //     Route::get('/active/{id}', 'CarController@active')->name('car.active');
-                //     Route::post('/cancel', 'CarController@cancel')->name('car.cancel');
-
-                // });
-
                 // coupons
                 Route::group(['prefix' => 'coupons'], function () {
                     Route::get('/', 'CouponController@coupon')->name('coupons');

@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('lang.category')}}
+    @section('page-title')
+            {{__('car.car')}} | {{ __('auth.bageTitle') }}
     @endsection
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -38,11 +38,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
-                                {{-- data-bs-target="#addCategory"> --}}
-                                data-bs-target="javascript: void(0)">
+                        <a type="button" style="margin-bottom: 8px" class="btn btn-primary" 
+                                href="{{url('/car/create')}}">
+                                {{-- data-bs-target="javascript: void(0)"> --}}
                             {{__('car.addCar')}}
-                        </button>
+                    </a>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@
     </div>
 
      <!-- Edit Category Modal -->
-    <div class="modal fade" id="editCategory" data-bs-backdrop="static"
+    {{-- <div class="modal fade" id="editCategory" data-bs-backdrop="static"
         data-bs-keyboard="false" tabindex="-1" aria-labelledby="editCategoryLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -165,18 +165,18 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
+    </div> --}}
     <!-- /.modal -->
 
     <!-- Add Category Modal-->
-    <div class="modal fade" id="addCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCategoryLabel"
+    {{-- <div class="modal fade" id="addCar" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCarLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryLabel">
-                        {{__('category.addCategory')}}
+                    <h5 class="modal-title" id="addCarLabel">
+                        {{__('car.addCar')}}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -187,7 +187,7 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
+    </div> --}}
 @endsection
 @section('scripts')
     <!-- Required datatable js -->
