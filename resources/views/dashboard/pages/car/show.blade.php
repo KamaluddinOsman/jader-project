@@ -1,17 +1,38 @@
-@extends('admin.layouts.layout')
+@extends('dashboard.layouts.main')
+@section('head')
+    @section('page-title')
+            {{__('car.car')}} | {{ __('auth.bageTitle') }}
+    @endsection
 
-@section('title')
-    {{__('lang.city')}}
+    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
 @section('content')
-    <!-- Content Header (Page header) -->
+    <div class="page-content">
 
-    <br>
-    <br>
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="page-title mb-0 font-size-18">{{ __('car.carTable') }}</h4>
 
-    @include('admin.layouts.flash-message')
-    @include('flash::message')
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('car.carTable') }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
 
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
+    
 
     <div class="box-body">
         <div class="table-responsive">
