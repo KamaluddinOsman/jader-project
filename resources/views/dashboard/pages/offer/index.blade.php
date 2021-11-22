@@ -294,7 +294,7 @@
                 data: {_token: token},
                 url: url,
             });
-            location.href = "/offer";
+            location.href = "/car";
         });
     </script>
 

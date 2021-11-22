@@ -11,6 +11,7 @@ use App\Car;
 use App\RequestLog;
 use App\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Ramsey\Uuid\Uuid;
 
@@ -56,7 +57,7 @@ class CarController extends Controller
             'Type_car' => 'required|in:1, 2, 3, 4, 5, 6, 7', // صغيره سيدان -- بكب صغيره -- بكب كبيره -- دينا -- سطحه -- شاحنة -- قلاب
             'number' => 'required',
             'car_model' => 'required',
-            'personal_image' => 'required',
+            // 'personal_image' => 'required',
             'brand_id' => 'required',
             'char_car' => 'required',
             'stc_pay' => 'required',
@@ -78,28 +79,42 @@ class CarController extends Controller
         $car->ipan = $request->ipan;
         $car->activated = '1';
 
-        if ($file = $request->file('personal_image')) {
-            $car->personal_image = uploadImage($file, 'car');
-        }
-
+        // if ($file = $request->file('personal_image')) {
+        //     $car->personal_image = uploadImage($file, 'car');
+        // }
         if ($file = $request->file('personal_id')) {
-            $car->personal_id = uploadImage($file, 'car');
+            $fileName = time().'personal_id'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->personal_id = 'img/cars/'. $fileName;
+            }
         }
 
         if ($file = $request->file('driver_license')) {
-            $car->driver_license = uploadImage($file, 'car');
+            $fileName = time().'driver_license'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->driver_license = 'img/cars/'. $fileName;
+            }
         }
 
         if ($file = $request->file('car_license')) {
-            $car->car_license = uploadImage($file, 'car');
+            $fileName = time().'car_license'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->car_license = 'img/cars/'. $fileName;
+            }
         }
 
         if ($file = $request->file('image_car_front')) {
-            $car->image_car_front = uploadImage($file, 'car');
+            $fileName = time().'image_car_front'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->image_car_front = 'img/cars/'. $fileName;
+            }
         }
 
         if ($file = $request->file('image_car_back')) {
-            $car->image_car_back = uploadImage($file, 'car');
+            $fileName = time().'image_car_back'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->image_car_back = 'img/cars/'. $fileName;
+            }
         }
 
         $car->save();
@@ -157,7 +172,7 @@ class CarController extends Controller
 
 
         $rules = [
-            'personal_image' => 'mimes:jpeg,jpg,png',
+            // 'personal_image' => 'mimes:jpeg,jpg,png',
             'driver_license' => 'mimes:jpeg,jpg,png',
             'car_license' => 'mimes:jpeg,jpg,png',
             'personal_id' => 'mimes:jpeg,jpg,png',
@@ -168,7 +183,7 @@ class CarController extends Controller
             'car_model' => 'required',
             'brand_id' => 'required',
             'char_car' => 'required',
-            'stc_pay'  => 'stc_pay',
+            // 'stc_pay'  => 'stc_pay',
         ];
 
         $this->validate($request, $rules);
@@ -185,28 +200,58 @@ class CarController extends Controller
         $car->name_card = $request->name_card;
         $car->ipan = $request->ipan;
 
-        if ($file = $request->file('personal_id')) {
-            $car->personal_id = uploadImage($file, 'car');
-        }
+        // if ($file = $request->file('personal_image')) {
+        //     $car->personal_image = uploadImage($file, 'car');
+        // }
 
-        if ($file = $request->file('personal_image')) {
-            $car->personal_image = uploadImage($file, 'car');
+        if ($file = $request->file('personal_id')) {
+            if (File::exists($car->personal_id)){
+                @unlink(public_path().'/'.$car->personal_id);
+            }
+            $fileName = time().'personal_id'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->personal_id = 'img/cars/'. $fileName;
+            }
         }
 
         if ($file = $request->file('driver_license')) {
-            $car->driver_license = uploadImage($file, 'car');
+            if (File::exists($car->driver_license)){
+                @unlink(public_path().'/'.$car->driver_license);
+            }
+            $fileName = time().'driver_license'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->driver_license = 'img/cars/'. $fileName;
+            }
         }
 
         if ($file = $request->file('car_license')) {
-            $car->car_license = uploadImage($file, 'car');
+            if (File::exists($car->car_license)){
+                @unlink(public_path().'/'.$car->car_license);
+            }
+            $fileName = time().'car_license'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->car_license = 'img/cars/'. $fileName;
+            }
         }
 
         if ($file = $request->file('image_car_front')) {
-            $car->image_car_front = uploadImage($file, 'car');
+            if (File::exists($car->image_car_front)){
+                @unlink(public_path().'/'.$car->image_car_front);
+            }
+            $fileName = time().'image_car_front'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->image_car_front = 'img/cars/'. $fileName;
+            }
         }
 
         if ($file = $request->file('image_car_back')) {
-            $car->image_car_back = uploadImage($file, 'car');
+            if (File::exists($car->image_car_back)){
+                @unlink(public_path().'/'.$car->image_car_back);
+            }
+            $fileName = time().'image_car_back'.$file->getClientOriginalName();
+            if($file->move('img/cars/',$fileName)){
+                $car->image_car_back = 'img/cars/'. $fileName;
+            }
         }
 
         $car->save();
@@ -224,7 +269,28 @@ class CarController extends Controller
     {
         RequestLog::create(['content' => $id, 'service' => 'delete car']);
 
+        
         $records = Car::findOrFail($id);
+        
+        if (File::exists($records->personal_id)){
+            @unlink(public_path().'/'.$records->personal_id);
+        }
+        if (File::exists($records->driver_license)){
+            @unlink(public_path().'/'.$records->driver_license);
+        }
+        if (File::exists($records->car_license)){
+            @unlink(public_path().'/'.$records->car_license);
+        }
+        if (File::exists($records->image_car_front)){
+            @unlink(public_path().'/'.$records->image_car_front);
+        }
+        if (File::exists($records->image_car_front)){
+            @unlink(public_path().'/'.$records->image_car_front);
+        }
+        if (File::exists($records->image_car_back)){
+            @unlink(public_path().'/'.$records->image_car_back);
+        }
+
         $records->delete();
         flash()->success(__('lang.doneDelete'));
         return redirect('/car');

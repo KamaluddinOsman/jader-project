@@ -196,7 +196,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
                                                             <img class="rounded mx-auto img-thumbnail" style="display: none; max-width: 350px;max-height: 400px;" id="car_license" src="#" alt="your image" />
 
                                                             @if(!empty($records->car_license))
-                                                                <img id="contract_old" class="rounded mx-auto img-thumbnail" src="{{ asset($records->getOriginal('car_license')) }}">
+                                                                <img id="car_license_old" class="rounded mx-auto img-thumbnail" src="{{ asset($records->getOriginal('car_license')) }}">
                                                             @else
                                                                 <img id="car_licenseNoImage" class="rounded mx-auto img-thumbnail" src="{{ asset('img/no_image.png') }}">
                                                             @endif
