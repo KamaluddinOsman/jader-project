@@ -9,14 +9,7 @@
 
     <!-- Responsive datatable examples -->
     <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-    @section('embed-style')
-        <style>
-            th, td {
-                text-align: center;
-            }
-        </style>
-    @endsection
+    
 @endsection
 @section('content')
     <div class="page-content">

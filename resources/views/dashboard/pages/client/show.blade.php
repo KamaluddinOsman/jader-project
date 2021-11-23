@@ -1,7 +1,14 @@
-@extends('admin.layouts.layout')
+@extends('dashboard.layouts.main')
+@section('head')
+    @section('page-title')
+            {{__('client.client')}} | {{ __('auth.bageTitle') }}
+    @endsection
 
-@section('title')
-    {{__('lang.client')}}
+    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
 @section('content')
     <!-- Content Header (Page header) -->
@@ -25,12 +32,9 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="/"><i
-                                            class="fa fa-dashboard"></i> {{__('lang.master')}}</a></li>
-                                <li class="breadcrumb-item"><a href="/client"><i
-                                            class="fa fa-dashboard"></i> {{__('lang.client')}}</a></li>
-                                <li class="breadcrumb-item active"><i class="fa fa-dashboard"></i> {{$client->name}}
-                                </li>
+                                <li class="breadcrumb-item"><a href="/"><i class="fa fa-dashboard"></i> {{__('lang.master')}}</a></li>
+                                <li class="breadcrumb-item"><a href="/client"><i class="fa fa-dashboard"></i> {{__('lang.client')}}</a></li>
+                                <li class="breadcrumb-item active"><i class="fa fa-dashboard"></i> {{$client->name}}</li>
                             </ol>
                         </div>
                     </div>
@@ -48,10 +52,7 @@
                                 <div class="card-body box-profile">
                                     <div class="text-center">
                                         @if(!empty($client->image))
-                                            <img alt="{{$client->name}}"
-                                                 class="profile-user-img img-fluid img-circle"
-                                                 style="width: 245px;border-radius: 15px"
-                                                 src="{{asset($client->image)}}">
+                                            <img alt="{{$client->name}}" class="profile-user-img img-fluid img-circle" style="width: 245px;border-radius: 15px" src="{{asset($client->image)}}">
                                         @endif
                                     </div>
 

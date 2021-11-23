@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('lang.category')}}
+    @section('page-title')
+            {{__('client.addClient')}} | {{ __('auth.bageTitle') }}
     @endsection
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -10,25 +10,29 @@
     <!-- Responsive datatable examples -->
     <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
+    <style>
+        .image-upload>input {
+            display: none;
+        }
+    </style>
 @endsection
-
 @inject('model','App\Client')
 
+@include('dashboard.layouts.flash-message')
+@include('flash::message')
+
 @section('content')
-    
-    {{-- @include('dashboard.layouts.flash-message') --}}
-    {{-- @include('flash::message') --}}
     <div class="page-content">
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('client.clientTable') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('client.clientTable') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -40,64 +44,36 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addCategory">
-                            {{__('lang.addCategory')}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- end col -->
-        </div>
-        <!-- end row -->
-
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        {!! Form::model($model,[
-                            'action' => 'Dashboard\ClientController@store',
-                            'enctype' => 'multipart/form-data',
-                  
-                          ]) !!}
-                  
-                              <div class="col">
-                                  @include('/dashboard/pages/client/form')
-                                  <div class="clearfix"></div>
-                  
-                                  <br>
-                                  <div class="col-md-9">
-                                      <div class="card card-primary">
-                                          <div class="card-header">
-                                              <h3 class="card-title">الرقم السرى</h3>
-                                              <div class="card-tools">
-                                                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                                      <i class="fas fa-minus"></i>
-                                                  </button>
-                                              </div>
-                                          </div>
-                                          <div class="card-body">
-                                              <div class="form-group">
-                                                  <label for="inputName">{{__('lang.password')}}</label>
-                                                  {!! Form::password('password',[
-                                              'class' => 'form-control',
-                                            ]) !!}
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                  
-                          </div>
-                              <div class="clearfix"></div>
-                              <div class="form-group">
-                                  <br>
-                  
-                                  <button class="btn btn-primary" type="submit">{{__('lang.save')}}</button>
-                              </div>
-                  
-                  
-                              {!! Form::close() !!}
-                          </div>
+                        {!! Form::model( $model, ['action' => 'Dashboard\ClientController@store','enctype' => 'multipart/form-data' ]) !!}
+                            <div class="col">
+                                @include('/dashboard/pages/client/form')
+                                <div class="clearfix"></div>
+                                
+                                <br>
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">الرقم السرى</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3 row">
+                                                <label for="inputName" class="col-md-2 col-form-label">{{__('lang.password')}}</label>
+                                                <div class="col-md-8">
+                                                    {!! Form::password('password',['class' => 'form-control' ]) !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <br>
+                
+                                <button class="btn btn-primary" type="submit">{{__('lang.save')}}</button>
+                            </div>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
@@ -127,4 +103,25 @@
 
     {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
 
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // $('#logo').attr('src', e.target.result);
+
+                    $(input).next('img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#logoInp").change(function() {
+            $('#logoNoImage').css('display','none');
+            $('#logo_old').css('display','none');
+            $('#logo').css('display','block');
+            readURL(this);
+        });
+    </script>
 @endsection

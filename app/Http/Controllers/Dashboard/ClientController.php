@@ -67,16 +67,10 @@ class ClientController extends Controller
         $client->district_id = $request->input('district_id');
         $client->password = bcrypt($request->input('password'));
 
-        //Upload Image
-        if ($request->hasFile('image')) {
-            $image_tmp = Input::file('image');
-            if ($image_tmp->isValid()) {
-                $filename = time() . '.' . $image_tmp->getClientOriginalExtension();
-                $path = public_path('storage/images/client/' . $filename);
-                $global = config('constants.image_Url');
-                $url = $global . 'client/' . $filename;
-                Image::make($image_tmp->getRealPath())->resize(468, 249)->save($path);
-                $client->image = $url;
+        if ($file = $request->file('image')) {
+            $fileName = time().'image'.$file->getClientOriginalName();
+            if($file->move('img/clients/',$fileName)){
+                $client->image = 'img/clients/'. $fileName;
             }
         }
 
@@ -139,17 +133,13 @@ class ClientController extends Controller
         $client->email = $request->input('email');
         $client->district_id = $request->input('district_id');
 
-        //Upload Image
-        if ($request->hasFile('image')) {
-            File::delete('storage/images/client/'.$client->image);
-            $image_tmp = Input::file('image');
-            if ($image_tmp->isValid()) {
-                $filename = time() . '.' . $image_tmp->getClientOriginalExtension();
-                $path = public_path('storage/images/client/' . $filename);
-                $global = config('constants.image_Url');
-                $url = $global . 'client/' . $filename;
-                Image::make($image_tmp->getRealPath())->resize(468, 249)->save($path);
-                $client->image = $url;
+        if ($file = $request->file('image')) {
+            if (File::exists($client->image)){
+                @unlink(public_path().'/'.$car->personal_id);
+            }
+            $fileName = time().'image'.$file->getClientOriginalName();
+            if($file->move('img/clients/',$fileName)){
+                $client->image = 'img/clients/'. $fileName;
             }
         }
 
@@ -186,6 +176,10 @@ class ClientController extends Controller
         RequestLog::create(['content' => $id, 'service' => 'update Client']);
 
         $records = Client::findOrFail($id);
+
+        if (File::exists($records->image)){
+            @unlink(public_path().'/'.$records->image);
+        }
         $records->delete();
         flash()->success(__('lang.doneDelete'));
         return redirect('/client');
