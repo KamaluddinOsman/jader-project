@@ -267,9 +267,8 @@ class CarController extends Controller
      */
     public function destroy($id)
     {
-        RequestLog::create(['content' => $id, 'service' => 'delete car']);
 
-        
+        RequestLog::create(['content' => $id, 'service' => 'delete car']);
         $records = Car::findOrFail($id);
         
         if (File::exists($records->personal_id)){

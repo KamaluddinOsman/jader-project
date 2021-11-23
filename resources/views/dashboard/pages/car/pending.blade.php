@@ -1,14 +1,13 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('lang.category')}}
+    @section('page-title')
+            {{__('car.car')}} | {{ __('auth.bageTitle') }}
     @endsection
-    <!-- DataTables -->
-    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
 
 @endsection
 @section('content')
@@ -59,12 +58,13 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{__('lang.image')}}</th>
-                                    <th>{{__('lang.Number')}}</th>
-                                    <th>{{__('lang.show')}}</th>
-                                    <th>{{__('lang.edit')}}</th>
-                                    <th>{{__('lang.status')}}</th>
-                                    <th>{{__('lang.delete')}}</th>
+                                    <th>{{ __('car.imageColumn') }}</th>
+                                    <th>{{ __('car.numberColumn') }}</th>
+                                    <th>{{ __('car.showColumn') }}</th>
+                                    <th>{{ __('car.editColumn') }}</th>
+                                    <th>{{ __('car.statusColumn') }}</th>
+                                    <th>{{ __('car.deleteColumn') }}</th>
+                                    {{-- <th>{{ __('car.cancelCoumn') }}</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,39 +73,37 @@
                                     @foreach($records as $record)
                                         <tr>
                                             <td>{{$record->id}}</td>
-                                            <td><img style="width: 50px; height: 50px" src="{{asset($record->image_car)}}"></td>
+                                            <td><img style="width: 50px; height: 50px" src="{{asset($record->image_car_front)}}"></td>
                                             <td>{{$record->number}}</td>
                                             <td>
-                                                {{-- <a href="{{url('car/'.$record->id)}}" class="btn btn-success"> --}}
-                                                <a href="javascript: void(0)" class="btn btn-success">
+                                                <a href="{{url('car/'.$record->id)}}" class="btn btn-success">
                                                     <i class="mdi mdi-file-eye"></i>
                                                 </a>
                                             </td>
                                             <td>
-                                                {{-- <a href="{{url('car/'.$record->id.'/edit')}}" class="btn btn-warning"> --}}
-                                                <a href="javascript: void(0)" class="btn btn-warning">
+                                                <a href="{{url('car/'.$record->id.'/edit')}}" class="btn btn-warning">
                                                     <i class="dripicons-document-edit"></i>
                                                 </a>
                                             </td>
                                             <td>
-                                                <div class="checkbox">
-                                                    <input data-url="{{url('car/active/'.$record->id)}}"  switch="bool"
-                                                        data-token="{{csrf_token()}}" class="activeCheck" name="activeCheck"
-                                                        type="checkbox" data-on="{{__('lang.active')}}"
-                                                        data-off="{{__('lang.block')}}"
-                                                        {{$record->activated == 1 ? 'checked' : '' }} data-toggle="toggle"
-                                                        data-onstyle="success" data-offstyle="danger">
-                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
-                                                </div>
+                                                @if($record->activated == 1)
+                                                    <input type="checkbox" id="{{$record->id}}" switch="bool" checked 
+                                                    data-url="{{url('car/active/'.$record->id)}}"
+                                                    data-token="{{csrf_token()}}" class="form-label activeCheck"
+                                                    name="activeCheck"/>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('car.activeCar')}}" data-off-label="{{__('car.blockCar')}}"></label>
+                                                @else
+                                                    <input type="checkbox" id="{{$record->id}}" switch="bool" 
+                                                    data-url="{{url('car/active/'.$record->id)}}"
+                                                    data-token="{{csrf_token()}}" class="form-label activeCheck"
+                                                    name="activeCheck"/>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('car.activeCar')}}" data-off-label="{{__('car.blockCar')}}"></label>
+                                                @endif
                                             </td>
                                             <td>
-                                                {{-- <form method="POST" action="{{route('car.destroy', $record->id)}}">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }} --}}
-                                                <form method="POST" action="javascript: void(0)">
+                                                <form method="POST" action="{{route('car.destroy', $record->id)}}" style="display: inline-block">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
-                            
                                                     <div class="form-group">
                                                         <a class="btn btn-danger btn-mini deleteRecord">
                                                             <i class="mdi mdi-delete-alert"></i>
@@ -115,10 +113,9 @@
 
                                                 <button type="button" style="display: inline-block" data-carId="{{$record->id}}"
                                                     class="btn btn-primary"
-                                                    data-toggle="modal"
-                                                    {{-- data-target="#cancelCar"> --}}
-                                                    data-target="javascript: void(0)">
-                                                    <i class="dripicons-document-delete"></i>
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#cancelCar">
+                                                    <i class="{{ App::isLocale('ar') ? 'dripicons-document' : 'dripicons-document-delete' }}"></i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -127,7 +124,7 @@
                                 @else
                             
                                     <div class="alert alert-warning alert-block">
-                                        <strong>{{__('lang.ThereAreNoData')}}</strong>
+                                        <strong>{{__('car.noData')}}</strong>
                                     </div>
                             
                                 @endif
@@ -142,58 +139,35 @@
 
     </div>
 
-     <!-- Edit Category Modal -->
-    <div class="modal fade" id="editCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="editCategoryLabel"
+     <!-- Cancel Captain Modal -->
+    <div class="modal fade" id="cancelCar" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="cancelCarTitle"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editCategoryLabel">
-                        {{__('lang.EditCategory')}}
-                    </h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">الغاء طلب الإنضمام</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{route('category.update','category')}}" method="post" enctype="multipart/form-data">
-                        {{method_field('PUT')}}
-                        {{csrf_field()}}
-                        <input type="hidden" name="category_id" id="category_id" value="">
-                        @include('/dashboard/pages/category/form')
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button>
+                <form action="{{route('car.cancel')}}" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            @csrf
+                            <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label"> سبب
+                                الالغاء </label>
+                            <textarea class="form-control" name="body"></textarea>
+                            <input type="hidden" name="car_id" id="car_id" value="">
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">حفظ</button>
+                    </div>
+                </form>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
 
-    <!-- Add Category Modal-->
-    <div class="modal fade" id="addCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCategoryLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryLabel">
-                        {{__('category.addCategory')}}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @include('/dashboard/pages/category/create')
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
 @endsection
 @section('scripts')
     <!-- Required datatable js -->
@@ -214,48 +188,69 @@
     <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
     <!-- Datatable init js -->
-    <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
+    {{-- <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script> --}}
 
-    {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
+    <!-- Sweet Alerts js -->
+    <script src="{{ asset('dashboard/libs/sweetalert2/sweetalert.min.js') }}"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="{{ asset('dashboard/js/pages/sweet-alerts.init.js') }}"></script>
+
+
+{{-- <script src="{{ asset('dashboard/js/custom.js') }}"></script> --}}
 
     <script>
+        $(function () {
+            $("#datatable").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                }
+            });
+        });
+
         // Changing Category Status
         $('.activeCheck').change(function () {
             var url = this.getAttribute('data-url');
             var token = this.getAttribute('data-token');
-            // console.log(url);
             $.ajax({
                 type: 'get',
                 data: {_token: token},
                 url: url,
-                // success: function (data) {
-                //     console.log(data);
-                // }
-
             });
+            location.href = "/car";
         });
-        
 
-        // Edit Category
-        $('#editCategory').on('show.bs.modal', function (event) {
+        $('#cancelCar').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
-            var name = button.data('myname') // Extract info from data-* attributes
-            var category_id = button.data('categoryid') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var car_id = button.data('carid') // Extract info from data-* attributes
             var modal = $(this)
-            modal.find('.modal-body #name').val(name);
-            modal.find('.modal-body #category_id').val(category_id);
+            modal.find('.modal-body #car_id').val(car_id);
         });
-
-        // $('#Addvariety').on('show.bs.modal', function (event) {
-        //     var button = $(event.relatedTarget) // Button that triggered the modal
-        //     var category_id = button.data('idcategory') // Extract info from data-* attributes
-        //     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        //     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        //     var modal = $(this)
-        //     modal.find('.modal-body #id_category').val(category_id);
-        // });
-
     </script>
+
 @endsection
