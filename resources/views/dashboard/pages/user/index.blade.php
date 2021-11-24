@@ -1,15 +1,18 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('lang.category')}}
+    @section('page-title')
+        {{ __('user.user') }} | {{ __('auth.bageTitle') }}             
     @endsection
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Responsive datatable examples -->
     <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
+    {{-- <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert2/sweetalert.css') }}"> --}}
 @endsection
 @section('content')
     <div class="page-content">
@@ -35,11 +38,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
-                                {{-- data-bs-target="#addCategory"> --}}
-                                data-bs-target="javascript: void(0)">
-                            {{__('user.addUser')}}
-                        </button>
+                        <a href="{{url('user/create')}}" class="btn btn-primary">
+                            <p>{{__('user.addUser')}}</p>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -51,8 +52,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatable-buttons"
-                            class="table table-striped table-bordered dt-responsive nowrap"
+                        <table id="datatable"
+                        class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             
                             <thead>
@@ -79,20 +80,15 @@
                                         </td>
     
                                         <td>
-                                            {{-- <a href="{{url(route('user.edit',$user->id))}}" class="btn btn-warning"> --}}
-                                            <a href="javascript: void(0)" class="btn btn-warning">
+                                            <a href="{{url(route('user.edit',$user->id))}}" class="btn btn-warning">
                                                 <i class="dripicons-document-edit"></i>
                                             </a>
                                         </td>
     
                                         <td>
-                                            {{-- <form method="POST" action="{{route('user.destroy', $user->id)}}">
-                                                {{ csrf_field() }}
-                                                {{ method_field('delete') }} --}}
-                                            <form method="POST" action="javascript: void(0)">
+                                            <form method="POST" action="{{route('user.destroy', $user->id)}}">
                                                 {{ csrf_field() }}
                                                 {{ method_field('delete') }}
-    
                                                 <div class="form-group">
                                                     <a class="btn btn-danger btn-mini deleteRecord">
                                                         <i class="mdi mdi-delete-alert"></i>
@@ -112,70 +108,6 @@
         </div>
         <!-- end row -->
 
-    </div>
-
-     <!-- Edit Category Modal -->
-    <div class="modal fade" id="editCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="editCategoryLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editCategoryLabel">
-                        {{__('lang.EditCategory')}}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{route('category.update','category')}}" method="post" enctype="multipart/form-data">
-                        {{method_field('PUT')}}
-                        {{csrf_field()}}
-                        <input type="hidden" name="category_id" id="category_id" value="">
-                        {{-- @include('/dashboard/pages/store/form') --}}
-                        {{-- <button class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button> --}}
-                
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button 
-                                class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <!-- Add Category Modal-->
-    <div class="modal fade" id="addCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCategoryLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryLabel">
-                        {{__('lang.Addcategory')}}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{-- @include('/dashboard/pages/store/create') --}}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                    <button 
-                        class="btn btn-primary" type="submit"> {{__('lang.add')}}</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
     </div>
 @endsection
 @section('scripts')
@@ -197,8 +129,64 @@
     <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
     <!-- Datatable init js -->
-    <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
+    {{-- <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script> --}}
 
-    {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
+    <!-- Sweet Alerts js -->
+    <script src="{{ asset('dashboard/libs/sweetalert2/sweetalert.min.js') }}"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="{{ asset('dashboard/js/pages/sweet-alerts.init.js') }}"></script>
+
+
+{{-- <script src="{{ asset('dashboard/js/custom.js') }}"></script> --}}
+
+    <script>
+
+        $(function () {
+            $("#datatable").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                }
+            });
+        });
+
+        // Changing Category Status
+        $('.activeCheck').change(function () {
+            var url = this.getAttribute('data-url');
+            var token = this.getAttribute('data-token');
+            $.ajax({
+                type: 'get',
+                data: {_token: token},
+                url: url,
+            });
+            location.href = "/client";
+        });
+
+    </script>
 
 @endsection
