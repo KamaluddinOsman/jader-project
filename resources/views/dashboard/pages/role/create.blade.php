@@ -21,56 +21,55 @@
 @endsection
 
 @section('content')
+    <div class="page-content">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="page-title mb-0 font-size-18">{{ __('user.addUser') }}</h4>
 
-<div class="page-content">
-    <!-- start page title -->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="page-title mb-0 font-size-18">{{ __('user.userTable') }}</h4>
-
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">{{ __('user.userTable') }}</li>
-                    </ol>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard')}}</a></li>
+                            <li class="breadcrumb-item active">{{ __('user.addUser') }}</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- end page title -->
+        <!-- end page title -->
 
-    @include('admin.layouts.flash-message')
-    @include('flash::message')
+        @include('admin.layouts.flash-message')
+        @include('flash::message')
 
-    <div class="box">
-        <div class="box-body">
-            {!! Form::model($model, ['action' => 'Dashboard\RoleController@store']) !!}
-                @include('/dashboard/pages/role/form')
-                <br>
-                <div class="form-group">
-                    <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">الصلاحيات </label>
+        <div class="box">
+            <div class="box-body">
+                {!! Form::model($model, ['action' => 'Dashboard\RoleController@store']) !!}
+                    @include('/dashboard/pages/role/form')
                     <br>
-                    <label style="margin-top: 19px;font-weight: bold"><input type="checkbox" id="select_all" /> اختيار الكل</label>
-                    <div class="row">
-                        @foreach($perm->all() as $permission)
-                            <div class="col-sm-3 col-lg-2">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="permissions_list[]" value="{{$permission->id}}"> {{$permission->display_name}}
-                                    </label>
+                    <div class="form-group">
+                        <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">الصلاحيات </label>
+                        <br>
+                        <label style="margin-top: 19px;font-weight: bold"><input type="checkbox" id="select_all" /> اختيار الكل</label>
+                        <div class="row">
+                            @foreach($perm->all() as $permission)
+                                <div class="col-sm-3 col-lg-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="permissions_list[]" value="{{$permission->id}}"> {{$permission->display_name}}
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">حفظ</button>
-                </div>
-            {!! Form::close() !!}
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">{{ __('role.addRole') }}</button>
+                    </div>
+                {!! Form::close() !!}
+            </div>
         </div>
     </div>
-</div>
 @endsection
 @section('scripts')
     <script>
