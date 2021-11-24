@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('lang.category')}}
+    @section('page-title')
+    {{ __('notification.notification') }} | {{ __('auth.bageTitle') }}             
     @endsection
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Tables</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('notification.sendNotification') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Data Tables</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard')}}</a></li>
+                            <li class="breadcrumb-item active">{{ __('notification.sendNotification') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -31,40 +31,24 @@
         </div>
         <!-- end page title -->
 
-        {{-- <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <button type="button" style="margin-bottom: 8px" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addCategory">
-                            {{__('lang.addCategory')}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- end col -->
-        </div> --}}
-        <!-- end row -->
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        {{-- <form action="{{route('notification.send')}}" method="post"> --}}
-                        <form action="javascript: void(0)" method="post">
+                        <form action="{{route('notification.send')}}" method="post">
                             @csrf
-            
                             <section class="container">
-
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">
+                                            <div class="card-header">
+                                                <h4>{{ __('notification.sendNotification') }}</h4>
+                                            </div>
                                             <div class="card-body">
-                                                <h4 class="card-title">{{ __('notification.sendNotification') }}</h4>
                                                 <div class="mb-3 row">
                                                     <label class="col-md-2 col-form-label">{{__('notification.type')}}</label>
                                                     <div class="col-md-10">
-                                                        <select class="form-select" aria-label="Default select example">
+                                                        <select class="form-select" name="type" aria-label="Default select example">
                                                             <option value="client">Client</option>
                                                             <option value="car">Car</option>
                                                             <option value="store">Store</option>
@@ -95,33 +79,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                    {{-- <div class="col-md-12">
-                                        <div class="card card-primary">
-                                            <div class="card-header">
-                                                <h3 class="card-title">{{__('lang.notificationSend')}}</h3>
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                
-                                            </div>
-            
-                                            <div class="clearfix"></div>
-            
-                                            <div  style="margin: 0 0 30px 30px" class="form-group">
-                                                <button class="btn btn-primary submit-btn" >{{__('lang.save')}}</button>
-                                            </div>
-                                            <!-- /.card -->
-                                        </div>
-                                    </div>
-                                </div>
-            
                             </section>
-                            <div class="clearfix"></div> --}}
                         </form>
                     </div>
                 </div>

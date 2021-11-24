@@ -1,41 +1,59 @@
-@extends('admin.layouts.layout')
+@extends('dashboard.layouts.main')
+@section('head')
+    @section('page-title')
+        {{ __('user.user') }} | {{ __('auth.bageTitle') }}             
+    @endsection
+    <!-- DataTables -->
+    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    {{-- <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert2/sweetalert.css') }}"> --}}
+@endsection
 @inject('model','App\User')
+
+@include('admin.layouts.flash-message')
+@include('flash::message')
+
 @section('content')
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>User Add</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">{{__('lang.master')}}</a></li>
-                        <li class="breadcrumb-item ">{{__('lang.user')}}</li>
-                        <li class="breadcrumb-item active">{{__('lang.userAdd')}}</li>
-                    </ol>
+    <div class="page-content">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="page-title mb-0 font-size-18">{{ __('user.addUser') }}</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard')}}</a></li>
+                            <li class="breadcrumb-item active">{{ __('user.addUser') }}</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-    @include('admin.layouts.flash-message')
-    @include('flash::message')
-    <div class="box">
-        <div class="box-body">
-            {!! Form::model($model,[
-              'action' => 'Admin\UserController@store'
-        ]) !!}
-
-            @include('/admin/user/form')
-
-            <div class="form-group col-md-12">
-                <button class="btn btn-primary" type="submit">{{__('lang.save')}}</button>
-            </div>
-            </section>
-
-            {!! Form::close() !!}
         </div>
-    </div>
+        <!-- end page title -->
 
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        {!! Form::model( $model, ['action' => 'Dashboard\UserController@store']) !!}
+                            @include('/dashboard/pages/user/form')
+
+                            <div class="form-group col-md-12">
+                                <button class="btn btn-primary" type="submit">{{__('user.addUser')}}</button>
+                            </div>            
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 @endsection

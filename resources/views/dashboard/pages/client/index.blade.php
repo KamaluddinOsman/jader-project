@@ -76,8 +76,8 @@
                                             <td>{{$record->id}}</td>
                                             <td>{{$record->first_name .' '. $record->last_name}}</td>
                                             <td>
-                                                {{-- <a href="{{url('client/'.$record->id)}}" class="btn btn-success"> --}}
-                                                <a href="javascript: void(0)" class="btn btn-success">
+                                                <a href="{{url('client/'.$record->id)}}" class="btn btn-success">
+                                                {{-- <a href="javascript: void(0)" class="btn btn-success"> --}}
                                                     <i class="mdi mdi-file-eye"></i>
                                                 </a>
                                             </td>
@@ -118,7 +118,7 @@
                                 @else
 
                                     <div class="alert alert-warning alert-block">
-                                        <strong>{{__('lang.ThereAreNoData')}}</strong>
+                                        <strong>{{__('user.noData')}}</strong>
                                     </div>
 
                                 @endif
