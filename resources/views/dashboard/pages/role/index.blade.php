@@ -59,10 +59,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>الاسم </th>
-                                    <th>الإسم المعروض </th>
-                                    <th>تعديل</th>
-                                    <th>حذف</th>
+                                    <th>{{ __('role.nameColumn') }}</th>
+                                    <th>{{ __('role.displayNameColumn') }}</th>
+                                    <th>{{ __('role.editColumn') }}</th>
+                                    <th>{{ __('role.deleteColumn') }}</th>
             
                                 </tr>
                             </thead>
@@ -75,19 +75,14 @@
                                             <td>{{$record->name}}</td>
                                             <td>{{$record->display_name}}</td>
                                             <td>
-                                                {{-- <a href="{{url(route('role.edit',$record->id))}}" class="btn btn-warning"> --}}
-                                                <a href="javascript: void(0)" class="btn btn-warning">
+                                                <a href="{{url(route('role.edit',$record->id))}}" class="btn btn-warning">
                                                     <i class="dripicons-document-edit"></i>
                                                 </a>
                                             </td>
                                             <td>
-                                                {{-- <form method="POST" action="{{route('role.destroy', $record->id)}}">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('delete') }} --}}
-                                                <form method="POST" action="javascript: void(0)">
+                                                <form method="POST" action="{{route('role.destroy', $record->id)}}">
                                                     {{ csrf_field() }}
                                                     {{ method_field('delete') }}
-            
                                                     <div class="form-group">
                                                         <a class="btn btn-danger btn-mini deleteRecord">
                                                             <i class="mdi mdi-delete-alert"></i>
