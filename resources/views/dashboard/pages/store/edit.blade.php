@@ -1,58 +1,58 @@
 
 @extends('dashboard.layouts.main')
 @inject('model','App\Store')
-@section('title')
-    {{__('lang.edit')}}
+@section('head')
+    @section('title')
+            {{__('institution.Institution')}}
+    @endsection
+
+    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
-
-
 @section('content')
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
+    <div class="page-content">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="page-title mb-0 font-size-18">{{ __('institution.institutionTable') }}</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('institution.institutionTable') }}</li>
+                        </ol>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/"><i class="fa fa-dashboard"></i> {{__('lang.master')}}</a></li>
-                        <li class="breadcrumb-item"><i class="fa fa-dashboard"></i> {{__('lang.activatedStores')}}</li>
-                        <li class="breadcrumb-item active"><i class="fa fa-dashboard"></i>{{__('lang.edit')}}   {{$records->name}}</li>
-                    </ol>
+            </div>
+        </div>
+        <!-- end page title -->
+        
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        {!! Form::model($records,['action' => ['Dashboard\StoreController@update',$records->id], 'method' => 'put', 'enctype' => 'multipart/form-data']) !!}                
+                    
+                            @include('/dashboard/pages/store/form')
+                            
+                            <div class="row">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary col-sm-2" type="submit">{{__('lang.edit')}}</button>
+                                </div>
+                            </div>
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-    <br>
-    <br>
-
-    @include('dashboard.layouts.flash-message')
-    @include('flash::message')
-    <div class="box">
-        <div class="box-body">
-            {!! Form::model($records,[
-          'action' => ['Dashboard\StoreController@update',$records->id],
-          'method' => 'put',
-          'enctype' => 'multipart/form-data',
-
-        ]) !!}
-
-            <div class="col">
-                    @include('/dashboard/pages/store/form')
-            </div>
-
-<div class="clearfix"></div>
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit">{{__('lang.edit')}}</button>
-            </div>
-
-
-            {!! Form::close() !!}
         </div>
     </div>
-
-
-
 @endsection
 
 
@@ -60,6 +60,46 @@
 @section('scripts')
 
     <script>
+
+        // Select all
+        $('#select_all').click(function () {
+            $('input[type=checkbox]').prop('checked', $(this).prop('checked'));
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // $('#logo').attr('src', e.target.result);
+
+                    $(input).next('img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#logoInp").change(function() {
+            $('#logoNoImage').css('display','none');
+            $('#logo_old').css('display','none');
+            $('#logo').css('display','block');
+            readURL(this);
+        });
+
+        $("#coverInp").change(function() {
+            $('#coverNoImage').css('display','none');
+            $('#cover_old').css('display','none');
+            $('#cover').css('display','block');
+            readURL(this);
+        });
+
+        $("#contractInp").change(function() {
+            $('#contractNoImage').css('display','none');
+            $('#contract_old').css('display','none');
+            $('#contract').css('display','block');
+            readURL(this);
+        });
+
         $("#pac-input").focusin(function() {
             $(this).val('');
         });
@@ -224,6 +264,5 @@
         }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvt4xYX0QycPedzqGKJ7_1sg6KH_iztDA&libraries=places&callback=initAutocomplete&language=ar&region=EG
-         async defer"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvt4xYX0QycPedzqGKJ7_1sg6KH_iztDA&libraries=places&callback=initAutocomplete&language=ar&region=EGasync defer"></script>
 @stop
