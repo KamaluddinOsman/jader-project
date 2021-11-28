@@ -1,513 +1,557 @@
-@extends('admin.layouts.layout')
-<style>
-    .data_rest {
-        width: 150px;
-        font-weight: bold;
-        display: inline-block;
-        color: #1c2529;
-        padding: 9px;
-    }
+@extends('dashboard.layouts.main')
+@section('head')
+    @section('title')
+            {{__('institution.Institution')}}
+    @endsection
 
-    .span_rest {
-        font-size: 20px;
-        color: #0b93d5;
-    }
+    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
 
-    .meal {
-        background-color: #0b97c4;
-        width: 100%;
-        height: 40px;
-        margin-bottom: 12px;
-        margin-top: 11px;
-        border-radius: 5px 5px 0 0;
-    }
-
-    .meal h3 {
-        margin-right: 10px;
-        color: white;
-        padding-top: 8px;
-    }
-
-    .cover-container{
-        background: #1E90FF;
-        background: -webkit-radial-gradient(bottom, #73D6F5 12%, #1E90FF);
-        background: radial-gradient(at bottom, #73D6F5 12%, #1E90FF)
-    }
-    .fb-profile-block-thumb{
-        display: block;
-        height: 315px;
-        overflow: hidden;
-        position: relative;
-        text-decoration: none;
-        margin-bottom: 15px;
-    }
-
-    .profile-img a{
-        bottom: 15px;
-        box-shadow: none;
-        display: block;
-        left: 15px;
-        padding:1px;
-        position: absolute;
-        /*height: 160px;*/
-        /*width: 160px;*/
-        /*background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;*/
-        z-index:9;
-    }
-    .profile-img img {
-        background-color: #fff;
-        border-radius: 2px;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
-        height:158px;
-        padding: 5px;
-        width:158px;
-    }
-    .profile-name {
-        bottom: 25px;
-        left: 281px;
-        position: absolute;
-    }
-    .profile-name h2 {
-        color: #fff;
-        font-size: 24px;
-        font-weight: 500;
-        line-height: 30px;
-        max-width: 300px;
-        position: relative;
-        text-transform: uppercase;
-    }
-</style>
-@section('title')
-    {{__('lang.store')}}
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
-    <!-- Content Header (Page header) -->
+    <div class="page-content">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="page-title mb-0 font-size-18">{{ __('institution.institution') }} : {{$store->name ? $store->name : "" }}</h4>
 
-    <br>
-    <br>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('institution.institution') }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
 
-    @include('admin.layouts.flash-message')
-    @include('flash::message')
+        <div class="row">
+            <div class="col-md-12 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="profile-widgets py-3">
 
+                            <div class="text-center">
+                                <div class="">
+                                    <img src="{{ $store->logo ? asset($store->logo) : asset('img/no_image.png') }}" alt=""
+                                        class="avatar-lg mx-auto img-thumbnail rounded-circle">
+                                    <div class="online-circle"><i class="fas fa-circle text-success"></i>
+                                    </div>
+                                </div>
 
-    <div class="box-body">
-        <div class="table-responsive">
+                                <div class="mt-3 ">
+                                    <a href="#" class="text-dark fw-medium font-size-16">{{ $store->name ? $store->name : ""}}</a>
+                                    <p class="text-body mt-1 mb-1">UI/UX Designer</p>
 
+                                    <span class="badge bg-success">Follow Me</span>
+                                    <span class="badge bg-danger">Message</span>
+                                </div>
 
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="/"><i
-                                            class="fa fa-dashboard"></i> {{__('lang.master')}}</a></li>
-                                <li class="breadcrumb-item"><a href="/store"><i
-                                            class="fa fa-dashboard"></i> {{__('lang.store')}}</a></li>
-                                <li class="breadcrumb-item active"><i class="fa fa-dashboard"></i> {{$store->name}}
-                                </li>
-                            </ol>
+                                <div class="row mt-4 border border-start-0 border-end-0 p-3">
+                                    <div class="col-md-6">
+                                        <h6 class="text-muted">
+                                            Followers
+                                        </h6>
+                                        <h5 class="mb-0">9,025</h5>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <h6 class="text-muted">
+                                            Following
+                                        </h6>
+                                        <h5 class="mb-0">11,025</h5>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+
+                                    <ul class="list-inline social-source-list">
+                                        <li class="list-inline-item">
+                                            <div class="avatar-xs">
+                                                <span class="avatar-title rounded-circle">
+                                                    <i class="mdi mdi-facebook"></i>
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                        <li class="list-inline-item">
+                                            <div class="avatar-xs">
+                                                <span class="avatar-title rounded-circle bg-info">
+                                                    <i class="mdi mdi-twitter"></i>
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                        <li class="list-inline-item">
+                                            <div class="avatar-xs">
+                                                <span class="avatar-title rounded-circle bg-danger">
+                                                    <i class="mdi mdi-google-plus"></i>
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                        <li class="list-inline-item">
+                                            <div class="avatar-xs">
+                                                <span class="avatar-title rounded-circle bg-pink">
+                                                    <i class="mdi mdi-instagram"></i>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div><!-- /.container-fluid -->
-            </section>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Personal Information</h5>
 
-            <!-- Cover -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                                <div class="fb-profile-block-thumb cover-container">
-                                        @if(!empty($store->getOriginal('cover')))
-                                            <img alt="{{$store->name}}"
-                                                 class=""
-                                                 style="background-repeat: no-repeat; background-size: cover; width: 100%"
-                                                 src="{{asset($store->getOriginal('cover'))}}">
-                                        @endif
+                        <p class="card-title-desc">
+                            Hi I'm Patrick Becker, been industry's standard dummy ultrices Cambridge.
+                        </p>
+
+                        <div class="mt-3">
+                            <p class="font-size-12 text-muted mb-1">Email Address</p>
+                            <h6 class="">StaceyTLopez@armyspy.com</h6>
+                        </div>
+
+                        <div class="mt-3">
+                            <p class="font-size-12 text-muted mb-1">Phone number</p>
+                            <h6 class="">001 951-402-8341</h6>
+                        </div>
+
+                        <div class="mt-3">
+                            <p class="font-size-12 text-muted mb-1">Office Address</p>
+                            <h6 class="">2240 Denver Avenue
+                                Los Angeles, CA 90017</h6>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2">My Top Skills</h5>
+                        <p class="text-muted">Suspendisse mattis rutrum orci eu pellentesque. </p>
+                        <ul class="list-unstyled list-inline language-skill mb-0">
+                            <li class="list-inline-item badge bg-primary"><span>java</span></li>
+                            <li class="list-inline-item badge bg-primary"><span>Javascript</span></li>
+                            <li class="list-inline-item badge bg-primary"><span>laravel</span></li>
+                            <li class="list-inline-item badge bg-primary"><span>HTML5</span></li>
+                            <li class="list-inline-item badge bg-primary"><span>android</span></li>
+                            <li class="list-inline-item badge bg-primary"><span>zengo</span></li>
+                            <li class="list-inline-item badge bg-primary"><span>python</span></li>
+                            <li class="list-inline-item badge bg-primary"><span>react</span></li>
+                            <li class="list-inline-item badge bg-primary"><span>php</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12 col-xl-9">
+                <div class="row">
+                    <div class="col-md-12 col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p class="mb-2">{{__('institution.institutionProducts')}}</p>
+                                        <h4 class="mb-0">{{$products ? $products->count() : 0}}</h4>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-end">
+                                            <div>
+                                                2.06 % <i class="mdi mdi-arrow-up text-success ml-1"></i>
+                                            </div>
+                                            <div class="progress progress-sm mt-3">
+                                                <div class="progress-bar" role="progressbar" style="width: 62%"
+                                                    aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="profile-img">
-                                    <a href="#">
-                                        @if(!empty($store->logo))
-                                            <img alt="{{$store->name}}"
-                                                 class="profile-user-img img-fluid img-circle"
-                                                 style="width: 245px;border-radius: 15px"
-                                                 src="{{asset($store->getOriginal('logo'))}}">
-                                        @endif
-                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p class="mb-2">{{__('institution.institutionOrders')}}</p>
+                                        <h4 class="mb-0">{{ $orders ? $orders->count() : 0}}</h4>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-end">
+                                            <div>
+                                                3.12 % <i class="mdi mdi-arrow-up text-success ms-1"></i>
+                                            </div>
+                                            <div class="progress progress-sm mt-3">
+                                                <div class="progress-bar bg-warning" role="progressbar"
+                                                    style="width: 78%" aria-valuenow="78" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="profile-name">
-                                    <h2 style="display: inline-block">{{$store->name}}</h2>
-                                    @if($store->ratio == 6)
-                                       <img title="حساب موثق من جدير" style="width: 30px; margin-top: -8px" src="{{asset('public/storage/images/valid.png')}}">
-                                    @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p class="mb-2">{{__('institution.institutionProfit')}}</p>
+                                        <h4 class="mb-0">{{$profit_store ? $profit_store->count() : 0}}</h4>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-end">
+                                            <div>
+                                                2.12 % <i class="mdi mdi-arrow-up text-success ml-1"></i>
+                                            </div>
+                                            <div class="progress progress-sm mt-3">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                    style="width: 75%" aria-valuenow="75" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#experience" role="tab">
+                                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                    <span class="d-none d-sm-block">Experience</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#revenue" role="tab">
+                                    <span class="d-none d-sm-block">Revenue</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab">
+                                    <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                                    <span class="d-none d-sm-block">Settings</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content p-3 text-muted">
+                            <div class="tab-pane active" id="experience" role="tabpanel">
+                                <div class="timeline-count mt-5">
+                                    <!-- Timeline row Start -->
+                                    <div class="row">
+
+                                        <!-- Timeline 1 -->
+                                        <div class="timeline-box col-lg-4">
+                                            <div class="mb-5 mb-lg-0">
+                                                <div class="item-lable bg-primary rounded">
+                                                    <p class="text-center text-white">2016 - 20</p>
+                                                </div>
+                                                <div class="timeline-line active">
+                                                    <div class="dot bg-primary"></div>
+                                                </div>
+                                                <div class="vertical-line">
+                                                    <div class="wrapper-line bg-light"></div>
+                                                </div>
+                                                <div class="bg-light p-4 rounded mx-3">
+                                                    <h5>Back end Developer</h5>
+                                                    <p class="text-muted mt-1 mb-0">Voluptatem accntium
+                                                        doemque lantium, totam rem aperiam, eaque ipsa quae
+                                                        ab illo quasi sunt explicabo.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Timeline 1 -->
+
+                                        <!-- Timeline 2 -->
+                                        <div class="timeline-box col-lg-4">
+                                            <div class="mb-5 mb-lg-0">
+                                                <div class="item-lable bg-primary rounded">
+                                                    <p class="text-center text-white">2013 - 16</p>
+                                                </div>
+                                                <div class="timeline-line active">
+                                                    <div class="dot bg-primary"></div>
+                                                </div>
+                                                <div class="vertical-line">
+                                                    <div class="wrapper-line bg-light"></div>
+                                                </div>
+                                                <div class="bg-light p-4 rounded mx-3">
+                                                    <h5>Front end Developer</h5>
+                                                    <p class="text-muted mt-1 mb-0">Vivamus ultrices massa
+                                                        tellus, sed convallis urna interdum eu. Pellentesque
+                                                        htant morbi varius mollis et quis nisi.</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Timeline 2 -->
+
+                                        <!-- Timeline 3 -->
+                                        <div class="timeline-box col-lg-4">
+                                            <div class="mb-5 mb-lg-0">
+                                                <div class="item-lable bg-primary rounded">
+                                                    <p class="text-center text-white">2011 - 13</p>
+                                                </div>
+                                                <div class="timeline-line active">
+                                                    <div class="dot bg-primary"></div>
+                                                </div>
+                                                <div class="vertical-line">
+                                                    <div class="wrapper-line bg-light"></div>
+                                                </div>
+                                                <div class="bg-light p-4 rounded mx-3">
+                                                    <h5>UI /UX Designer</h5>
+                                                    <p class="text-muted mt-1 mb-0">Suspendisse potenti.
+                                                        senec netus malesuada fames ac turpis egesta vitae
+                                                        blandit ac tempus nulla.</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Timeline 3 -->
+                                    </div>
+                                    <!-- Timeline row Over -->
+
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="revenue" role="tabpanel">
+                                <div id="revenue-chart" class="apex-charts mt-4"></div>
+                            </div>
+                            <div class="tab-pane" id="settings" role="tabpanel">
+
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="firstname">First Name</label>
+                                            <input type="text" class="form-control" id="firstname"
+                                                placeholder="Enter first name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="lastname">Last Name</label>
+                                            <input type="text" class="form-control" id="lastname"
+                                                placeholder="Enter last name">
+                                        </div>
+                                    </div> <!-- end col -->
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="userbio">Bio</label>
+                                            <textarea class="form-control" id="userbio" rows="4"
+                                                placeholder="Write something..."></textarea>
+                                        </div>
+                                    </div> <!-- end col -->
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-0">
+                                            <label class="form-label" for="useremail">Email Address</label>
+                                            <input type="email" class="form-control" id="useremail"
+                                                placeholder="Enter email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-0">
+                                            <label class="form-label" for="userpassword">Password</label>
+                                            <input type="password" class="form-control" id="userpassword"
+                                                placeholder="Enter password">
+                                        </div>
+                                    </div> <!-- end col -->
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Projects</h4>
+
+                        <div class="table-responsive">
+                            <table class="table table-centered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Projects</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Billing Name</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col" colspan="2">Payment Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Qovex admin UI</td>
+                                        <td>
+                                            21/01/2020
+                                        </td>
+                                        <td>Werner Berlin</td>
+                                        <td>$ 125</td>
+                                        <td><span class="badge badge-soft-success font-size-12">Paid</span>
+                                        </td>
+                                        <td><a href="#" class="btn btn-primary btn-sm">View</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Qovex admin Logo
+                                        </td>
+                                        <td>16/01/2020</td>
+
+                                        <td>Robert Jordan</td>
+                                        <td>$ 118</td>
+                                        <td><span class="badge badge-soft-danger font-size-12">Chargeback</span>
+                                        </td>
+                                        <td><a href="#" class="btn btn-primary btn-sm">View</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Redesign - Landing page
+                                        </td>
+                                        <td>17/01/2020</td>
+
+                                        <td>Daniel Finch</td>
+                                        <td>$ 115</td>
+                                        <td><span class="badge badge-soft-success font-size-12">Paid</span>
+                                        </td>
+                                        <td><a href="#" class="btn btn-primary btn-sm">View</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Blog Template
+                                        </td>
+                                        <td>18/01/2020</td>
+
+                                        <td>James Hawkins</td>
+                                        <td>$ 121</td>
+                                        <td><span class="badge badge-soft-warning font-size-12">Refund</span>
+                                        </td>
+                                        <td><a href="#" class="btn btn-primary btn-sm">View</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3">
+                            <ul class="pagination pagination-rounded justify-content-center mb-0">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-3">
-
-                            <!-- Profile Image -->
-                            <div class="card card-primary card-outline">
-                                <div class="card-body box-profile">
-
-                                    <ul class="list-group list-group-unbordered mb-3">
-
-                                        <li style="border-top: none" class="list-group-item">
-                                            <b>{{__('lang.company_register')}} : </b> <a
-                                                class="float-right">{{$store->company_register}}</a>
-                                        </li>
-
-                                        <li class="list-group-item">
-                                            <b>{{__('lang.num_tax')}} </b> <a
-                                                class="float-right">{{$store->num_tax}}</a>
-                                        </li>
-
-                                        <li class="list-group-item">
-                                            <b>{{__('lang.phone')}} </b> <a
-                                                class="float-right">{{$store->phone1}}</a>
-                                        </li>
-                                    </ul>
-
-                                    <div style="padding: 8px" class="text-center media">
-                                        <a style="margin: 5px" target="_blank" href="{{$store->facebook}}">
-                                            <i class="fab fa-facebook fa-2x"></i>
-                                        </a>
-
-                                        <a style="margin: 5px" target="_blank"
-                                           href="https://api.whatsapp.com/send?phone={{$store->whatsapp}}">
-                                            <i style="color: #239241" class="fab fa-whatsapp fa-2x"></i>
-                                        </a>
-
-                                    </div>
-
-                                    <a href="{{'active/'.$store->id}}"
-                                       class="btn {{$store->active == 1 ? 'btn-danger' : 'btn-success' }} btn-block"><b>{{$store->active == 1 ? 'Block' : 'Active' }}</b></a>
-                                    <b class="btn btn-info btn-block">{{$store->active == 'open' ? 'Opened Now' : 'Closed Now' }}</b>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-
-                            <!-- About Me Box -->
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">About</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <strong><i class="fas fa-user-circle"> </i> Responsible</strong>
-
-                                    <p class="text-muted">
-                                        {{$store->name_responsible}}<br>
-                                        {{$store->responsible_position}}<br>
-                                        {{$store->responsible_mobile}}
-                                    </p>
-
-                                    <hr>
-
-                                    <strong><i class="fas fa-user-circle"> </i> Authorized</strong>
-
-                                    <p class="text-muted">
-                                        {{$store->name_authorized}}<br>
-                                        {{$store->authorized_mobile}}
-                                    </p>
-
-                                    <hr>
-
-                                    <strong><i class="fa fa-money mr-1"></i> Legal Name</strong>
-
-                                    <p class="text-muted">{{$store->legal_name}}</p>
-
-                                    <hr>
-
-                                    <strong><i class="fa fa-money mr-1"></i> Email</strong>
-
-                                    <p class="text-muted">{{$store->email}}</p>
-
-                                    <hr>
-
-                                    <strong><i class="fa fa-money mr-1"></i> Minimum Order</strong>
-
-                                    <p class="text-muted">{{$store->minimum_order}}</p>
-
-                                    <hr>
-
-                                    <strong><i class="fa fa-money mr-1"></i> Delivery Price</strong>
-
-                                    <p class="text-muted">{{$store->delivery_price}}</p>
-
-                                    <hr>
-
-                                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                                    <p class="text-muted">{{$store->address}}</p>
-
-                                    <hr>
-
-                                    <strong><i class="fas fa-pencil-alt mr-1"></i> Contract</strong>
-
-                                    <p> <a href="{{asset($store->getOriginal('picture_contract'))}}"> Contract </a> </p>
-                                    <hr>
-
-                                    <strong><i class="fas fa-pencil-alt mr-1"></i> Front Store</strong>
-
-                                    <p> <a href="{{asset($store->getOriginal('front_img'))}}"> Front Store </a> </p>
-                                    <hr>
-
-                                    <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                                    <p class="text-muted">{{$store->about}}</p>
-
-                                    <hr>
-
-                                    @if(!empty($store->day_work))
-                                        <strong><i class="fas fa-calendar mr-1"></i> Day Of Work</strong>
-                                        <p class="text-muted">
-                                            <?php $days = new \Carbon\Carbon(now()) ?>
-                                            {{-- @foreach(json_decode($store->day_work) as $key => $val)
-                                                <span class="badge {{$days->dayName == $val ? 'badge-warning': 'badge-success'}}">{{$val}}</span>
-                                            @endforeach --}}
-                                            <br>
-                                            <span style="display: inline-block; margin-right: 20px; font-size: 13px"><i style="color: #007fff" class="fas fa-hourglass"></i>{{date('h:i', strtotime($store->start_time))}}</span>
-                                            <span style="display: inline-block; font-size: 13px"><i style="color: #007fff" class="fas fa-hourglass-end"></i> {{date('h:i', strtotime($store->end_time))}}</span>
-                                        </p>
-                                    <hr>
-                                    @endif
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                        <!-- /.col -->
-                        <!-- /.col -->
-                        <div class="col-md-9">
-                            <div class="card">
-                                <div class="card-header p-2">
-                                    <ul class="nav nav-pills">
-                                        <li class="nav-item"><a class="nav-link active" href="#activity"
-                                                                data-toggle="tab">{{__('lang.product')}}</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Order</a>
-                                        </li>
-                                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Money</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#location" data-toggle="tab">Location</a></li>
-                                    </ul>
-                                </div><!-- /.card-header -->
-                                <div class="card-body">
-                                    <div class="tab-content">
-                                        <div class="active tab-pane" id="activity">
-                                            <div style="display: inline-block" class="text-left">
-                                               <p>عرض كل منتجات العميل</p>
-                                            </div>
-                                            <div style="display: inline-block; float: right"  class="text-right">
-                                                <a href="{{url('product/create/' .$store->id)}}" class="btn btn-sm btn-primary">
-                                                    <i class="fas fa-plus"></i> Add Product
-                                                </a>
-                                            </div>
-
-                                            <!-- Default box -->
-                                            <div class="card card-solid">
-                                                <div class="card-body pb-0">
-                                                    <div class="row d-flex align-items-stretch">
-                                                        @foreach($products as $product)
-                                                            <div class="col-lg-3 col-sm-6 col-md-4 d-flex align-items-stretch">
-                                                                <div class="card bg-light">
-                                                                    <div class="card-header text-muted border-bottom-0">
-                                                                        <h2 class="lead"><b>{{$product->name}}</b></h2>
-                                                                    </div>
-                                                                    <div class="card-body pt-0">
-                                                                        <div class="row">
-                                                                            <div class="text-center">
-                                                                                <img
-                                                                                    src="{{asset($product->getOriginal('image1'))}}"
-                                                                                    alt="{{$product->name}}"
-                                                                                    class="img-fluid">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="card-footer">
-                                                                        <div class="text-right">
-                                                                            <a href="{{url('product/ProductShow/'.$product->id)}}" class="btn btn-sm btn-primary">
-                                                                                <i class="fa fa-eye"></i>
-                                                                            </a>
-
-                                                                            <a href="{{url('product/'.$product->id.'/edit')}}" class="btn btn-sm btn-success">
-                                                                                <i class="fa fa-edit"></i>
-                                                                            </a>
-
-                                                                            <form style="display: inline-block" method="POST" action="{{route('product.destroy', $product->id)}}">
-                                                                                {{ csrf_field() }}
-                                                                                {{ method_field('DELETE') }}
-
-                                                                                <a class="btn btn-sm btn-danger deleteRecord">
-                                                                                    <i class="fa fa-trash"></i>
-                                                                                </a>
-                                                                            </form>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @endforeach
-
-                                                    </div>
-                                                    <div style="display: block; margin: 0 auto">
-                                                        {{ $products->links() }}
-                                                    </div>
-                                                </div>
-                                                <!-- /.card-body -->
-
-                                            </div>
-                                            <!-- /.card -->
-
-
-                                        </div>
-                                        <!-- /.tab-pane -->
-                                        <div class="tab-pane" id="timeline">
-                                            <!-- The timeline -->
-                                            <div class="">
-                                                <table id="example1" class="table table-bordered table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>order_id</th>
-                                                        <th>product</th>
-                                                        <th>quantity</th>
-                                                        <th>discount</th>
-                                                        <th>price</th>
-                                                        <th>status</th>
-
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @if(count($orders))
-
-                                                        @foreach($orders as $order)
-                                                            <tr>
-                                                                <td>{{$order->id}}</td>
-                                                                <td>{{$order->order_id}}</td>
-                                                                <td>{{$order->product->name}}</td>
-                                                                <td>{{$order->quantity}}</td>
-                                                                <td>{{$order->discount}}</td>
-                                                                <td>{{$order->price}}</td>
-                                                                @if($order->status == "complete")
-                                                                    <td class="text-success">{{$order->status}}</td>
-                                                                @else
-                                                                    <td class="text-danger">{{$order->status}}</td>
-                                                                @endif
-                                                            </tr>
-                                                        @endforeach
-
-                                                    @else
-
-                                                        <div class="alert alert-warning alert-block">
-                                                            <strong>{{__('lang.ThereAreNoData')}}</strong>
-                                                        </div>
-
-                                                    @endif
-                                                    </tbody>
-
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <!-- /.tab-pane -->
-
-                                        <div class="tab-pane" id="settings">
-                                            <form class="form-horizontal">
-
-                                                @if(count($money))
-                                                    <table class="table">
-                                                    <thead class="thead-dark">
-                                                    <tr>
-                                                        <th scope="col">كل المبيعات</th>
-                                                        <th scope="col">ارباح الموقع</th>
-                                                        <th scope="col">ارباح المؤسسة</th>
-                                                        <th scope="col">التحويل النقدى للمؤسسة</th>
-                                                        <th scope="col">المتبقى</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <th scope="row">{{$total}}</th>
-                                                        <td>{{$profit_site}}</td>
-                                                        <td>{{$profit_store}}</td>
-                                                        <td>{{$cash_withdrawal}}</td>
-                                                        <td>{{$net_commissions}}</td>
-                                                    </tr>
-                                                    </tbody>
-
-                                                        <h1> عرض حركات تحويل نسبة المؤسسة</h1>
-                                                        <h1> خصم تحويل نسبة المؤسسة</h1>
-                                                        <h1>عرض المكان على الخريطه</h1>
-                                                </table>
-                                                @endif
-
-                                            </form>
-                                        </div>
-                                        <!-- /.tab-pane -->
-
-                                        <div class="tab-pane" id="location">
-                                            <form class="form-horizontal">
-                                                <input hidden value="{{$store->lang}}">
-                                                <input hidden value="{{$store->late}}">
-                                                <!--Google map-->
-                                                <div id="map" style="width: 898px; height: 500px">
-                                                </div>
-                                                <!--Google Maps-->
-                                            </form>
-                                        </div>
-                                        <!-- /.tab-pane -->
-                                    </div>
-                                    <!-- /.tab-content -->
-                                </div><!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                        <!-- /.col -->
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
-
-            </div>
         </div>
+    </div>
+@endsection
+@section('scripts')
+    <!-- Required datatable js -->
+    <script src="{{ asset('dashboard/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+
+    <!-- Buttons examples -->
+    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/pdfmake/build/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- Responsive examples -->
+    <script src="{{ asset('dashboard/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+
+    <!-- Datatable init js -->
+    {{-- <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script> --}}
+
+    <!-- Sweet Alerts js -->
+    <script src="{{ asset('dashboard/libs/sweetalert2/sweetalert.min.js') }}"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="{{ asset('dashboard/js/pages/sweet-alerts.init.js') }}"></script>
 
 
+{{-- <script src="{{ asset('dashboard/js/custom.js') }}"></script> --}}
 
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvt4xYX0QycPedzqGKJ7_1sg6KH_iztDA&callback=initMap&libraries=&v=weekly"
-        defer
-    ></script>
     <script>
-        // Initialize and add the map
-        function initMap() {
-            // The location of Uluru
-            const uluru = { lat: {{$store->late}}, lng: {{$store->lang}} };
-            // The map, centered at Uluru
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 19,
-                center: uluru,
+
+        $(function () {
+            $("#datatable").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                }
             });
-            // The marker, positioned at Uluru
-            const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
+        });
+
+        // Changing Category Status
+        $('.activeCheck').change(function () {
+            var url = this.getAttribute('data-url');
+            var token = this.getAttribute('data-token');
+            $.ajax({
+                type: 'get',
+                data: {_token: token},
+                url: url,
             });
-        }
+            location.href = "/store";
+        });
 
     </script>
-
-@endsection
-
-@section('script')
 
 @endsection

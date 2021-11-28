@@ -22,7 +22,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Image;
-use File;
+// use File;
+use Illuminate\Support\Facades\File;
 use Ramsey\Uuid\Uuid;
 
 class StoreController extends Controller
@@ -202,6 +203,7 @@ class StoreController extends Controller
      */
     public function edit($id)
     {
+         
         $district = District::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name', 'id');
         $store = Store::first();
         $records = Store::findOrFail($id);
@@ -284,27 +286,35 @@ class StoreController extends Controller
         }
 
         //Upload Image
-        if ($request->hasFile('logo')) {
-            File::delete('storage/images/store/' . $records->image);
-            $image_tmp = Input::file('logo');
-            if ($image_tmp->isValid()) {
-                $filename = time() . '.' . $image_tmp->getClientOriginalExtension();
-                $path = public_path('storage/images/store/' . $filename);
-                $global = config('constants.image_Url');
-                $url = $global . 'store/' . $filename;
-                Image::make($image_tmp->getRealPath())->resize(468, 249)->save($path);
-                $records->logo = $url;
+        if($file = $request->file('logo')){
+            if (File::exists($records->logo)){
+                @unlink(public_path().'/'.$records->logo);
+            }
+            $fileName = time().'instilogo'.$file->getClientOriginalName();
+            if($file->move('img/store/',$fileName)){
+                $records['logo'] = 'img/store/'. $fileName;
             }
         }
 
-        if ($file = $request->file('picture_contract')) {
-            $records->picture_contract = uploadImage($file, 'store');
+        if($file = $request->file('cover')){
+            if (File::exists($records->cover)){
+                @unlink(public_path().'/'.$records->cover);
+            }
+            $fileName = time().'insticover'.$file->getClientOriginalName();
+            if($file->move('img/store/',$fileName)){
+                $records['cover'] = 'img/store/'. $fileName;
+            }
         }
 
-        if ($file = $request->file('cover')) {
-            $records->cover = uploadImage($file, 'store');
+        if($file = $request->file('picture_contract')){
+            if (File::exists($records->picture_contract)){
+                @unlink(public_path().'/'.$records->picture_contract);
+            }
+            $fileName = time().'insticontract'.$file->getClientOriginalName();
+            if($file->move('img/store/',$fileName)){
+                $records['picture_contract'] = 'img/store/'. $fileName;
+            }
         }
-
 
         $records->save();
         flash()->success(__('lang.doneSave'));
@@ -322,6 +332,19 @@ class StoreController extends Controller
         RequestLog::create(['content' => $id, 'service' => 'delete Store']);
 
         $records = Store::findOrFail($id);
+
+        if (File::exists($records->logo)){
+            @unlink(public_path().'/'.$records->logo);
+        }
+
+        if (File::exists($records->cover)){
+            @unlink(public_path().'/'.$records->cover);
+        }
+
+        if (File::exists($records->picture_contract)){
+            @unlink(public_path().'/'.$records->picture_contract);
+        }
+
         $records->delete();
         flash()->success(__('lang.doneDelete'));
         return redirect('/store');

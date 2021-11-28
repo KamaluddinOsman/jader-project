@@ -84,25 +84,25 @@ class Store extends Model
 //        return $filtered;
 //	}
 
-    public function getLogoAttribute($value)
-    {
-        return url()->previous().'/'.$value;
-    }
+    // public function getLogoAttribute($value)
+    // {
+    //     return url()->previous().'/'.$value;
+    // }
 
-    public function getFrontImgAttribute($value)
-    {
-        return url()->previous().'/'.$value;
-    }
+    // public function getFrontImgAttribute($value)
+    // {
+    //     return url()->previous().'/'.$value;
+    // }
 
-    public function getCoverAttribute($value)
-    {
-        return url()->previous().'/'.$value;
-    }
+    // public function getCoverAttribute($value)
+    // {
+    //     return url()->previous().'/'.$value;
+    // }
 
-    public function getPictureContractAttribute($value)
-    {
-        return url()->previous().'/'.$value;
-    }
+    // public function getPictureContractAttribute($value)
+    // {
+    //     return url()->previous().'/'.$value;
+    // }
 
     public function client()
     {
