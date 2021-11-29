@@ -1,14 +1,14 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('lang.category')}}
+    @section('page-title')
+        {{ __('product.product') }} | {{ __('auth.bageTitle') }}             
     @endsection
-    <!-- DataTables -->
-    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+
 
 @endsection
 @section('content')
@@ -51,18 +51,18 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatable-buttons"
+                        <table id="datatable"
                             class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{__('lang.image')}}</th>
-                                    <th>{{__('lang.name')}}</th>
-                                    <th>{{__('lang.store')}}</th>
-                                    <th>{{__('lang.spacialCategory')}}</th>
-                                    <th>{{__('lang.action')}}</th>
+                                    <th>{{__('product.imageColumn')}}</th>
+                                    <th>{{__('product.nameColumn')}}</th>
+                                    <th>{{__('product.storeColumn')}}</th>
+                                    <th>{{__('product.spacialCategoryColumn')}}</th>
+                                    <th>{{__('product.actionColumn')}}</th>
         
                                 </tr>
                             </thead>
@@ -76,19 +76,16 @@
                                             <td>{{$record->name ?? ''}}</td>
                                             <td>{{$record->store->name  ?? ''}}</td>
                                             <td>{{$record->spacialCategory->name  ?? ''}}</td>
-                                            <td style="display: inline-block">
+                                            <td>
                                                 {{-- <a style="display: inline-block" href="{{url('product/'.$record->id)}}" class="btn btn-success" title="عرض"> --}}
                                                 <a style="display: inline-block" href="javascript: void(0)" class="btn btn-success" title="عرض">
                                                     <i class="mdi mdi-file-eye"></i>
                                                 </a>
         
-                                                {{-- <form style="display: inline-block" method="POST" action="{{route('product.destroy', $record->id)}}">
+                                                <form style="display: inline-block" method="POST" action="{{route('product.destroy', $record->id)}}">
                                                     {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }} --}}
-                                                    <form style="display: inline-block" method="POST" action="javascript: void(0)">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('DELETE') }}
-        
+                                                    {{ method_field('DELETE') }}
+
                                                     <div class="form-group">
                                                         <a class="btn btn-danger btn-mini deleteRecord">
                                                             <i class="mdi mdi-delete-alert" title="حذف"></i>
@@ -96,16 +93,14 @@
                                                     </div>
                                                 </form>
         
-                                                {{-- <a style="display: inline-block" href="{{url('product/active/'.$record->id)}}" class="btn btn-secondary" title="تفعيل"><i class="fa fa-check"></i></a> --}}
-                                                <a style="display: inline-block" href="javascript: void(0)" class="btn btn-secondary" title="تفعيل">
+                                                <a style="display: inline-block" href="{{url('product/active/'.$record->id)}}" class="btn btn-secondary" title="تفعيل">
                                                     <i class="dripicons-checkmark"></i>
                                                 </a>
         
                                                 <button type="button" style="display: inline-block" data-productId="{{$record->id}}"
                                                         class="btn btn-primary"
-                                                        {{-- data-toggle="modal" data-target="#cancelProduct" title="كنسلة"> --}}
-                                                        data-toggle="modal" data-target="javascript: void(0)" title="كنسلة">
-                                                    <i class="dripicons-document-delete"></i>
+                                                        data-bs-toggle="modal" data-bs-target="#cancelProduct" title="كنسلة">
+                                                    <i class="{{ App::isLocale('ar') ? 'dripicons-document' : 'dripicons-document-delete'}}"></i>
                                                 </button>
                                         </tr>
                                     @endforeach
@@ -113,7 +108,7 @@
                                 @else
         
                                     <div class="alert alert-warning alert-block">
-                                        <strong>{{__('lang.ThereAreNoData')}}</strong>
+                                        <strong>{{__('product.noData')}}</strong>
                                     </div>
         
                                 @endif
@@ -129,68 +124,33 @@
 
     </div>
 
-     <!-- Edit Category Modal -->
-    <div class="modal fade" id="editCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="editCategoryLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
+     <!-- Modal -->
+    <div class="modal fade" id="cancelProduct" tabindex="-1" role="dialog" aria-labelledby="cancelProductTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editCategoryLabel">
-                        {{__('lang.EditCategory')}}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLongTitle">الغاء عرض المنتج</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{route('category.update','category')}}" method="post" enctype="multipart/form-data">
-                        {{method_field('PUT')}}
-                        {{csrf_field()}}
-                        <input type="hidden" name="category_id" id="category_id" value="">
-                        {{-- @include('/dashboard/pages/store/form') --}}
-                        {{-- <button class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button> --}}
-                
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button 
-                                class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button>
+                <form action="{{route('product.cancel')}}" method="post">
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            @csrf
+                            <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label"> سبب
+                                الالغاء </label>
+                            <textarea class="form-control" name="body"></textarea>
+                            <input type="hidden" name="product_id" id="product_id" value="">
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">حفظ</button>
+                    </div>
+                </form>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <!-- Add Category Modal-->
-    <div class="modal fade" id="addCategory" data-bs-backdrop="static"
-        data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCategoryLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryLabel">
-                        {{__('lang.Addcategory')}}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{-- @include('/dashboard/pages/store/create') --}}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                    <button 
-                        class="btn btn-primary" type="submit"> {{__('lang.add')}}</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
     </div>
 @endsection
 @section('scripts')
@@ -212,8 +172,57 @@
     <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
     <!-- Datatable init js -->
-    <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
+    {{-- <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script> --}}
 
-    {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
+    <!-- Sweet Alerts js -->
+    <script src="{{ asset('dashboard/libs/sweetalert2/sweetalert.min.js') }}"></script>
 
+    <!-- Sweet alert init js-->
+    <script src="{{ asset('dashboard/js/pages/sweet-alerts.init.js') }}"></script>
+
+
+{{-- <script src="{{ asset('dashboard/js/custom.js') }}"></script> --}}
+
+    <script>
+
+        $(function () {
+            $("#datatable").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                }
+            });
+        });
+
+        $('#cancelProduct').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var product_id = button.data('productid') // Extract info from data-* attributes
+            var modal = $(this)
+            modal.find('.modal-body #product_id').val(product_id);
+        });
+    </script>
 @endsection

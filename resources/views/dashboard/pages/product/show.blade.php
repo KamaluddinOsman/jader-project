@@ -1,6 +1,15 @@
-@extends('admin.layouts.layout')
-@section('title')
-    {{__('lang.product')}}
+@extends('dashboard.layouts.main')
+@section('head')
+    @section('page-title')
+        {{ __('product.product') }} | {{ __('auth.bageTitle') }}             
+    @endsection
+
+    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+
+
 @endsection
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +17,7 @@
     <br>
     <br>
 
-    @include('admin.layouts.flash-message')
+    @include('dashboard.layouts.flash-message')
     @include('flash::message')
 
 
@@ -28,7 +37,7 @@
                                             class="fa fa-dashboard"></i> {{__('lang.master')}}</a></li>
                                 <li class="breadcrumb-item"><a href="/store"><i
                                             class="fa fa-dashboard"></i> {{__('lang.product')}}</a></li>
-                                <li class="breadcrumb-item active"><i class="fa fa-dashboard"></i> {{$product->name}}
+                                <li class="breadcrumb-item active"><i class="fa fa-dashboard"></i> {{$product->name ? $product->name : ""}}
                                 </li>
                             </ol>
                         </div>
@@ -48,7 +57,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 col-sm-6">
-                                    <h3 class="d-inline-block d-sm-none">{{$product->name}}</h3>
+                                    <h3 class="d-inline-block d-sm-none">{{$product->name ? $product->name : ""}}</h3>
                                     <div class="col-12">
 
                                         <img src="{{asset($product->getOriginal('image1'))}}" class="product-image" alt="Product Image">
@@ -61,7 +70,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <h3 class="my-3">{{$product->name}}</h3>
+                                    <h3 class="my-3">{{$product->name ? $product->name : ""}}</h3>
                                     <p>{{$product->notes}}</p>
 
                                     <hr>
@@ -70,7 +79,7 @@
                                         @foreach($product->colors as $a)
                                             <label class="btn btn-default text-center active">
                                                 <input type="radio" name="color_option" id="color_option_a1" autocomplete="off" checked>
-                                                {{$a->name}}
+                                                {{$a->name ? $a->name : ""}}
                                                 <br>
                                                 <i style="color: {{$a->code}}" class="fas fa-circle fa-2x"></i>
                                             </label>
@@ -85,7 +94,7 @@
                                     </div>
 
                                     <div>
-                                        <h5  class="text-gray mt-3"> البائع : {{$product->store->name}}</h5>
+                                        <h5  class="text-gray mt-3"> البائع : {{$product->store ? $product->store->name : "" }}</h5>
                                     </div>
 
                                 </div>

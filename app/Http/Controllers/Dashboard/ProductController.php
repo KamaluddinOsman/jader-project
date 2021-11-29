@@ -7,6 +7,7 @@ use App\RequestLog;
 use App\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Ramsey\Uuid\Uuid;
 
 class ProductController extends Controller
@@ -87,6 +88,24 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $product = Product::findOrFail($id);
+
+        if (File::exists($product->image1)){
+            @unlink(public_path().'/'.$product->image1);
+        }
+        if (File::exists($product->image2)){
+            @unlink(public_path().'/'.$product->image2);
+        }
+        if (File::exists($product->image3)){
+            @unlink(public_path().'/'.$product->image3);
+        }
+        if (File::exists($product->image4)){
+            @unlink(public_path().'/'.$product->image4);
+        }
+
+        $product->delete();
+        flash()->success(__('lang.doneDelete'));
+        return back();
 
     }
 
@@ -112,9 +131,10 @@ class ProductController extends Controller
         RequestLog::create(['content' => $request->store_id, 'service' => 'cancel Store']);
 
         $product =Product::findOrFail($request->product_id);
+
         $product->status = 2;
         $product->save();
-
+        
         $store = Store::where('id', $product->store_id)->first();
 
         $client = \App\Client::where('id', $store->client_id)->first();
