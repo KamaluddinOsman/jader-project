@@ -14,25 +14,25 @@ class Product extends Model
     public $timestamps = true;
     protected $appends = ['favourite', 'offer', 'cart'];
 
-    public function getImage1Attribute($value)
-    {
-        return url()->previous().'/'.$value;
-    }
+    // public function getImage1Attribute($value)
+    // {
+    //     return url()->previous().'/'.$value;
+    // }
 
-    public function getImage2Attribute($value)
-    {
-        return url()->previous().'/'.$value;
-    }
+    // public function getImage2Attribute($value)
+    // {
+    //     return url()->previous().'/'.$value;
+    // }
 
-    public function getImage3Attribute($value)
-    {
-        return url()->previous().'/'.$value;
-    }
+    // public function getImage3Attribute($value)
+    // {
+    //     return url()->previous().'/'.$value;
+    // }
 
-    public function getImage4Attribute($value)
-    {
-        return url()->previous().'/'.$value;
-    }
+    // public function getImage4Attribute($value)
+    // {
+    //     return url()->previous().'/'.$value;
+    // }
     protected $fillable = array('store_id', 'calories', 'spacialCategory_id', 'brands_id', 'name', 'rate', 'code' , 'price' , 'quantity', 'notes', 'image1', 'image2', 'image3', 'image4', 'type', 'rest_quantity', 'status');
 
     public function store()

@@ -29,22 +29,18 @@
     <div class="box">
         <div class="box-body">
 
-        {!! Form::model($model,[
-          'action' => 'Admin\StoreController@store',
-          'enctype' => 'multipart/form-data',
+            {!! Form::model($model,['action' => 'Admin\StoreController@store','enctype' => 'multipart/form-data']) !!}
 
-        ]) !!}
-
-            <div class="col">
-                @include('/admin/store/form')
+                <div class="col">
+                    @include('/dashboard/store/form')
+                    <div class="clearfix"></div>
+                </div>
                 <div class="clearfix"></div>
-            </div>
-            <div class="clearfix"></div>
 
-            <div  style="margin: 0 0 30px 30px" class="form-group">
-                <br>
-                <button class="btn btn-primary submit-btn" disabled type="submit">{{__('lang.save')}}</button>
-            </div>
+                <div  style="margin: 0 0 30px 30px" class="form-group">
+                    <br>
+                    <button class="btn btn-primary submit-btn" disabled type="submit">{{__('lang.save')}}</button>
+                </div>
 
             {!! Form::close() !!}
         </div>
