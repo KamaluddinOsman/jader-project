@@ -30,7 +30,7 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <div>
-                                            <p class="text-muted fw-medium mt-1 mb-2">Orders</p>
+                                            <p class="text-muted fw-medium mt-1 mb-2">الطلبات الحالية</p>
                                             <h4>1,368</h4>
                                         </div>
                                     </div>
@@ -50,7 +50,7 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <div>
-                                            <p class="text-muted fw-medium mt-1 mb-2">Revenue</p>
+                                            <p class="text-muted fw-medium mt-1 mb-2">طلبات منتظرة</p>
                                             <h4>$ 32,695</h4>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Sales Report</h4>
+                        <h4 class="card-title mb-4">حركة العملاء</h4>
                         <div class="row">
                             <div class="col-sm-7">
                                 <div>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6">
+            {{-- <div class="col-xl-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="float-end">
@@ -106,9 +106,79 @@
                         <div id="mixed-chart" class="apex-charts"></div>
                     </div>
                 </div>
+            </div> --}}
+
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <p class="mb-2">المنشاءات المفتوحة</p>
+                                <h4 class="mb-0">3,524</h4>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-end">
+                                    <div>
+                                        2.06 % <i class="mdi mdi-arrow-up text-success ms-1"></i>
+                                    </div>
+                                    <div class="progress progress-sm mt-3">
+                                        <div class="progress-bar" role="progressbar" style="width: 62%"
+                                            aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <p class="mb-2">المنشاءات المغلقة</p>
+                                <h4 class="mb-0">5,362</h4>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-end">
+                                    <div>
+                                        3.12 % <i class="mdi mdi-arrow-up text-success ms-1"></i>
+                                    </div>
+                                    <div class="progress progress-sm mt-3">
+                                        <div class="progress-bar bg-warning" role="progressbar"
+                                            style="width: 78%" aria-valuenow="78" aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <p class="mb-2">Marketing</p>
+                                <h4 class="mb-0">6,245</h4>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-end">
+                                    <div>
+                                        2.12 % <i class="mdi mdi-arrow-up text-success ms-1"></i>
+                                    </div>
+                                    <div class="progress progress-sm mt-3">
+                                        <div class="progress-bar bg-success" role="progressbar"
+                                            style="width: 75%" aria-valuenow="75" aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
             </div>
 
-            <div class="col-xl-6">
+            {{-- <div class="col-xl-6">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Earning</h4>
@@ -148,18 +218,18 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-xl-3">
+            {{-- <div class="col-xl-3">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Yearly sales</h4>
+                        <h4 class="card-title mb-4">المبيعات</h4>
 
                         <div id="radar-chart" class="apex-charts"></div>
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- end row -->
 

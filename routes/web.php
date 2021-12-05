@@ -70,6 +70,7 @@ Route::group(
                 
                 Route::resource('city.district', 'CityDistrictController');
                 Route::delete('city.district/{id}', 'CityDistrictController@destroy')->name('city.district.destroy');
+                Route::resource('orders', OrderController::class);
 
                 Route::group(['prefix' => 'category'], function () {
                     Route::get('/', 'CategoryController@index')->name('category.index');

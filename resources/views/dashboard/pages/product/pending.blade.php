@@ -77,8 +77,7 @@
                                             <td>{{$record->store->name  ?? ''}}</td>
                                             <td>{{$record->spacialCategory->name  ?? ''}}</td>
                                             <td>
-                                                {{-- <a style="display: inline-block" href="{{url('product/'.$record->id)}}" class="btn btn-success" title="عرض"> --}}
-                                                <a style="display: inline-block" href="javascript: void(0)" class="btn btn-success" title="عرض">
+                                                <a style="display: inline-block" href="{{url('product/'.$record->id)}}" class="btn btn-success" title="عرض">
                                                     <i class="mdi mdi-file-eye"></i>
                                                 </a>
         

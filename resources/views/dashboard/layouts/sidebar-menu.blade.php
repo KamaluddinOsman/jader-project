@@ -79,6 +79,13 @@
         </li>
 
         <li>
+            <a href="{{url('/orders')}}" class=" waves-effect">
+                <i class="mdi mdi-shopify"></i>
+                <span>{{__('dashboard.menuItemOrders')}}</span>
+            </a>
+        </li>
+
+        <li>
             <a href="{{url('/offer')}}" class=" waves-effect">
                 <i class="mdi mdi-coin"></i>
                 <span>{{__('dashboard.menuItemOffer')}}</span>

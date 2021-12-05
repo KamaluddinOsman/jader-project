@@ -366,8 +366,6 @@
 
                                             </div>
                                             <!-- /.card -->
-
-
                                         </div>
                                         <!-- /.tab-pane -->
                                         <div class="tab-pane" id="timeline">
@@ -483,10 +481,7 @@
 
 
 
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvt4xYX0QycPedzqGKJ7_1sg6KH_iztDA&callback=initMap&libraries=&v=weekly"
-        defer
-    ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvt4xYX0QycPedzqGKJ7_1sg6KH_iztDA&callback=initMap&libraries=&v=weekly" defer></script>
     <script>
         // Initialize and add the map
         function initMap() {

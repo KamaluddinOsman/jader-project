@@ -22,6 +22,7 @@
           'menuItemProductSub1'     => 'نشط',
           'menuItemProductSub2'     => 'قيد الانتظار',
           'menuItemProductSub3'     => 'مرفوض',
+        'menuItemOrders'            => 'الطلبات',
         'menuItemOffer'             => 'عروض',
         'menuItemCar'               => 'كباتن',
           'menuItemCarSub1'         => 'نشط',
