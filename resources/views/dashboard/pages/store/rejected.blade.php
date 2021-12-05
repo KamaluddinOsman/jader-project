@@ -35,6 +35,20 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <a href="javascript: void(0)" style="margin-bottom: 8px" class="btn btn-primary">
+                            {{__('institution.addInstitution')}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
                         <table id="datatable"
                             class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">

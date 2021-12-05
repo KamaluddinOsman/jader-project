@@ -67,19 +67,13 @@
                                         <div class="form-group">
                                             <label style="color:#000;font-size: 15px;padding-bottom: 15px"
                                                    class="label">{{__('lang.money')}} </label>
-                                            {!! Form::text('money',null,[
-                                              'class' => 'form-control',
-                                              'id' => 'client_money',
-                                            ]) !!}
+                                            {!! Form::text('money',null,['class' => 'form-control','id' => 'client_money' ]) !!}
                                         </div>
 
                                         <div class="form-group">
                                             <label style="color:#000;font-size: 15px;padding-bottom: 15px"
                                                    class="label">{{__('lang.transfer_Number')}} </label>
-                                            {!! Form::text('transfer_Number',null,[
-                                              'class' => 'form-control',
-                                              'id' => 'body'
-                                            ]) !!}
+                                            {!! Form::text('transfer_Number',null,['class' => 'form-control','id' => 'body']) !!}
                                         </div>
 
                                         <div>

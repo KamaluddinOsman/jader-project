@@ -192,6 +192,7 @@ class StoreController extends Controller
         $cash_withdrawal = $cash_withdrawal;  //التحويل النقدي للمؤسسة
         $net_commissions = $money->sum('client_money') - $cash_withdrawal;  // المتبقى
 
+        // return $profit_store;
         return view('dashboard.pages.store.show', compact('store', 'products', 'money', 'orders', 'total', 'profit_site', 'profit_store', 'cash_withdrawal', 'net_commissions'));
     }
 
@@ -455,19 +456,31 @@ class StoreController extends Controller
         //Upload Image
 
         if ($file = $request->file('image1')) {
-            $records->image1 = uploadImage($file, 'product');
+            $fileName = time().'image1'.$file->getClientOriginalName();
+            if($file->move('img/product/',$fileName)){
+                $records->image1 = 'img/product/'. $fileName;
+            }
         }
 
         if ($file = $request->file('image2')) {
-            $records->image2 = uploadImage($file, 'product');
+            $fileName = time().'image2'.$file->getClientOriginalName();
+            if($file->move('img/product/',$fileName)){
+                $records->image2 = 'img/product/'. $fileName;
+            }
         }
 
         if ($file = $request->file('image3')) {
-            $records->image3 = uploadImage($file, 'product');
+            $fileName = time().'image3'.$file->getClientOriginalName();
+            if($file->move('img/product/',$fileName)){
+                $records->image3 = 'img/product/'. $fileName;
+            }
         }
-
+        
         if ($file = $request->file('image4')) {
-            $records->image4 = uploadImage($file, 'product');
+            $fileName = time().'image4'.$file->getClientOriginalName();
+            if($file->move('img/product/',$fileName)){
+                $records->image4 = 'img/product/'. $fileName;
+            }
         }
 
         $records->save();
@@ -588,9 +601,10 @@ class StoreController extends Controller
     {
         $records = Product::findOrFail($id);
 
-        $extraProducts = ExtraProduct::where('product_id', $id)->where('type', 1)->get();
-        $removeProducts = ExtraProduct::where('product_id', $id)->where('type', 0)->get();
-        return view('dashboard.pages.store.productEdit')->with(compact('records', 'extraProducts', 'removeProducts'));
+        // $extraProducts = ExtraProduct::where('product_id', $id)->where('type', 1)->get();
+        // $removeProducts = ExtraProduct::where('product_id', $id)->where('type', 0)->get();
+        // return view('dashboard.pages.store.productEdit')->with(compact('records', 'extraProducts', 'removeProducts'));
+        return view('dashboard.pages.store.productEdit')->with(compact('records'));
     }
 
     public function ProductUpdate(Request $request, $id)
@@ -624,24 +638,46 @@ class StoreController extends Controller
         //Upload Image
 
         if ($file = $request->file('image1')) {
-            $records->image1 = uploadImage($file, 'product');
+            if (File::exists($records->image1)){
+                @unlink(public_path().'/'.$records->image1);
+            }
+            $fileName = time().'image1'.$file->getClientOriginalName();
+            if($file->move('img/product/',$fileName)){
+                $records->image1 = 'img/product/'. $fileName;
+            }
         }
 
         if ($file = $request->file('image2')) {
-            $records->image2 = uploadImage($file, 'product');
+            if (File::exists($records->image2)){
+                @unlink(public_path().'/'.$records->image2);
+            }
+            $fileName = time().'image2'.$file->getClientOriginalName();
+            if($file->move('img/product/',$fileName)){
+                $records->image2 = 'img/product/'. $fileName;
+            }
         }
 
         if ($file = $request->file('image3')) {
-            $records->image3 = uploadImage($file, 'product');
+            if (File::exists($records->image3)){
+                @unlink(public_path().'/'.$records->image3);
+            }
+            $fileName = time().'image3'.$file->getClientOriginalName();
+            if($file->move('img/product/',$fileName)){
+                $records->image3 = 'img/product/'. $fileName;
+            }
         }
-
+        
         if ($file = $request->file('image4')) {
-            $records->image4 = uploadImage($file, 'product');
+            if (File::exists($records->image4)){
+                @unlink(public_path().'/'.$records->image4);
+            }
+            $fileName = time().'image4'.$file->getClientOriginalName();
+            if($file->move('img/product/',$fileName)){
+                $records->image4 = 'img/product/'. $fileName;
+            }
         }
 
         $records->save();
-
-
 
         $extra_product_delete = ExtraProduct::where('product_id', $id)->delete();
 

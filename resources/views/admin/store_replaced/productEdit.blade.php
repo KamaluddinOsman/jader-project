@@ -310,7 +310,7 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                                             @foreach($removeProducts as $removeProduct)
                                             <div class="row itemRe">
 
-                                            <div class="form-group col-md-9" id="dynamic-container">
+                                                <div class="form-group col-md-9" id="dynamic-container">
                                                     <input id="removeProduct" value="{{$removeProduct->name}}" type="text" class="form-control removeProduct"
                                                            name="remove_productName[]">
                                                 </div>
