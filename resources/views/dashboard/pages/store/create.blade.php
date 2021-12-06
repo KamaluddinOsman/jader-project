@@ -1,59 +1,59 @@
 
-@extends('admin.layouts.layout')
+@extends('dashboard.layouts.main')
 @inject('model','App\Store')
-@section('title')
-    {{__('lang.create')}}
+@section('head')
+    @section('title')
+            {{__('institution.Institution')}}
+    @endsection
+
+    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert-->
+    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
-
 @section('content')
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Store Add</h1>
+    <div class="page-content">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="page-title mb-0 font-size-18">{{ __('institution.institutionTable') }}</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('institution.institutionTable') }}</li>
+                        </ol>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">{{__('lang.master')}}</a></li>
-                        <li class="breadcrumb-item active">{{__('lang.addR')}}</li>
-                    </ol>
+            </div>
+        </div>
+        <!-- end page title -->
+        
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        {!! Form::model($model,['action' => 'Dashboard\StoreController@store','enctype' => 'multipart/form-data']) !!}
+                            @include('/dashboard/pages/store/form')
+                                                
+                            <div class="row">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary col-sm-2" type="submit">{{__('lang.save')}}</button>
+                                </div>
+                            </div>
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-    <br>
-    <br>
-    @include('admin.layouts.flash-message')
-    @include('flash::message')
-    <div class="box">
-        <div class="box-body">
-
-        {!! Form::model($model,[
-          'action' => 'Admin\StoreController@store',
-          'enctype' => 'multipart/form-data',
-
-        ]) !!}
-
-            <div class="col">
-                @include('/admin/store/form')
-                <div class="clearfix"></div>
-            </div>
-            <div class="clearfix"></div>
-
-            <div  style="margin: 0 0 30px 30px" class="form-group">
-                <br>
-                <button class="btn btn-primary submit-btn" disabled type="submit">{{__('lang.save')}}</button>
-            </div>
-
-            {!! Form::close() !!}
         </div>
     </div>
-
-
-
 @endsection
-
 
 
 

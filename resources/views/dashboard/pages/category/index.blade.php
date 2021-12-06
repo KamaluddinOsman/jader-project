@@ -6,14 +6,9 @@
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    
 @endsection
 @section('content')
     <div class="page-content">
-
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
@@ -53,7 +48,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatable-buttons"
+                        <table id="datatable"
                             class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
@@ -65,10 +60,8 @@
                                     <th>{{__('category.activeColumn')}}</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 @if(count($records))
-
                                     @foreach($records as $record)
                                         <tr>
                                             <td>{{$record->id}}</td>
@@ -112,11 +105,10 @@
                                         </tr>
                                     @endforeach
 
-                                @else
-
-                                    <div class="alert alert-warning alert-block">
-                                        <strong>{{__('category.noData')}}</strong>
-                                    </div>
+                                    @else
+                                        <div class="alert alert-warning alert-block">
+                                            <strong>{{__('category.noData')}}</strong>
+                                        </div>
 
                                 @endif
                             </tbody>
@@ -150,7 +142,7 @@
                         @include('/dashboard/pages/category/form')
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('category.close') }}</button>
                             <button class="btn btn-primary" type="submit"> {{__('category.editCategory')}}</button>
                         </div>
                     </form>
@@ -188,23 +180,8 @@
     <script src="{{ asset('dashboard/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboard/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
-    <!-- Buttons examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- Responsive examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
     <!-- Datatable init js -->
     <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
-
-    {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
 
     <script>
         // Changing Category Status
@@ -231,15 +208,6 @@
             modal.find('.modal-body #name').val(name);
             modal.find('.modal-body #category_id').val(category_id);
         });
-
-        // $('#Addvariety').on('show.bs.modal', function (event) {
-        //     var button = $(event.relatedTarget) // Button that triggered the modal
-        //     var category_id = button.data('idcategory') // Extract info from data-* attributes
-        //     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        //     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        //     var modal = $(this)
-        //     modal.find('.modal-body #id_category').val(category_id);
-        // });
 
     </script>
 @endsection
