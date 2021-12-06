@@ -1,15 +1,11 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('lang.category')}}
+    @section('page-title')
+        {{ __('category.category') }} | {{ __('auth.bageTitle') }}             
     @endsection
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
 @endsection
 @section('content')
     <div class="page-content">
@@ -52,28 +48,26 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="datatable-buttons"
+                        <table id="datatable"
                             class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{__('lang.image')}}</th>
-                                    <th>{{__('lang.name')}}</th>
-                                    <th>{{__('lang.edit')}}</th>
-                                    <th>{{__('lang.active')}}</th>
-                                    <th></th>
+                                    <th>{{__('category.imageColumn')}}</th>
+                                    <th>{{__('category.nameColumn')}}</th>
+                                    <th>{{__('category.editColumn')}}</th>
+                                    <th>{{__('category.activeColumn')}}</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 @if(count($records))
-
                                     @foreach($records as $record)
                                         <tr>
                                             <td>{{$record->id}}</td>
-                                            <td><img style="width: 50px; height: 50px"
-                                                    src="{{asset($record->getOriginal('image'))}}"></td>
+                                            <td>
+                                                <img style="width: 50px; height: 50px" src="{{asset($record->getOriginal('image'))}}">
+                                            </td>
                                             @if($record->child($record->id) == false)
                                                 <td>
                                                     <a href="{{url('category/'.$record->id)}}">{{$record->name}}</a>
@@ -89,7 +83,7 @@
                                                     data-categoryid="{{$record->id}}"
                                                     data-parentid="{{$record->parent_id}}"
                                                     data-bs-target="#editCategory">
-                                                    <i class="fas fa-pencil-alt"></i>
+                                                    <i class="dripicons-document-edit"></i>
                                                 </button>
                                             </td>
 
@@ -99,24 +93,22 @@
                                                     data-url="{{url('category/active/'.$record->id)}}"
                                                     data-token="{{csrf_token()}}" class="form-label activeCheck"
                                                     name="activeCheck"/>
-                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('category.activeCategory')}}" data-off-label="{{__('category.blockCategory')}}"></label>
                                                 @else
                                                     <input type="checkbox" id="{{$record->id}}" switch="bool" 
                                                     data-url="{{url('category/active/'.$record->id)}}"
                                                     data-token="{{csrf_token()}}" class="form-label activeCheck"
                                                     name="activeCheck"/>
-                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('lang.active')}}" data-off-label="{{__('lang.block')}}"></label>
+                                                    <label class="form-label" for="{{$record->id}}" data-on-label="{{__('category.activeCategory')}}" data-off-label="{{__('category.blockCategory')}}"></label>
                                                 @endif
                                             </td>
-                                            <td></td>
                                         </tr>
                                     @endforeach
 
-                                @else
-
-                                    <div class="alert alert-warning alert-block">
-                                        <strong>{{__('lang.ThereAreNoData')}}</strong>
-                                    </div>
+                                    @else
+                                        <div class="alert alert-warning alert-block">
+                                            <strong>{{__('category.noData')}}</strong>
+                                        </div>
 
                                 @endif
                             </tbody>
@@ -138,10 +130,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editCategoryLabel">
-                        {{__('lang.EditCategory')}}
+                        {{__('category.editCategory')}}
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{route('category.update','category')}}" method="post" enctype="multipart/form-data">
@@ -151,12 +142,10 @@
                         @include('/dashboard/pages/category/form')
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="submit"> {{__('lang.edit')}}</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('category.close') }}</button>
+                            <button class="btn btn-primary" type="submit"> {{__('category.editCategory')}}</button>
                         </div>
-
                     </form>
-
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -191,52 +180,34 @@
     <script src="{{ asset('dashboard/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboard/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
-    <!-- Buttons examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- Responsive examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
     <!-- Datatable init js -->
     <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
-
-    {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
 
     <script>
         // Changing Category Status
         $('.activeCheck').change(function () {
             var url = this.getAttribute('data-url');
             var token = this.getAttribute('data-token');
-            // console.log(url);
             $.ajax({
                 type: 'get',
                 data: {_token: token},
                 url: url,
-                // success: function (data) {
-                //     console.log(data);
-                // }
-
             });
+            location.href = "/category";
         });
         
 
         // Edit Category
         $('#editCategory').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var name = button.data('myname') // Extract info from data-* attributes
-        var category_id = button.data('categoryid') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-body #name').val(name);
-        modal.find('.modal-body #category_id').val(category_id);
-    })
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var name = button.data('myname') // Extract info from data-* attributes
+            var category_id = button.data('categoryid') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-body #name').val(name);
+            modal.find('.modal-body #category_id').val(category_id);
+        });
+
     </script>
 @endsection

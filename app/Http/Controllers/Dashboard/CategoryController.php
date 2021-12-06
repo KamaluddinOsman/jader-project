@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Image;
 use File;
-
+use Illuminate\Support\Facades\App;
 
 class CategoryController extends Controller
 {
@@ -42,34 +42,30 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         RequestLog::create(['content' => $request->except('_token'), 'service' => 'create category']);
-
+        
         $rules = [
             'name'   => 'required' ,
             'image'  => 'required|mimes:jpeg,jpg,png',
         ];
+        $message = [
+            'name.required'=> __('category.nameRequired'),
+            'image.required'=> __('category.imageRequired')
+        ];
 
-        $this->validate($request,$rules);
-
-
+        $this->validate($request,$rules,$message);
         $records = new Category();
         $records->name = $request->input('name');
         $records->parent_id = $request->input('parent_id');
 
-        //Upload Image
-        // if($file = $request->file( 'image')) {
-        //     $records->image = uploadImage($file,'category');
-        // }
-
         if($file = $request->file('image')){
             $fileName = time().$file->getClientOriginalName();
             if($file->move('img/category/',$fileName)){
-                // $photo   = Photo::create(['image' => $fileName]);
                 $records['image'] = 'img/category/'. $fileName;
             }
         }
 
         $records->save();
-        flash()->success(__('lang.doneSave'));
+        flash()->success(__('category.savedSuccessfully'));
         return redirect('category');
     }
 
@@ -104,34 +100,32 @@ class CategoryController extends Controller
      */
     public function update(Request $request,$id)
     {
-        // return($request->all());
         RequestLog::create(['content' => $request->except('_token'), 'service' => 'update category']);
 
         $rules = [
             'name'=> 'required' ,
         ];
         $message = [
-            'name.required'=> 'يجب ادخال اسم الفئة' ,
+            'name.required'=> __('category.nameRequired'),
         ];
 
         $this->validate($request,$rules,$message);
-
         $records = Category::findOrFail($request->category_id);
+
         if($file = $request->file('image')){
-            // return $records;
             if ($records->image != null){
                 unlink(public_path().'/'.$records->image);
             }
             $fileName = time().$file->getClientOriginalName();
             if($file->move('img/category/',$fileName)){
-                // $photo   = Photo::create(['image' => $fileName]);
                 $records['image'] = 'img/category/'. $fileName;
             }
         }
 
         $records->name = $request->name;
+        $records->parent_id = $request->parent_id;
         $records->update();
-        flash()->success(__('lang.doneSave'));
+        flash()->success(__('category.editedSuccessfully'));
         return redirect('/category');
     }
 
@@ -147,7 +141,7 @@ class CategoryController extends Controller
 
         $records = Category::findOrFail($id);
         $records->delete();
-        flash()->success(__('lang.doneDelete'));
+        flash()->success(__('category.deletedSuccessfully'));
         return redirect('/category');
     }
 
@@ -162,7 +156,7 @@ class CategoryController extends Controller
             $records->activated = 1;
         }
         $records->save();
-        flash()->success(__('lang.doneActive'));
+        flash()->success($records->activated == 1 ? __('category.activatedSuccessfully') : __('category.blockedSuccessfully'));
         return back();
     }
 }
