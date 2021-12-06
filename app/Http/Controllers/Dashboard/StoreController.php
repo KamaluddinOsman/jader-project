@@ -36,8 +36,7 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $records = Store::where(['active' => 1])->orwhere('active', 2)->get();
-        // return $records;
+        $records = Store::where('active', 2)->get();
         return view('dashboard.pages.store.index')->with(compact('records'));
     }
 

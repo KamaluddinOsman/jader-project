@@ -1,14 +1,28 @@
 <?php
     return [
-        'dashboard'     =>'لوحة تحكم',
+        'dashboard' => 'لوحة التحكم',
+        'main'      => 'الرئيسية',
+
+        //Cards
+        'allOrders'       => 'اجمالي الطلبات',
+        'canceledOrders'  => 'الطلبات مرفوضة',
+        'pinddingOrders'  => 'طلبات منتظرة',
+        'activeOrders'    => 'الطلبات الحالية',
+
+        'allInstitutions'       => 'اجمالي المنشاءات',
+        'openInstitutions'      => 'المنشاءات المفتوحة',
+        'closedInstitutions'    => 'المنشاءات المغلقة',
+        'pinddingInstitutions'  => 'منشاءات قيد الانتظار',
+
+        'clientsMovement' => 'حركة العملاء',
         
         //Navbar Header
-        'search'    => 'بحث...',
+        'search'  => 'بحث...',
 
         //User Profile
-        'profile' => 'الملف الشخصي',
-        'settings'=> 'إعدادات',
-        'logout'=>'تسجيل خروج',
+        'profile'   => 'الملف الشخصي',
+        'settings'  => 'إعدادات',
+        'logout'    => 'تسجيل خروج',
 
         // Side Menu
         'menu'                      => 'قائمة',
@@ -34,7 +48,4 @@
         'menuItemRole'              => 'صلاحيات',
         'menuItemTransaction'       => 'تحويلات',
         'menuItemSetting'           => 'إعدادات',
-        
-
-
     ];
