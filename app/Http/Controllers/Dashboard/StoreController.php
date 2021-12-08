@@ -95,7 +95,7 @@ class StoreController extends Controller
         $records->site = $request->input('site');
         $records->facebook = $request->input('facebook');
         $records->whatsapp = $request->input('whatsapp');
-        $records->city_id = $request->input('district_id');
+        $records->city_id = $request->input('city_id');
         $records->minimum_order = $request->input('minimum_order');
         $records->company_register = $request->input('company_register');
         $records->num_tax = $request->input('num_tax');
@@ -120,7 +120,6 @@ class StoreController extends Controller
         if($file = $request->file('picture_contract')){
             $fileName = time().$file->getClientOriginalName();
             if($file->move('img/store/',$fileName)){
-                // $photo   = Photo::create(['image' => $fileName]);
                 $records['picture_contract'] = 'img/store/'. $fileName;
             }
         }
@@ -128,7 +127,6 @@ class StoreController extends Controller
         if($file = $request->file('logo')){
             $fileName = time().$file->getClientOriginalName();
             if($file->move('img/store/',$fileName)){
-                // $photo   = Photo::create(['image' => $fileName]);
                 $records['logo'] = 'img/store/'. $fileName;
             }
         }
@@ -136,7 +134,6 @@ class StoreController extends Controller
         if($file = $request->file('cover')){
             $fileName = time().$file->getClientOriginalName();
             if($file->move('img/store/',$fileName)){
-                // $photo   = Photo::create(['image' => $fileName]);
                 $records['cover'] = 'img/store/'. $fileName;
             }
         }
@@ -167,7 +164,7 @@ class StoreController extends Controller
 
         curl_close($ch);
 
-        flash()->success(__('lang.doneSave'));
+        flash()->success(__('institution.savedSuccessfully'));
         return redirect('/store');
     }
 
@@ -191,7 +188,7 @@ class StoreController extends Controller
         $cash_withdrawal = $cash_withdrawal;  //التحويل النقدي للمؤسسة
         $net_commissions = $money->sum('client_money') - $cash_withdrawal;  // المتبقى
 
-        // return $profit_store;
+        // return $store->day_work;
         return view('dashboard.pages.store.show', compact('store', 'products', 'money', 'orders', 'total', 'profit_site', 'profit_store', 'cash_withdrawal', 'net_commissions'));
     }
 
@@ -247,10 +244,10 @@ class StoreController extends Controller
             $late = $request->late;
         }
 
-        if ($request->district_id == null) {
-            $district = $records->district_id;
+        if ($request->city_id == null) {
+            $city_id = $records->city_id;
         } else {
-            $district = $request->district_id;
+            $city_id = $request->city_id;
         }
 
         $records->name = $request->input('name');
@@ -261,7 +258,7 @@ class StoreController extends Controller
         $records->site = $request->input('site');
         $records->facebook = $request->input('facebook');
         $records->whatsapp = $request->input('whatsapp');
-        $records->city_id = $district;
+        $records->city_id = $city_id;
         $records->minimum_order = $request->input('minimum_order');
         $records->company_register = $request->input('company_register');
         $records->num_tax = $request->input('num_tax');
@@ -317,7 +314,7 @@ class StoreController extends Controller
         }
 
         $records->save();
-        flash()->success(__('lang.doneSave'));
+        flash()->success(__('institution.editedSuccessfully'));
         return redirect('/store');
     }
 
@@ -346,7 +343,7 @@ class StoreController extends Controller
         }
 
         $records->delete();
-        flash()->success(__('lang.doneDelete'));
+        flash()->success(__('institution.deletedSuccessfully'));
         return redirect('/store');
     }
 
@@ -375,7 +372,8 @@ class StoreController extends Controller
             $store->active = 1;
         }
         $store->save();
-        flash()->success(__('lang.doneActive'));
+        flash()->success($store->active == 1 ? __('institution.activatedSuccessfully') : __('category.blockedSuccessfully'));
+
         return back();
     }
 
@@ -406,7 +404,7 @@ class StoreController extends Controller
         };
 
 
-        flash()->success(__('lang.doneCancel'));
+        flash()->success(__('institution.canceledSuccessfully'));
         return back();
     }
 
@@ -423,7 +421,7 @@ class StoreController extends Controller
 
     public function StoreProducts(Request $request)
     {
-
+        // return $request->all();
         RequestLog::create(['content' => $request->except('_token'), 'service' => 'create Product']);
 
         $rules = [
@@ -520,35 +518,35 @@ class StoreController extends Controller
         $items = [];
         $itemRemove = [];
 
-        if ($request->extra_productName) {
-            foreach ($request->extra_productName as $key => $item) {
-                $items[] = [
-                    'product_id' => $records->id,
-                    'name' => $request->extra_productName[$key],
-                    'price' => $request->extra_productPrice[$key],
-                    'type' => '1',
-                ];
-            }
-            DB::table('extra_products')->insert($items);
-        }
+        // if ($request->extra_productName) {
+        //     foreach ($request->extra_productName as $key => $item) {
+        //         $items[] = [
+        //             'product_id' => $records->id,
+        //             'name' => $request->extra_productName[$key],
+        //             'price' => $request->extra_productPrice[$key],
+        //             'type' => '1',
+        //         ];
+        //     }
+        //     DB::table('extra_products')->insert($items);
+        // }
 
 
         ///////////////////////////////////////////////////////
 
-        if ($request->remove_productName) {
-            foreach ($request->remove_productName as $key => $item) {
-                $itemRemove[] = [
-                    'product_id' => $records->id,
-                    'name' => $request->remove_productName[$key],
-                    'price' => $request->remove_productPrice[$key],
-                    'type' => '0',
-                ];
-            }
-            DB::table('extra_products')->insert($itemRemove);
-        }
+        // if ($request->remove_productName) {
+        //     foreach ($request->remove_productName as $key => $item) {
+        //         $itemRemove[] = [
+        //             'product_id' => $records->id,
+        //             'name' => $request->remove_productName[$key],
+        //             'price' => $request->remove_productPrice[$key],
+        //             'type' => '0',
+        //         ];
+        //     }
+        //     DB::table('extra_products')->insert($itemRemove);
+        // }
 
-        flash()->success(__('lang.doneSave'));
-        return redirect()->back();
+        flash()->success(__('institution.productSavedSuccessfully'));
+        return redirect('store/'.$request->store_id);
     }
 
 
@@ -586,6 +584,7 @@ class StoreController extends Controller
     {
         $spacialCategory = SpacialCategory::with('store')->where('id', $id)->first()->store->category_id;
         $unit = \App\UnitColor::where('category_id', $spacialCategory)->where('type', 'unit')->get();
+        $unit = [];
         return json_encode($unit);
     }
 
@@ -608,6 +607,7 @@ class StoreController extends Controller
 
     public function ProductUpdate(Request $request, $id)
     {
+        return $request->all();
         RequestLog::create(['content' => $request->except('_token'), 'service' => 'Update Product']);
 
         $rules = [
@@ -678,38 +678,38 @@ class StoreController extends Controller
 
         $records->save();
 
-        $extra_product_delete = ExtraProduct::where('product_id', $id)->delete();
+        // $extra_product_delete = ExtraProduct::where('product_id', $id)->delete();
 
         $items = [];
         $itemRemove = [];
-        if ($request->extra_productName) {
-            foreach ($request->extra_productName as $key => $item) {
-                $items[] = [
-                    'product_id' => $records->id,
-                    'name' => $request->extra_productName[$key],
-                    'price' => $request->extra_productPrice[$key],
-                    'type' => '1',
-                ];
-            }
-            DB::table('extra_products')->insert($items);
-        }
+        // if ($request->extra_productName) {
+        //     foreach ($request->extra_productName as $key => $item) {
+        //         $items[] = [
+        //             'product_id' => $records->id,
+        //             'name' => $request->extra_productName[$key],
+        //             'price' => $request->extra_productPrice[$key],
+        //             'type' => '1',
+        //         ];
+        //     }
+        //     DB::table('extra_products')->insert($items);
+        // }
 
 
         ///////////////////////////////////////////////////////
 
-        if ($request->remove_productName) {
-            foreach ($request->remove_productName as $key => $item) {
-                $itemRemove[] = [
-                    'product_id' => $records->id,
-                    'name' => $request->remove_productName[$key],
-                    'price' => $request->remove_productPrice[$key],
-                    'type' => '0',
-                ];
-            }
-            DB::table('extra_products')->insert($itemRemove);
-        }
+        // if ($request->remove_productName) {
+        //     foreach ($request->remove_productName as $key => $item) {
+        //         $itemRemove[] = [
+        //             'product_id' => $records->id,
+        //             'name' => $request->remove_productName[$key],
+        //             'price' => $request->remove_productPrice[$key],
+        //             'type' => '0',
+        //         ];
+        //     }
+        //     DB::table('extra_products')->insert($itemRemove);
+        // }
 
-//        $records->colors()->delete();
+        //        $records->colors()->delete();
 
         if ($request->color_id){
             $sync_color_data = [];
@@ -742,8 +742,8 @@ class StoreController extends Controller
             }
         }
 
-        flash()->success(__('lang.doneEdit'));
-        return redirect()->back();
+        flash()->success(__('institution.productEditedSuccessfully'));
+        return redirect('store/'.$request->store_id);
 
     }
 

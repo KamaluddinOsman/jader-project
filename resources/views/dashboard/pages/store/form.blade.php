@@ -1,6 +1,6 @@
 @inject('model','App\Store')
 @inject('category','App\Category')
-@inject('district','App\District')
+@inject('city','App\City')
 @inject('client','App\Client')
 <style>
     .image-upload > input {
@@ -10,7 +10,7 @@
 <?php
 $ins = \App\Store::first();
 $category = $category->pluck('name', 'id')->toArray();
-$district = $district->pluck('name', 'id')->toArray();
+$city = $city->pluck('name', 'id')->toArray();
 $client = $client->Active()->pluck('full_name', 'id')->toArray();
 ?>
 
@@ -110,7 +110,7 @@ $client = $client->Active()->pluck('full_name', 'id')->toArray();
                             <div class="mb-3 row">
                                 <label for="inputDescription" class="col-md-2 col-form-label">{{__('institution.institutionCity')}}</label>
                                 <div class="col-md-8">
-                                    {{ Form::select('district_id', $district, null, array('class'=>'form-control form-select select2', 'placeholder'=>'الحى')) }}
+                                    {{ Form::select('city_id', $city, null, array('class'=>'form-control form-select select2', 'placeholder'=>'الحى')) }}
                                 </div>
                             </div>
 
@@ -128,19 +128,6 @@ $client = $client->Active()->pluck('full_name', 'id')->toArray();
                                     <div id="map" style="height: 300px;width: 100%;"></div>
                                 </div>
                             </div>
-
-                            <div class="form-group mb-3 row">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" name="terms" class="custom-control-input check" id="exampleCheck1">
-                                    <label class="custom-control-label" for="exampleCheck1">
-                                        I agree to the 
-                                        <a href="#" data-toggle="modal" data-target="#modal-lg">
-                                            terms of service.
-                                        </a>
-                                    </label>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 
@@ -228,16 +215,16 @@ $client = $client->Active()->pluck('full_name', 'id')->toArray();
                                 <div class="col-md-12">
                                     <div class="mb-3 row">
                                         <label for="inputName" class="col-md-1 col-form-label">{{__('institution.from')}}</label>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             {!! Form::time('start_time',null,['class' => 'form-control']) !!}
                                         </div>
                                         
                                         <label for="inputName" class="col-md-1 col-form-label">{{__('institution.to')}}</label>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             {!! Form::time('end_time',null,['class' => 'form-control']) !!}
                                         </div>
 
-                                        <label for="inputProjectLeader" class="col-md-2 col-form-label">{{__('institution.institutionPackage')}}</label>
+                                        <label for="inputProjectLeader" class="col-md-1 col-form-label">{{__('institution.institutionPackage')}}</label>
                                         <div class="col-md-2">
                                             <select class="orm-control form-select select2" name="ratio">
                                                 <option value="1">عادى</option>
@@ -340,7 +327,7 @@ $client = $client->Active()->pluck('full_name', 'id')->toArray();
                                                         @if(!empty($records))
                                                         @if(in_array('Friday', $result)) checked @endif
                                                         @endif
-                                                    type="checkbox"
+                                                            type="checkbox"
                                                            name="day[]" value="Friday"> الجمعه
                                                 </label>
                                             </div>
@@ -433,7 +420,7 @@ $client = $client->Active()->pluck('full_name', 'id')->toArray();
                                                     <img id="contractNoImage" class="rounded mx-auto img-thumbnail" src="{{ asset('img/no_image.png') }}">
                                                 @endif
                                             </div>
-                                        </div>                                                
+                                        </div>
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="input-group">
@@ -447,6 +434,17 @@ $client = $client->Active()->pluck('full_name', 'id')->toArray();
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="terms" class="custom-control-input check" id="exampleCheck1">
+                            <label class="custom-control-label" for="exampleCheck1">
+                                I agree to the 
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-lg">
+                                    terms of service.
+                                </a>
+                            </label>
                         </div>
                     </div>
                 </div>

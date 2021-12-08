@@ -11,7 +11,7 @@ $(function () {
     let next_val            = $('html').attr('lang') == 'ar' ? "التالي" : "Next"
     let last_val            = $('html').attr('lang') == 'ar' ? "الأخير" : "The last"
     
-    $('#datatable').DataTable({
+    $('#datatable, #datatable2').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": true,

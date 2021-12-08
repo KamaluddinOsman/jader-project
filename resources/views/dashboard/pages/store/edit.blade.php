@@ -1,16 +1,16 @@
-
 @extends('dashboard.layouts.main')
 @inject('model','App\Store')
 @section('head')
-    @section('title')
-            {{__('institution.Institution')}}
+    @section('page-title')
+            {{__('institution.editInstitution')}} | {{ __('auth.bageTitle') }}
     @endsection
 
-    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- DataTables -->
+    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Sweet Alert-->
     <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
-
 @endsection
 @section('content')
     <div class="page-content">
@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">{{ __('institution.institutionTable') }}</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('institution.editInstitution')}} - {{$store ? $store->name : ""}}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('institution.institutionTable') }}</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.main') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('institution.editInstitution') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                             
                             <div class="row">
                                 <div class="form-group text-center">
-                                    <button class="btn btn-primary col-sm-2" type="submit">{{__('lang.edit')}}</button>
+                                    <button class="btn btn-primary submit-btn col-sm-2" disabled type="submit">{{__('lang.edit')}}</button>
                                 </div>
                             </div>
                         {!! Form::close() !!}
@@ -53,6 +53,54 @@
             </div>
         </div>
     </div>
+
+    <!-- /.modal -->
+    <div class="modal fade" id="modal-lg">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">terms of service</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        {{-- <span aria-hidden="true">&times;</span> --}}
+                    </button>
+                </div>
+                <div class="modal-body">
+                <p>
+                    (1) مقدمة :
+
+                    أهلاً بكم مع   كل شئ دوت كوم ، فيما يلي البنود والشروط التي تخص إستخدامك و دخولك لصفحات موقع "  كل شئ دوت كوم"  وكافة الصفحات و الروابط والأدوات والخواص المتفرعة عنها. إن إستخدامك لموقع   كل شئ دوت كوم هو موافقة منك على القبول ببنود وشروط هذه الإتفاقية والذي يتضمن كافة التفاصيل أدناه وهو تأكيد لإلتزامك بالاستجابة لمضمون هذه الإتفاقية الخاصة بشركة "  كل شئ دوت كوم" والمشار إليه فيما يلي بإسم "نحن" والمشار إليه إيضا بـ"  كل شئ دوت كوم"، فيما يتعلق باستخدامك للموقع، والمشار إليه فيما يلي بـ "اتفاقية الإستخدام " وتعتبر هذه الإتفاقية سارية المفعول حال قبولك بخيار الموافقة
+                </p>
+                    <p>
+                        (2) التأهل للعضوية :
+
+                        1.تمنح عضوية الموقع فقط لمن تجازوت أعمارهم 18 عام . و لموقع   كل شئ دوت كوم الحق بإلغاءحساب أي عضو لم يبلغ الـ 18 عام مع الإلتزام بتصفية حساباته المالية فور إغلاق الحساب
+                    </p>
+                    <p>
+                        2.لا يحق لأي شخص إستخدام الموقع إذا ألغيت عضويته من   كل شئ دوت كوم.
+                    </p>
+                    <p>
+                        3.في حال قيام أي مستخدم بالتسجيل كمؤسسة تجارية، فإن مؤسسته التجارية تكون ملزمة بكافة والشروط الواردة في هذه الإتفاقية.
+                    </p>
+                    <p>
+                        4.ينبغي عليك الإلتزام بكافة القوانين المعمول بها لتنظيم التجارة عبر الانترنت.
+                    </p>
+                    <p>
+                        5.لا يحق لأي عضو أو مؤسسة أن تقوم بفتح حسابين بآن واحد لأي سبب كان، ولإدارة الموقع الحق بتجميد الحسابين أو إلغاء أحدهما مع الإلتزام بتصفية كافة العمليات المالية المتعلقة بالحساب قبل إغلاقه.
+                    </p>
+                    <p>
+                        6.على المستخدمي أفراد و مؤسسات الإلتزام بالعقود التجارية المبرمة مع الأعضاء.
+                    </p>
+                    <p>
+                        7.لا يحق لأي عضو بالموقع شراء معروضات ممنوعة أو مشبوهة أو مسروقة أو تخالف القوانين المعمول بها بوزارات و هيئات مؤسسات التجارة المحلية الحكومية، وفي حال ثبوت ذلك فهو يضع نفسه ضمن طائلة المسؤولية الشخصية بدون أدنى مسؤولية على   كل شئ دوت كوم
+                    </p>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @endsection
 
 
@@ -60,6 +108,15 @@
 @section('scripts')
 
     <script>
+
+        $('.check').on('click', function() {
+            if($('.submit-btn').attr('disabled')) {
+                $('.submit-btn').removeAttr('disabled');
+            }else {
+                $('.submit-btn').attr('disabled', true);
+
+            }
+        })
 
         // Select all
         $('#select_all').click(function () {
