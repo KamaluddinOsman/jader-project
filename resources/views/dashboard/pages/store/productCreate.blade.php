@@ -1,26 +1,18 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('institution.Institution')}}
+    @section('page-title')
+    {{ __('product.addProduct') ." ". __('institution.to') ." ". __('institution.institution') }} | {{ __('auth.bageTitle') }}
     @endsection
-
-    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
-
+    
     <!-- Sweet Alert-->
     <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
-
-
 @endsection
 @inject('model','App\Store')
 @inject('category','App\SpacialCategory')
 @inject('district','App\District')
 @inject('brand','App\Brand')
 
-<style>
-    .image-upload > input {
-        display: none;
-    }
-</style>
+
 <?php
 $store = \App\Store::where('id', $id)->first();
 $category = $category->where('store_id', $id)->pluck('name', 'id')->toArray();
@@ -37,18 +29,21 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">{{ __('product.addProduct') }} الي {{ __('institution.institution') }}</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('product.addProduct') ." ". __('institution.to') ." ". __('institution.institution') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('product.addProduct') }}</li>
+                            <li class="breadcrumb-item active">{{ __('product.addProduct') ." ". __('institution.to') ." ". __('institution.institution') }}</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
         <!-- end page title -->
+
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
 
         <div class="row">
             <div class="col-12">
@@ -291,14 +286,11 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                                             <div class="itemRemove">
                                                 <div style="margin-top: -14px" class="row">
                                                     <div class="form-group col-md-9" id="dynamic-container">
-                                                        <input id="removeProduct" type="text" class="form-control removeProduct"
-                                                               name="remove_productName[]">
+                                                        <input id="removeProduct" type="text" class="form-control removeProduct" name="remove_productName[]">
                                                     </div>
         
                                                     <div class="form-group col-md-3">
-                                                        <input id="priceRemoveProduct" type="text"
-                                                               class="form-control priceRemoveProduct"
-                                                               name="remove_productPrice[]">
+                                                        <input id="priceRemoveProduct" type="text" class="form-control priceRemoveProduct" name="remove_productPrice[]">
                                                     </div>
                                                 </div>
                                             </div>
@@ -362,7 +354,7 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
 {{-- <script src="{{ asset('dashboard/js/custom.js') }}"></script> --}}
 
 <script type="text/javascript">
-
+    
     $("#category").change(function () {
         $.ajax({
             url: "{{ url('/product/getbrand') }}" + "/" + $(this).val(),

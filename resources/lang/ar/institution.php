@@ -2,13 +2,14 @@
 
     return[
         'institution'       => 'منشأة',
-        'institutions'       => 'منشاءات',
-        'institutionTable'  => 'جدول المنشاءات',
+        'institutions'       => 'منشآت',
+        'institutionTable'  => 'جدول المنشآت',
         'addInstitution'    => 'اضافة منشأة',
         'editInstitution'   => 'تعديل منشأة',
 
         'institutionPending'=>'قيد الانتظار',
-        'institutionReject'=>'مرفوض',
+        'institutionReject'=>'مرفوضة',
+        'institutionShow'=>'عرض',
 
         // Institutions Table
         'imageColumn'   => 'صورة',
@@ -19,19 +20,42 @@
         'actionColumn'=>'العمليات',
         'deleteColumn'  => 'حذف',
 
+        //Menu
+        'products'      => 'المنتجات',
+        'orders'        => 'الطلبات',
+        'transactions'  => 'التحويلات',
+        'location'      => 'الموقع',
+
+        //Orders Table
+        'orderId' => 'رقم الطلب',
+        'product' => 'المنتج',
+        'quantity'=>'الكمية',
+        'discount'=>'خصم',
+        'price'=>'السعر',
+        'status'=>'الحالة',
+        'pending'=>'قيد الانتظار',
+        'complete'=>'تم',
+
+        //Transactions Table
+        'allSales'=> 'كل المبيعات',
+        'siteProfit'=> 'ارباح الموقع',
+        'institutionProfit'=> 'ارباح المؤسسة',
+        'institutionTransactions'=> 'التحويل النقدى للمؤسسة',
+        'remaining'=> 'المتبقي',
+
         //create new Institution
-        'institutionName'=>'اسم المنشاءة',
+        'institutionName'=>'اسم المنشأة',
         'responsibleName'=>'اسم المسوؤل',
         'responsiblePosition'=>'دور المسوؤل',
         'responsibleMobile'=>'رقم هاتف المسوؤل',
         'institutionClients'=>'العملاء',
-        'institutionCategory'=>'تصنيف المنشاءة',
+        'institutionCategory'=>'تصنيف المنشأة',
         'specialCategory'=>'تصنيف خاص',
         'institutionPhone1'=>'رقم الهاتف ١',
         'institutionPhone2'=>'رقم الهاتف ٢',
         'institutionCity'=>'المنطقة',
-        'institutionAbout'=>'عن المنشاءة',
-        'institutionAddress'=>'عنوان المنشاءة',
+        'institutionAbout'=>'عن المنشأة',
+        'institutionAddress'=>'عنوان المنشأة',
 
         'authorizedName'=>'اسم المصرح له',
         'authorizedMobile'=>'رقم هاتف المصرح له',
@@ -49,7 +73,7 @@
         'institutionPackage'=>'الباقة',
         'workingDays'=>'ايام العمل',
         'selectAll'=>'اختيار الكل',
-        'institutionLogo'=>'شعار المنشاءة',
+        'institutionLogo'=>'شعار المنشأة',
         'institutionCover'=>'Cover',
         'institutionContractPic'=>'صورة العقد',
 
@@ -58,11 +82,19 @@
         'addFile'=>'تحميل ملف',
 
         //Messages
-        'noData' => 'لا توجد بيانات',
+        'savedSuccessfully'         => 'تم حفظ المنشأة بنجاح',
+        'productSavedSuccessfully'  => 'تم اضافة المنتج للمنشأة بنجاح',
+        'editedSuccessfully'        => 'تم تعديل المنشأة بنجاح',
+        'productEditedSuccessfully' => 'تم تعديل منتج المنشأة بنجاح',
+        'deletedSuccessfully'       =>'تم حذف المنشأة بنجاح',
+        'activatedSuccessfully'     =>'تم تفعيل المنشأة بنجاح',
+        'blockedSuccessfully'       =>'تم تعطيل المنشأة بنجاح',
+        'canceledSuccessfully'      => 'تم الغا المنشأة بنجاح',
+        'noData'                    => 'لا توجد بيانات',
 
         //Show Page
-        'institutionProducts'=>'المنتجات',
-        'institutionOrders'=>'الطلبات',
-        'institutionProfit'=>'الارباح',
+        'institutionProductsCard'=>'المنتجات',
+        'institutionOrdersCard'=>'الطلبات',
+        'institutionProfitCard'=>'ارباح المؤسسة',
 
     ];

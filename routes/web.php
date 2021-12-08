@@ -114,7 +114,7 @@ Route::group(
                     Route::get('/getbrand/{id}', 'StoreController@getBrand');
                     Route::get('/getcolor/{id}', 'StoreController@getColor');
                     Route::get('/getunit/{id}', 'StoreController@getSize');
-                    Route::get('/getunitplus/{id}', 'StoreController@getSizePlus');
+                    Route::get('/getunitplus/{id}', 'StoreController@getSizeplus');
                     Route::get('/getcolorplus/{id}', 'StoreController@getColorPlus');
 
                     Route::get('/pending', 'ProductController@pend');

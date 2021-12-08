@@ -1,10 +1,12 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('institution.Institution')}}
+    @section('page-title')
+        {{ __('institution.institutions') }} {{__('institution.institutionShow')}} | {{ __('auth.bageTitle') }}
     @endsection
 
-    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- DataTables -->
+    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Sweet Alert-->
     <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
@@ -15,12 +17,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">{{ __('institution.institution') }} : {{$store->name ? $store->name : "" }}</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{__('institution.institutionShow') ." ".__('institution.institution') ." : ". ($store->name ? $store->name : "") }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('institution.institution') }}</li>
+                            <li class="breadcrumb-item active">{{__('institution.institutionShow') ." ".__('institution.institution') ." : ". ($store->name ? $store->name : "") }}</li>
                         </ol>
                     </div>
                 </div>
@@ -221,11 +223,17 @@
                                 <h6 class="">
                                     <?php $days = new \Carbon\Carbon(now()) ?>
                                     <ul class="list-unstyled list-inline language-skill mb-0">
-                                        @foreach(json_decode($store->day_work) as $key => $val)
+                                        @if ($store->day_work != 'null')
+                                            @foreach(json_decode($store->day_work) as $key => $val)
+                                                <li class="list-inline-item badge bg-primary">
+                                                    <span class="badge {{$days->dayName == $val ? 'badge-warning': 'badge-success'}}">{{$val}}</span>
+                                                </li>
+                                            @endforeach
+                                        @else
                                             <li class="list-inline-item badge bg-primary">
-                                                <span class="badge {{$days->dayName == $val ? 'badge-warning': 'badge-success'}}">{{$val}}</span>
+                                                Not set yet
                                             </li>
-                                        @endforeach
+                                        @endif
                                     </ul>
                                     <p>
                                         <span style="display: inline-block; margin-right: 20px; font-size: 13px"><i style="color: #007fff" class="fas fa-hourglass"></i>{{date('h:i', strtotime($store->start_time))}}</span>
@@ -246,7 +254,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-8">
-                                        <p class="mb-2">{{__('institution.institutionProducts')}}</p>
+                                        <p class="mb-2">{{__('institution.institutionProductsCard')}}</p>
                                         <h4 class="mb-0">{{$products ? $products->count() : 0}}</h4>
                                     </div>
                                     <div class="col-4">
@@ -271,7 +279,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-8">
-                                        <p class="mb-2">{{__('institution.institutionOrders')}}</p>
+                                        <p class="mb-2">{{__('institution.institutionOrdersCard')}}</p>
                                         <h4 class="mb-0">{{ $orders ? $orders->count() : 0}}</h4>
                                     </div>
                                     <div class="col-4">
@@ -296,7 +304,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-8">
-                                        <p class="mb-2">{{__('institution.institutionProfit')}}</p>
+                                        <p class="mb-2">{{__('institution.institutionProfitCard')}}</p>
                                         <h4 class="mb-0">{{ $profit_store ? $profit_store : 0 }}</h4>
                                     </div>
                                     <div class="col-4">
@@ -325,24 +333,24 @@
                             <li class="nav-item">
                                 <a class="nav-link active" data-bs-toggle="tab" href="#products" role="tab">
                                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                    <span class="d-none d-sm-block">Products</span>
+                                    <span class="d-none d-sm-block">{{ __('institution.products') }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#orders" role="tab">
-                                    <span class="d-none d-sm-block">Orders</span>
+                                    <span class="d-none d-sm-block">{{ __('institution.orders') }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#money" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Money</span>
+                                    <span class="d-none d-sm-block">{{ __('institution.transactions') }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#location" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Location</span>
+                                    <span class="d-none d-sm-block">{{ __('institution.location') }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -366,7 +374,7 @@
                                         <div class="row d-flex align-items-stretch">
                                             @if ($products->count() != 0)
                                                 @foreach($products as $product)
-                                                    <div class="col-lg-3 col-sm-6 col-md-4 d-flex align-items-stretch">
+                                                    <div class="col-lg-4 col-sm-6 col-md-4 d-flex align-items-stretch">
                                                         <div class="card bg-light">
                                                             <div class="card-header text-muted border-bottom-0">
                                                                 <h2 class="lead"><b>{{$product->name}}</b></h2>
@@ -421,16 +429,16 @@
                             <div class="tab-pane" id="orders" role="tabpanel">
                                 <div class="card-body">
                                     <div class="card-body pb-0">
-                                        <table id="example1" class="table table-bordered table-striped">
+                                        <table id="datatable" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>order_id</th>
-                                                    <th>product</th>
-                                                    <th>quantity</th>
-                                                    <th>discount</th>
-                                                    <th>price</th>
-                                                    <th>status</th>
+                                                    <th>{{ __('institution.orderId') }}</th>
+                                                    <th>{{ __('institution.product') }}</th>
+                                                    <th>{{ __('institution.quantity') }}</th>
+                                                    <th>{{ __('institution.discount') }}</th>
+                                                    <th>{{ __('institution.price') }}</th>
+                                                    <th>{{ __('institution.status') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -444,9 +452,9 @@
                                                             <td>{{$order->discount}}</td>
                                                             <td>{{$order->price}}</td>
                                                             @if($order->status == "complete")
-                                                                <td class="text-success">{{$order->status}}</td>
+                                                                <td class="text-success">{{ __('institution.complete') }}</td>
                                                             @else
-                                                                <td class="text-danger">{{$order->status}}</td>
+                                                                <td class="text-danger">{{ __('institution.pending') }}</td>
                                                             @endif
                                                         </tr>
                                                     @endforeach
@@ -466,14 +474,14 @@
                                 <div class="card-body">
                                     <div class="card-body pb-0">
                                         <form class="form-horizontal">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="datatable2" class="table table-bordered table-striped">
                                                 <thead class="thead-dark">
                                                     <tr>
-                                                        <th scope="col">كل المبيعات</th>
-                                                        <th scope="col">ارباح الموقع</th>
-                                                        <th scope="col">ارباح المؤسسة</th>
-                                                        <th scope="col">التحويل النقدى للمؤسسة</th>
-                                                        <th scope="col">المتبقى</th>
+                                                        <th scope="col">{{ __('institution.allSales') }}</th>
+                                                        <th scope="col">{{ __('institution.siteProfit') }}</th>
+                                                        <th scope="col">{{ __('institution.institutionProfit') }}</th>
+                                                        <th scope="col">{{ __('institution.institutionTransactions') }}</th>
+                                                        <th scope="col">{{ __('institution.remaining') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -516,21 +524,8 @@
     <script src="{{ asset('dashboard/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboard/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
-    <!-- Buttons examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- Responsive examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
     <!-- Datatable init js -->
-    {{-- <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script> --}}
+    <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
 
     <!-- Sweet Alerts js -->
     <script src="{{ asset('dashboard/libs/sweetalert2/sweetalert.min.js') }}"></script>
@@ -538,44 +533,50 @@
     <!-- Sweet alert init js-->
     <script src="{{ asset('dashboard/js/pages/sweet-alerts.init.js') }}"></script>
 
-
-{{-- <script src="{{ asset('dashboard/js/custom.js') }}"></script> --}}
-
+    
     <script>
-
-        $(function () {
-            $("#datatable").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"]
-            }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "language": {
-                    "sProcessing": "جارٍ التحميل...",
-                    "sLengthMenu": "أظهر _MENU_ مدخلات",
-                    "sZeroRecords": "لم يعثر على أية سجلات",
-                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
-                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
-                    "sInfoPostFix": "",
-                    "sSearch": "ابحث:",
-                    "sUrl": "",
-                    "oPaginate": {
-                        "sFirst": "الأول",
-                        "sPrevious": "السابق",
-                        "sNext": "التالي",
-                        "sLast": "الأخير"
-                    }
-                }
-            });
-        });
-
+        // $(function () {
+        //     let processing_val      = $('html').attr('lang') == 'ar' ? "جارٍ التحميل ..." : "Processing ..."
+        //     let lengthMenu_val      = $('html').attr('lang') == 'ar' ? "أظهر _MENU_ مدخلات" : "Show _MENU_ entry"
+        //     let zeroRecords_val     = $('html').attr('lang') == 'ar' ? "لم يعثر على أية سجلات" : "No records found"
+        //     let info_val            = $('html').attr('lang') == 'ar' ? "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل" : "Show _START_ to _END_ out of _TOTAL_ entry"
+        //     let infoEmpty_val       = $('html').attr('lang') == 'ar' ? "يعرض 0 إلى 0 من أصل 0 سجل" : "Show 0 to 0 out of 0 records"
+        //     let infoFiltered_val    = $('html').attr('lang') == 'ar' ? "(منتقاة من مجموع _MAX_ مُدخل)" : "(Selected from the sum of _MAX_ entered)"
+        //     let first_val           = $('html').attr('lang') == 'ar' ? "الأول" : "The first"
+        //     let search_val          = $('html').attr('lang') == 'ar' ? "ابحث : " : "Search : "
+        //     let previous_val        = $('html').attr('lang') == 'ar' ? "السابق" : "Previous"
+        //     let next_val            = $('html').attr('lang') == 'ar' ? "التالي" : "Next"
+        //     let last_val            = $('html').attr('lang') == 'ar' ? "الأخير" : "The last"
+            
+        //     $('#datatable2').DataTable({
+        //         "paging": true,
+        //         "lengthChange": false,
+        //         "searching": true,
+        //         "ordering": true,
+        //         "info": true,
+        //         "autoWidth": false,
+        //         // "buttons": ["copy", "csv", "excel", "pdf", "print"],
+        //         "buttons": false,
+        //         "responsive": true,
+        //         "language": {
+        //             "sProcessing": processing_val,
+        //             "sLengthMenu": lengthMenu_val,
+        //             "sZeroRecords": zeroRecords_val,
+        //             "sInfo": info_val,
+        //             "sInfoEmpty": infoEmpty_val,
+        //             "sInfoFiltered": infoFiltered_val,
+        //             "sInfoPostFix": "",
+        //             "sSearch": search_val,
+        //             "sUrl": "",
+        //             "oPaginate": {
+        //                 "sFirst": first_val,
+        //                 "sPrevious": previous_val,
+        //                 "sNext": next_val,
+        //                 "sLast": last_val,
+        //             }
+        //         }
+        //     });
+        // });
         // Changing Category Status
         $('.activeCheck').change(function () {
             var url = this.getAttribute('data-url');

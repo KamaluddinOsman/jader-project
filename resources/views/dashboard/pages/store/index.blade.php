@@ -1,15 +1,15 @@
 @extends('dashboard.layouts.main')
 @section('head')
-    @section('title')
-            {{__('institution.Institution')}}
+    @section('page-title')
+            {{__('institution.institutions')}} | {{ __('auth.bageTitle') }}
     @endsection
 
-    <link href="{{ asset('dashboard/libs/admin-resources/rwd-table/rwd-table.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- DataTables -->
+    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Sweet Alert-->
     <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
-
-
 @endsection
 @section('content')
     <div class="page-content">
@@ -31,11 +31,14 @@
         </div>
         <!-- end page title -->
 
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="javascript: void(0)" style="margin-bottom: 8px" class="btn btn-primary">
+                        <a href="{{ route('store.create') }}" style="margin-bottom: 8px" class="btn btn-primary">
                             {{__('institution.addInstitution')}}
                         </a>
                     </div>
@@ -52,7 +55,6 @@
                         <table id="datatable"
                             class="table table-striped table-bordered dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                            
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -114,13 +116,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
-                                @else
-
-                                    <div class="alert alert-warning alert-block">
-                                        <strong>{{__('institution.noData')}}</strong>
-                                    </div>
-
                                 @endif
                             </tbody>
 
@@ -140,21 +135,8 @@
     <script src="{{ asset('dashboard/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboard/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
-    <!-- Buttons examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- Responsive examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
     <!-- Datatable init js -->
-    {{-- <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script> --}}
+    <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
 
     <!-- Sweet Alerts js -->
     <script src="{{ asset('dashboard/libs/sweetalert2/sweetalert.min.js') }}"></script>
@@ -162,44 +144,7 @@
     <!-- Sweet alert init js-->
     <script src="{{ asset('dashboard/js/pages/sweet-alerts.init.js') }}"></script>
 
-
-{{-- <script src="{{ asset('dashboard/js/custom.js') }}"></script> --}}
-
     <script>
-
-        $(function () {
-            $("#datatable").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"]
-            }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "language": {
-                    "sProcessing": "جارٍ التحميل...",
-                    "sLengthMenu": "أظهر _MENU_ مدخلات",
-                    "sZeroRecords": "لم يعثر على أية سجلات",
-                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
-                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
-                    "sInfoPostFix": "",
-                    "sSearch": "ابحث:",
-                    "sUrl": "",
-                    "oPaginate": {
-                        "sFirst": "الأول",
-                        "sPrevious": "السابق",
-                        "sNext": "التالي",
-                        "sLast": "الأخير"
-                    }
-                }
-            });
-        });
-
         // Changing Category Status
         $('.activeCheck').change(function () {
             var url = this.getAttribute('data-url');
