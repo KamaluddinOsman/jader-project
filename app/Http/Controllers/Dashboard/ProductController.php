@@ -104,7 +104,7 @@ class ProductController extends Controller
         }
 
         $product->delete();
-        flash()->success(__('lang.doneDelete'));
+        flash()->success(__('product.productDeletedSuccessfully'));
         return back();
 
     }
@@ -116,7 +116,7 @@ class ProductController extends Controller
         $store = Product::findOrFail($id);
         $store->status = 1;
         $store->save();
-        flash()->success(__('lang.doneActive'));
+        flash()->success(__('product.productActivatedSuccessfully'));
         return back();
     }
 
@@ -156,7 +156,7 @@ class ProductController extends Controller
         };
 
 
-        flash()->success(__('lang.doneCancel'));
+        flash()->success(__('product.productCanceledSuccessfully'));
         return back();
     }
 

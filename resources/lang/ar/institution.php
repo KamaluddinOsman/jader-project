@@ -45,6 +45,7 @@
 
         //create new Institution
         'institutionName'=>'اسم المنشأة',
+        'responsible'=>'المسوؤل',
         'responsibleName'=>'اسم المسوؤل',
         'responsiblePosition'=>'دور المسوؤل',
         'responsibleMobile'=>'رقم هاتف المسوؤل',
@@ -55,8 +56,10 @@
         'institutionPhone2'=>'رقم الهاتف ٢',
         'institutionCity'=>'المنطقة',
         'institutionAbout'=>'عن المنشأة',
+        'institutionNote'=>'ملاحظات',
         'institutionAddress'=>'عنوان المنشأة',
 
+        'authorized'=>'المصرح له',
         'authorizedName'=>'اسم المصرح له',
         'authorizedMobile'=>'رقم هاتف المصرح له',
         'legalName'=>'الاسم القانوني',
@@ -74,18 +77,19 @@
         'workingDays'=>'ايام العمل',
         'selectAll'=>'اختيار الكل',
         'institutionLogo'=>'شعار المنشأة',
-        'institutionCover'=>'Cover',
+        'institutionCover'=>'صورة الخلفية',
         'institutionContractPic'=>'صورة العقد',
 
-        'activeInstitution'    => 'تفعيل',
-        'blockInstitution'     => 'تعطيل',
+        'activeInstitution'    => 'مفعل',
+        'blockInstitution'     => 'معطل',
         'addFile'=>'تحميل ملف',
+        'clickHere'=>'اضغط هنا',
 
         //Messages
         'savedSuccessfully'         => 'تم حفظ المنشأة بنجاح',
-        'productSavedSuccessfully'  => 'تم اضافة المنتج للمنشأة بنجاح',
+        'productSavedSuccessfully'  => 'تم اضافة منتج بنجاح',
         'editedSuccessfully'        => 'تم تعديل المنشأة بنجاح',
-        'productEditedSuccessfully' => 'تم تعديل منتج المنشأة بنجاح',
+        'productEditedSuccessfully' => 'تم تعديل المنتج بنجاح',
         'deletedSuccessfully'       =>'تم حذف المنشأة بنجاح',
         'activatedSuccessfully'     =>'تم تفعيل المنشأة بنجاح',
         'blockedSuccessfully'       =>'تم تعطيل المنشأة بنجاح',
@@ -96,5 +100,4 @@
         'institutionProductsCard'=>'المنتجات',
         'institutionOrdersCard'=>'الطلبات',
         'institutionProfitCard'=>'ارباح المؤسسة',
-
     ];

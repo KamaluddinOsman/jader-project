@@ -30,6 +30,9 @@
         </div>
         <!-- end page title -->
 
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
+        
         <div class="row">
             <div class="col-md-12 col-xl-3">
                 <div class="card">
@@ -48,7 +51,7 @@
                                     <a href="#" class="text-dark fw-medium font-size-16">{{ $store->name ? $store->name : ""}}</a>
                                     <p class="text-body mt-1 mb-1">{{ $store->company_register ? $store->company_register : "Not registered yet"}}</p>
 
-                                    <a class="badge bg-primary" href="{{$store->facebook}}" target="_blank">
+                                    <a class="badge bg-primary" href="https://www.facebook.com/{{$store->facebook}}" target="_blank">
                                         <i class="mdi mdi-facebook-box"></i>
                                         Facebook
                                     </a>
@@ -119,10 +122,10 @@
                 <div class="card">
                     <div class="card-body">
                         {{-- <h5 class="card-title mb-3">Personal Information</h5> --}}
-                        <h5 class="card-title mb-3">About</h5>
+                        <h5 class="card-title mb-3">{{ __('institution.institutionAbout') }}</h5>
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="fas fa-user-circle"> </i> Responsible
+                                <i class="fas fa-user-circle"> </i> {{ __('institution.responsible') }}
                             </p>
                             <h6 class="">
                                 {{$store->name_responsible}}<br>
@@ -133,7 +136,7 @@
 
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="fas fa-user-circle"> </i> Authorized
+                                <i class="fas fa-user-circle"> </i> {{ __('institution.authorized') }}
                             </p>
                             <h6 class="">
                                 {{$store->name_authorized}}<br>
@@ -143,7 +146,7 @@
 
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="fa fa-money mr-1"></i> Legal Name
+                                <i class="fa fa-money mr-1"></i>{{ __('institution.legalName') }}
                             </p>
                             <h6 class="">
                                 {{$store->legal_name}}
@@ -152,7 +155,7 @@
 
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="fa fa-money mr-1"></i> Email
+                                <i class="fa fa-money mr-1"></i>{{ __('institution.institutionEmail') }}
                             </p>
                             <h6 class="">
                                 {{$store->email}}
@@ -161,7 +164,7 @@
 
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="fa fa-money mr-1"></i> Minimum Order
+                                <i class="fa fa-money mr-1"></i> {{ __('institution.minOrder') }}
                             </p>
                             <h6 class="">
                                 {{$store->minimum_order}}
@@ -170,7 +173,7 @@
 
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="fa fa-money mr-1"></i> Delivery Price
+                                <i class="fa fa-money mr-1"></i> {{ __('institution.deliveryPrice') }}
                             </p>
                             <h6 class="">
                                 {{$store->delivery_price}}
@@ -184,7 +187,7 @@
                     <div class="card-body">
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="fas fa-map-marker-alt mr-1"></i> Location
+                                <i class="fas fa-map-marker-alt mr-1"></i> {{ __('institution.location') }}
                             </p>
                             <h6 class="">
                                 {{$store->address}}
@@ -192,23 +195,23 @@
                         </div>
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="fas fa-pencil-alt mr-1"></i> Contract
+                                <i class="fas fa-pencil-alt mr-1"></i> {{ __('institution.institutionContractPic') }}
                             </p>
                             <h6 class="">
-                                <a href="{{asset($store->getOriginal('picture_contract'))}}"> Contract </a>
+                                <a href="{{asset($store->getOriginal('picture_contract'))}}"> {{ __('institution.clickHere')}} </a>
                             </h6>
                         </div>
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="fas fa-pencil-alt mr-1"></i> Front Store
+                                <i class="fas fa-pencil-alt mr-1"></i> {{ __('institution.institutionCover')}}
                             </p>
                             <h6 class="">
-                                <a href="{{asset($store->getOriginal('front_img'))}}"> Front Store </a>
+                                <a href="{{asset($store->getOriginal('front_img'))}}"> {{ __('institution.clickHere')}} </a>
                             </h6>
                         </div>
                         <div class="mt-3">
                             <p class="font-size-12 text-muted mb-1">
-                                <i class="far fa-file-alt mr-1"></i> Notes
+                                <i class="far fa-file-alt mr-1"></i> {{ __('institution.institutionNote') }}
                             </p>
                             <h6 class="">
                                 {{$store->about}}
@@ -218,7 +221,7 @@
                         @if(!empty($store->day_work))
                             <div class="mt-3">
                                 <p class="font-size-12 text-muted mb-1">
-                                    <i class="fas fa-calendar mr-1"></i> Day Of Work
+                                    <i class="fas fa-calendar mr-1"></i> {{ __('institution.workingDays') }}
                                 </p>
                                 <h6 class="">
                                     <?php $days = new \Carbon\Carbon(now()) ?>
@@ -413,10 +416,6 @@
                                                         </div>
                                                     </div>
                                                 @endforeach
-                                                @else
-                                                    <div class="alert alert-warning alert-block">
-                                                        <strong>{{__('institution.noData')}}</strong>
-                                                    </div>
                                             @endif
                                         </div>
                                         <div style="display: block; margin: 0 auto">
@@ -458,11 +457,6 @@
                                                             @endif
                                                         </tr>
                                                     @endforeach
-
-                                                    @else
-                                                        <div class="alert alert-warning alert-block">
-                                                            <strong>{{__('institution.noData')}}</strong>
-                                                        </div>
                                                 @endif
                                             </tbody>
 
@@ -506,7 +500,7 @@
                                     <input hidden value="{{$store->lang}}">
                                     <input hidden value="{{$store->late}}">
                                     <!--Google map-->
-                                    <div id="map" style="width: 898px; height: 500px">
+                                    <div id="map" style="height: 500px">
                                     </div>
                                     <!--Google Maps-->
                                 </form>

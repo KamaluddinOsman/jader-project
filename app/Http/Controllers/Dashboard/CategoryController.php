@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $records = Category::where('parent_id', null)->get();
+        $records = Category::where('parent_id', 0)->get();
         return view('dashboard.pages.category.index')->with(compact('records'));
     }
 
@@ -55,7 +55,7 @@ class CategoryController extends Controller
         $this->validate($request,$rules,$message);
         $records = new Category();
         $records->name = $request->input('name');
-        $records->parent_id = $request->input('parent_id');
+        $records->parent_id = $request->input('parent_id') ? $request->input('parent_id') : 0;
 
         if($file = $request->file('image')){
             $fileName = time().$file->getClientOriginalName();

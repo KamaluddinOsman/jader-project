@@ -69,7 +69,7 @@ class StoreController extends Controller
             'site' => 'required|regex:/^./i',
             'facebook' => 'regex:/^./i',
             'whatsapp' => 'numeric',
-            'district_id' => 'required|int|exists:cities,id',
+            'city_id' => 'required|int|exists:cities,id',
             'minimum_order' => 'required|numeric',
             'company_register' => 'required|numeric',
             'num_tax' => 'required|numeric',
@@ -114,7 +114,7 @@ class StoreController extends Controller
         $records->start_time = $request->start_time;
         $records->end_time = $request->end_time;
         $records->day_work = json_encode($request->day);
-        $records->active = 1;
+        $records->active = 0;
         $records->ratio = $request->ratio;
 
         if($file = $request->file('picture_contract')){
@@ -215,6 +215,7 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //return $request->childCategory;
         RequestLog::create(['content' => $request->except('_token'), 'service' => 'Update Store']);
 
         $rules = [
@@ -313,6 +314,8 @@ class StoreController extends Controller
             }
         }
 
+        $records->categories()->attach($request->input('childCategory'));
+        
         $records->save();
         flash()->success(__('institution.editedSuccessfully'));
         return redirect('/store');
@@ -416,6 +419,7 @@ class StoreController extends Controller
 
     public function ProductCreate($id)
     {
+        // return Store::where('id' , $id)->get();
         return view('dashboard.pages.store.productCreate', compact('id'));
     }
 
@@ -448,6 +452,7 @@ class StoreController extends Controller
         $records->quantity = $request->input('quantity');
         $records->code = $request->input('code');
         $records->notes = $request->input('notes');
+        $records->status = 0;
 
 
         //Upload Image
@@ -552,13 +557,38 @@ class StoreController extends Controller
 
     public function getBrand($id)
     {
-        $spacialCategory = SpacialCategory::with('store')->where('id', $id)->first()->store->category_id;
-        $brand = Brand::where('category_id', $spacialCategory)->get();
+        $parentCaegory = Category::where('id' , $id)->get('parent_id')->first();
+        // return($parentCaegory->parent_id);
+        // $spacialCategory = SpacialCategory::with('store')->where('id', $id)->first()->store->category_id;
+        $brand = Brand::where('category_id', $parentCaegory->parent_id)->get();
+        // return $brand;
         $output = view('dashboard.pages.store.brand', ['brand' => $brand])->render();
         return response()->json([
             'output' => $output
         ]);
     }
+
+    // public function getColor($id)
+    // {
+    //     $spacialCategory = SpacialCategory::with('store')->where('id', $id)->first()->store->category_id;
+    //     $parentCaegory = Category::where('id' , $id)->get('parent_id')->first();
+    //     $color = \App\UnitColor::where('category_id', $id)->where('type', 'color')->get();
+    //     $output = view('dashboard.pages.store.color', ['color' => $color])->render();
+    //     return response()->json([
+    //         'output' => $output
+    //     ]);
+    // }
+
+    // public function getSize($id)
+    // {
+    //     $spacialCategory = SpacialCategory::with('store')->where('id', $id)->first()->store->category_id;
+    //     $parentCaegory = Category::where('id' , $id)->get('parent_id')->first();
+    //     $unit = \App\UnitColor::where('category_id', $id)->where('type', 'unit')->get();
+    //     $output = view('dashboard.pages.store.unit', ['unit' => $unit])->render();
+    //     return response()->json([
+    //         'output' => $output
+    //     ]);
+    // }
 
     public function getColor($id)
     {
@@ -584,7 +614,6 @@ class StoreController extends Controller
     {
         $spacialCategory = SpacialCategory::with('store')->where('id', $id)->first()->store->category_id;
         $unit = \App\UnitColor::where('category_id', $spacialCategory)->where('type', 'unit')->get();
-        $unit = [];
         return json_encode($unit);
     }
 
@@ -599,6 +628,7 @@ class StoreController extends Controller
     {
         $records = Product::findOrFail($id);
 
+        // return $records->colors;
         // $extraProducts = ExtraProduct::where('product_id', $id)->where('type', 1)->get();
         // $removeProducts = ExtraProduct::where('product_id', $id)->where('type', 0)->get();
         // return view('dashboard.pages.store.productEdit')->with(compact('records', 'extraProducts', 'removeProducts'));
@@ -607,7 +637,7 @@ class StoreController extends Controller
 
     public function ProductUpdate(Request $request, $id)
     {
-        return $request->all();
+        //return $request->all();
         RequestLog::create(['content' => $request->except('_token'), 'service' => 'Update Product']);
 
         $rules = [
@@ -743,7 +773,8 @@ class StoreController extends Controller
         }
 
         flash()->success(__('institution.productEditedSuccessfully'));
-        return redirect('store/'.$request->store_id);
+        // return redirect('store/'.$request->store_id);
+        return redirect()->route('store.show', ['id' => $request->store_id]);
 
     }
 
