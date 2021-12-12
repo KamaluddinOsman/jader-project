@@ -10,8 +10,9 @@
     <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
 
 @endsection
-@include('admin.layouts.flash-message')
-    @include('flash::message')
+
+@include('dashboard.layouts.flash-message')
+@include('flash::message')
 
 @section('content')
     <div class="page-content">

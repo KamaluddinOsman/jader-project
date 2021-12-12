@@ -21,6 +21,14 @@ $brand = $brand->where('category_id', $store->category_id)->pluck('name', 'id')-
 $color = \App\UnitColor::where('type', 'color')->where('category_id', $store->category_id)->pluck('name', 'id', 'code')->toArray();
 $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->category_id)->pluck('name', 'id', 'code')->toArray();
 
+/*
+$store = \App\Store::where('id', $id)->first();
+$category = \App\Category::where('parent_id', $store->category_id)->pluck('name', 'id')->toArray();
+$district = $district->pluck('name', 'id')->toArray();
+$brand = $brand->where('category_id', $store->category_id)->pluck('name', 'id')->toArray();
+$color = \App\UnitColor::where('type', 'color')->where('category_id', $store->category_id)->pluck('name', 'id', 'code')->toArray();
+$size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->category_id)->pluck('name', 'id', 'code')->toArray();
+*/
 ?>
 @section('content')
     <div class="page-content">
@@ -55,39 +63,39 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                                 <div class="col-md-6">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">بيانات المنتج</h3>
+                                            <h3 class="card-title">{{ __('product.productDetails') }}</h3>
                                         </div>
                                         <div class="card-body">
                                             <div class="mb-3 row">
-                                                <label for="inputName" class="col-md-2 col-form-label">{{__('lang.name')}}</label>
+                                                <label for="inputName" class="col-md-3 col-form-label">{{__('product.productName')}}</label>
                                                 <div class="col-md-8">
                                                     {!! Form::text('name',null,['class' => 'form-control']) !!}
                                                 </div>
                                             </div>
 
                                             <div class="mb-3 row">
-                                                <label for="inputProjectLeader" class="col-md-2 col-form-label">النوع</label>
+                                                <label for="inputProjectLeader" class="col-md-3 col-form-label">{{__('product.productType')}}</label>
                                                 <div class="col-md-8">
                                                     {!! Form::select('type', array('1' => 'منتج', '0' => 'خدمة'), null,['class' => 'form-select select2']) !!}
                                                 </div>
                                             </div>
 
                                             <div class="mb-3 row">
-                                                <label for="inputProjectLeader" class="col-md-2 col-form-label">الفئات</label>
+                                                <label for="inputProjectLeader" class="col-md-3 col-form-label">{{__('product.productCategory')}}</label>
                                                 <div class="col-md-8">
-                                                    {!! Form::select('spacialCategory_id',$category,null,['class' => 'form-select select2','id'    => 'category']) !!}
+                                                    {!! Form::select('spacialCategory_id',$category,null, ['class' => 'form-select select2','id'=>'category' ]) !!}
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-3 row" style="display:{{ $store->id == 1 ? 'none' : 'flex'}}">
+                                                <label for="inputProjectLeader" class="col-md-3 col-form-label">{{__('product.productBrand')}}</label>
+                                                <div class="col-md-8">
+                                                    {!! Form::select('brand_id',$brand,null,['class' => 'form-select select2','id'=> 'brand']) !!}
                                                 </div>
                                             </div>
                                             
                                             <div class="mb-3 row">
-                                                <label for="inputProjectLeader" class="col-md-2 col-form-label">براند</label>
-                                                <div class="col-md-8">
-                                                    {!! Form::select('brand_id',$brand,null,['class' => 'form-select select2','id'    => 'brand']) !!}
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="mb-3 row">
-                                                <label for="inputName" class="col-md-2 col-form-label">{{__('lang.quantity')}}</label>
+                                                <label for="inputName" class="col-md-3 col-form-label">{{__('product.productQuantity')}}</label>
                                                 <div class="col-md-8">
                                                     {!! Form::text('quantity',null,['class' => 'form-control']) !!}
                                                 </div>
@@ -100,66 +108,66 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                                 <div class="col-md-6">
                                     <div class="card card-secondary">
                                         <div class="card-header">
-                                            <h3 class="card-title">استكمال البيانات</h3>
+                                            <h3 class="card-title">{{ __('product.productCompleteDetails') }}</h3>
                                         </div>
                                         <div class="card-body">
                                             <div class="mb-3 row">
-                                                <label for="inputName" class="col-md-2 col-form-label">{{__('lang.price')}}</label>
+                                                <label for="inputName" class="col-md-3 col-form-label">{{__('product.productPrice')}}</label>
                                                 <div class="col-md-8">
                                                     {!! Form::text('price',null,['class' => 'form-control']) !!}
                                                 </div>
                                             </div>
 
                                             <div class="mb-3 row">
-                                                <label for="inputName" class="col-md-2 col-form-label">{{__('lang.code')}}</label>
+                                                <label for="inputName" class="col-md-3 col-form-label">{{__('product.productCode')}}</label>
                                                 <div class="col-md-8">
                                                     {!! Form::text('code',null,['class' => 'form-control']) !!}
                                                 </div>
                                             </div>
                                             
                                             <div class="mt-3 row">
-                                                <label for="textarea" class="col-md-2 col-form-label">{{__('lang.notes')}}</label>
+                                                <label for="textarea" class="col-md-3 col-form-label">{{__('product.productNotes')}}</label>
                                                 <div class="col-md-8">
                                                     {!! Form::textarea('notes',null,['id'=> 'textarea', 'class' => 'form-control', 'maxlength = "225" rows = "3" placeholder="" ']) !!}
                                                 </div>
                                             </div>
 
                                             <div class="mt-3 row">
-                                                <div class="col-lg-3">
+                                                {{-- <div class="col-lg-3">
                                                     <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">{{__('lang.image')}} . 1 </label>
                                                     <label for="image1" class="btn btn-success col fileinput-button">
                                                         <i class="fas fa-plus"></i>
                                                         <span>Add files</span>
                                                     </label>
                                                     <input name="image1" style="display: none" type="file" id="image1">
-                                                </div>
+                                                </div> --}}
         
-                                                <div class="col-lg-3">
+                                                {{-- <div class="col-lg-3">
                                                     <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">{{__('lang.image')}} . 2 </label>
                                                     <label for="image2" class="btn btn-success col fileinput-button">
                                                         <i class="fas fa-plus"></i>
                                                         <span>Add files</span>
                                                     </label>
                                                     <input name="image2" style="display: none" type="file" id="image2">
-                                                </div>
+                                                </div> --}}
         
-                                                <div class="col-lg-3">
+                                                {{-- <div class="col-lg-3">
                                                     <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">{{__('lang.image')}} . 3 </label>
                                                     <label for="image3" class="btn btn-success col fileinput-button">
                                                         <i class="fas fa-plus"></i>
                                                         <span>Add files</span>
                                                     </label>
                                                     <input name="image3" style="display: none" type="file" id="image3">
-                                                </div>
+                                                </div> --}}
         
-                                                <div class="col-lg-3">
+                                                {{-- <div class="col-lg-3">
                                                     <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">{{__('lang.image')}} . 4 </label>
                                                     <label for="image4" class="btn btn-success col fileinput-button">
                                                         <i class="fas fa-plus"></i>
                                                         <span>Add files</span>
                                                     </label>
                                                     <input name="image4" style="display: none" type="file" id="image4">
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <!-- /.card-body -->
                                         </div>
@@ -169,7 +177,7 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="display:{{ $store->id == 1 ? 'none' : 'flex'}}">
                                     <div class="card card-primary">
                                         <div class="card-header">
                                             <h3 class="card-title">اضافة مقاسات للمنتج واسعارها</h3>
@@ -201,7 +209,7 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                                     </div>
                                 </div>
         
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="display:{{ $store->id == 1 ? 'none' : 'flex'}}">
                                     <div class="card card-primary">
                                         <div class="card-header">
                                             <h3 class="card-title">اضافة الوان للمنتج واسعارها</h3>
@@ -219,7 +227,7 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                                             <div class="itemColor">
                                                 <div style="margin-top: -14px" class="row">
                                                     <div class="form-group col-md-9" id="dynamic-container">
-                                                        <select class="form-control select2" name="color_id[]" id="color"></select>
+                                                        <select class="form-select select2" name="color_id[]" id="color"></select>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <input id="priceColorProduct" type="text" class="form-control priceColorProduct" name="color_price[]">
@@ -235,10 +243,126 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                             </div>
 
                             <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title text-center">
+                                                {{ __('product.productImage1') }}
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <input type="file" id="image1" class="form-control" for="image1_img" name="image1" style="display: none"/>
+                                            <img class="rounded mx-auto img-thumbnail" style="display: none; max-width: 160px;max-height: 160px;" id="image1_img" src="#" alt="your image" />
+                                            
+                                            @if(!empty($records->image1))
+                                                <img id="image1_old" class="rounded mx-auto img-thumbnail" style="max-width: 160px;max-height: 160px;" src="{{asset($records->getOriginal('image1'))}}">
+                                            @else
+                                                <img id="image1_noImage" class="rounded mx-auto img-thumbnail" style="max-width: 160px;max-height: 160px;" src="{{ asset('img/no_image.png') }}">
+                                            @endif
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="input-group">
+                                                <label class="btn btn-success col fileinput-button" for="image1">
+                                                    <i class="fas fa-plus"></i>
+                                                    <span>{{ __('product.productAddImage') }}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title text-center">
+                                                {{ __('product.productImage2') }}
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <input type="file" id="image2" class="form-control" for="image2_img" name="image2" style="display: none"/>
+                                            <img class="rounded mx-auto img-thumbnail" style="display: none; max-width: 160px;max-height: 160px;" id="image2_img" src="#" alt="your image" />
+                                            
+                                            @if(!empty($records->image2))
+                                                <img id="image2_old" class="rounded mx-auto img-thumbnail" style="max-width: 160px;max-height: 160px;" src="{{asset($records->getOriginal('image2'))}}">
+                                            @else
+                                                <img id="image2_noImage" class="rounded mx-auto img-thumbnail" style="max-width: 160px;max-height: 160px;" src="{{ asset('img/no_image.png') }}">
+                                            @endif
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="input-group">
+                                                <label class="btn btn-success col fileinput-button" for="image2">
+                                                    <i class="fas fa-plus"></i>
+                                                    <span>{{ __('product.productAddImage') }}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="card-header">
+                                        <div class="card-title text-center">
+                                            {{ __('product.productImage3') }}
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <input type="file" id="image3" class="form-control" for="image3_img" name="image3" style="display: none"/>
+                                            <img class="rounded mx-auto img-thumbnail" style="display: none; max-width: 160px;max-height: 160px;" id="image3_img" src="#" alt="your image" />
+                                            
+                                            @if(!empty($records->image3))
+                                                <img id="image3_old" class="rounded mx-auto img-thumbnail" style="max-width: 160px;max-height: 160px;" src="{{asset($records->getOriginal('image3'))}}">
+                                            @else
+                                                <img id="image3_noImage" class="rounded mx-auto img-thumbnail" style="max-width: 160px;max-height: 160px;" src="{{ asset('img/no_image.png') }}">
+                                            @endif
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="input-group">
+                                                <label class="btn btn-success col fileinput-button" for="image3">
+                                                    <i class="fas fa-plus"></i>
+                                                    <span>{{ __('product.productAddImage') }}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="card-header">
+                                        <div class="card-title text-center">
+                                            {{ __('product.productImage4') }}
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <input type="file" id="image4" class="form-control" for="image4_img" name="image4" style="display: none"/>
+                                            <img class="rounded mx-auto img-thumbnail" style="display: none; max-width: 160px;max-height: 160px;" id="image4_img" src="#" alt="your image" />
+                                            
+                                            @if(!empty($records->image4))
+                                                <img id="image4_old" class="rounded mx-auto img-thumbnail" style="max-width: 160px;max-height: 160px;" src="{{asset($records->getOriginal('image4'))}}">
+                                            @else
+                                                <img id="image4_noImage" class="rounded mx-auto img-thumbnail" style="max-width: 160px;max-height: 160px;" src="{{ asset('img/no_image.png') }}">
+                                            @endif
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="input-group">
+                                                <label class="btn btn-success col fileinput-button" for="image4">
+                                                    <i class="fas fa-plus"></i>
+                                                    <span>{{ __('product.productAddImage') }}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- <div class="row">
                                 <div class="col-md-6">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">منتجات يمكن اضافتها من المنتج</h3>
+                                            <h3 class="card-title">منتجات يمكن اضافتها الي المنتج</h3>
                                         </div>
                                         <div class="card-body">
                                             <div style="margin-top: -14px" class="row">
@@ -300,11 +424,11 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="row">
                                 <div class="card-footer">
-                                    <button class="btn btn-primary submit-btn">{{__('lang.save')}}</button>
+                                    <button class="btn btn-primary submit-btn col-sm-3">{{__('product.addProduct')}}</button>
                                 </div>
                             </div>
                         {!! Form::close() !!}
@@ -487,7 +611,7 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                     success: function (data) {
                         $(wrapper).append('<div style="margin-top: 5px" class="row">' +
                             '<div class="form-group col-md-9">' +
-                            '<select class="form-control select2 " name="size_id[]" id="size">' +
+                            '<select class="form-select select2 " name="size_id[]" id="size">' +
                             '</select>' +
                             '</div>' +
                             '<div class="form-group col-md-2">' +
@@ -539,7 +663,7 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
                     success: function (data) {
                         $(wrapper).append('<div style="margin-top: 5px" class="row">' +
                             '<div class="form-group col-md-9">' +
-                            '<select class="form-control select2 " name="color_id[]" id="color">' +
+                            '<select class="form-select select2 " name="color_id[]" id="color">' +
                             '</select>' +
                             '</div>' +
                             '<div class="form-group col-md-2">' +
@@ -566,6 +690,50 @@ $size = \App\UnitColor::where('type', 'unit')->where('category_id', $store->cate
             $(this).parent('div').remove();
             x--;
         })
+    });
+</script>
+
+<script>
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                // $('#logo').attr('src', e.target.result);
+
+                $(input).next('img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#image1").change(function() {
+        $('#image1_noImage').css('display','none');
+        $('#image1_old').css('display','none');
+        $('#image1_img').css('display','block');
+        readURL(this);
+    });
+
+    $("#image2").change(function() {
+        $('#image2_noImage').css('display','none');
+        $('#image2_old').css('display','none');
+        $('#image2_img').css('display','block');
+        readURL(this);
+    });
+
+    $("#image3").change(function() {
+        $('#image3_noImage').css('display','none');
+        $('#image3_old').css('display','none');
+        $('#image3_img').css('display','block');
+        readURL(this);
+    });
+
+    $("#image4").change(function() {
+        $('#image4_noImage').css('display','none');
+        $('#image4_old').css('display','none');
+        $('#image4_img').css('display','block');
+        readURL(this);
     });
 </script>
 @endsection

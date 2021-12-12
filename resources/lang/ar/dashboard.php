@@ -9,9 +9,9 @@
         'pinddingOrders'  => 'طلبات منتظرة',
         'activeOrders'    => 'الطلبات الحالية',
 
-        'allInstitutions'       => 'اجمالي المنشاءات',
-        'openInstitutions'      => 'المنشاءات المفتوحة',
-        'closedInstitutions'    => 'المنشاءات المغلقة',
+        'allInstitutions'       => 'اجمالي المنشآت',
+        'openInstitutions'      => 'المنشآت المفتوحة',
+        'closedInstitutions'    => 'المنشآت المغلقة',
         'pinddingInstitutions'  => 'منشاءات قيد الانتظار',
 
         'clientsMovement' => 'حركة العملاء',
@@ -28,7 +28,7 @@
         'menu'                      => 'قائمة',
         'menuItemCategory'          => 'تصنيفات',
         'menuItemCity'              => 'مدن',
-        'menuItemInstitution'       => 'المنشاءات',
+        'menuItemInstitution'       => 'المنشآت',
           'menuItemInstitutionSub1' => 'نشط',
           'menuItemInstitutionSub2' => 'قيد الانتظار',
           'menuItemInstitutionSub3' => 'مرفوض',

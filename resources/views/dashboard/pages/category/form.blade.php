@@ -2,7 +2,7 @@
 <?php
     $id = collect(explode('/',\Illuminate\Http\Request::capture()->url()))->last();
     if ($id == 'category'){
-        $category = $category->where('parent_id', null)->pluck('name', 'id')->toArray();
+        $category = $category->where('parent_id', 0)->pluck('name', 'id')->toArray();
     }else{
         $category = $category->where('parent_id',$id)->pluck('name', 'id')->toArray();
     }

@@ -81,14 +81,14 @@ $client = $client->Active()->pluck('full_name', 'id')->toArray();
                             <div class="mb-3 row">
                                 <label for="inputDescription" class="col-md-2 col-form-label">{{__('institution.institutionCategory')}}</label>
                                 <div class="col-md-8">
-                                    {!! Form::select('category_id',$category,null,['class' => 'form-control form-select select2','id'    => 'category']) !!}
+                                    {!! Form::select('category_id',$category,null,['class' => 'form-select form-select select2', 'id' =>'category']) !!}
                                 </div>
                             </div>
 
                             <div class="mb-3 row">
                                 <label for="inputDescription" class="col-md-2 col-form-label">{{__('institution.specialCategory')}}</label>
                                 <div class="col-md-8 select2-purple">
-                                    <select id="childCategory" class="form-control form-select select2" name="childCategory[]" multiple="multiple" data-placeholder="فئات مخصصة" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                    <select id="childCategory" class="form-select select2" name="childCategory[]" multiple="multiple" data-placeholder="فئات مخصصة" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                     </select>
                                 </div>
                             </div>
@@ -249,10 +249,14 @@ $client = $client->Active()->pluck('full_name', 'id')->toArray();
                                         </label>
                                         <?php
                                             if (!empty($records)) {
+                                            // if ($records->day_work != "null") {
                                                 $listDay[] = json_decode($records->day_work);
                                                 foreach ($listDay[0] as $key => $value) {
                                                     $result[] = $value;
                                                 }
+                                            }
+                                            else{
+                                                $result[] = ["Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"];
                                             }
                                         ?>
                                         <div class="mb-3 row">

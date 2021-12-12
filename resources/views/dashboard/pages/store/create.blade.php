@@ -355,14 +355,22 @@
 
 
     <script>
+        $( document ).ready(function() {
+            let category_id = document.getElementById('category')
+            $.ajax({
+                url: "{{ url('/store/getcategory') }}"+"/"+$(category_id).val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#childCategory').html(data.output);
+                }
+            });
+        });
         $("#category").change(function(){
             $.ajax({
                 url: "{{ url('/store/getcategory') }}"+"/"+$(this).val(),
                 method: 'GET',
-
                 success: function(data) {
                     $('#childCategory').html(data.output);
-                    select.append('<option value=' + value.id + '>' + value.name + '</option>');
                 }
             });
         });

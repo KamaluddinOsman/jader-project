@@ -322,4 +322,26 @@
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvt4xYX0QycPedzqGKJ7_1sg6KH_iztDA&libraries=places&callback=initAutocomplete&language=ar&region=EGasync defer"></script>
+
+    <script>
+        $( document ).ready(function() {
+            let category_id = document.getElementById('category')
+            $.ajax({
+                url: "{{ url('/store/getcategory') }}"+"/"+$(category_id).val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#childCategory').html(data.output);
+                }
+            });
+        });
+        $("#category").change(function(){
+            $.ajax({
+                url: "{{ url('/store/getcategory') }}"+"/"+$(this).val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#childCategory').html(data.output);
+                }
+            });
+        });
+    </script>
 @stop
