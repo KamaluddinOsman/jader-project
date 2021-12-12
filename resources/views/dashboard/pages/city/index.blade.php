@@ -6,13 +6,9 @@
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    
+
     <!-- Sweet Alert-->
     <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    {{-- <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert2/sweetalert.css') }}"> --}}
 @endsection
 @section('content')
     <div class="page-content">
@@ -58,14 +54,14 @@
                         {{-- datatable-buttons --}}
                         <table id="datatable"
                                 class="table table-striped table-bordered dt-responsive nowrap"
-                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <tr>
                                         <th>#</th>
-                                        <th>{{__('lang.name')}}</th>
-                                        <th>{{__('lang.edit')}}</th>
-                                        <th>{{__('lang.delete')}}</th>
+                                        <th>{{__('city.cityNameColumn')}}</th>
+                                        <th>{{__('city.editCityColumn')}}</th>
+                                        <th>{{__('city.deleteCityColumn')}}</th>
                                     </tr>
                                 </tr>
                             </thead>
@@ -92,24 +88,12 @@
                                                         <a class="btn btn-danger btn-mini deleteRecord" id="sa-warning">
                                                             <i class="mdi mdi-delete-alert"></i>
                                                         </a>
-                                                        {{-- <button type="submit" class="btn btn-danger btn-mini">
-                                                            <i class="mdi mdi-delete-alert"></i>
-                                                        </button> --}}
-                                                        {{-- <button type="button" class="btn btn-primary waves-effect waves-light deleteRecord"
-                                                id="sa-warning">Click me</button> --}}
                                                     </div>
                                                     
                                                 </form>
                                             </td>
                                         </tr>
                                     @endforeach
-        
-                                @else
-        
-                                    <div class="alert alert-warning alert-block">
-                                        <strong>{{__('lang.ThereAreNoData')}}</strong>
-                                    </div>
-        
                                 @endif
                             </tbody>
                             
@@ -131,7 +115,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addCityLabel">
-                        {{__('category.addCategory')}}
+                        {{__('city.addCity')}}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -165,7 +149,7 @@
                         @include('/dashboard/pages/city/form')
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('city.close') }}</button>
                             <button class="btn btn-primary" type="submit"> {{__('city.editCity')}}</button>
                         </div>
                     </form>
@@ -183,29 +167,14 @@
     <script src="{{ asset('dashboard/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboard/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
-    <!-- Buttons examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- Responsive examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
-    <!-- Datatable init js -->
-    {{-- <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script> --}}
-
     <!-- Sweet Alerts js -->
     <script src="{{ asset('dashboard/libs/sweetalert2/sweetalert.min.js') }}"></script>
 
     <!-- Sweet alert init js-->
     <script src="{{ asset('dashboard/js/pages/sweet-alerts.init.js') }}"></script>
-    
-{{-- <script src="{{ asset('dashboard/js/custom.js') }}"></script> --}}
+
+    <!-- Datatable init js -->
+    <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
 
     <script>
         $('#editCity').on('show.bs.modal', function (event) {
@@ -238,39 +207,5 @@
             modal.find('.modal-body #name').val(name);
             modal.find('.modal-body #district_id').val(district_id);
         });
-
-        $(function () {
-            $("#datatable").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"]
-            }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "language": {
-                    "sProcessing": "جارٍ التحميل...",
-                    "sLengthMenu": "أظهر _MENU_ مدخلات",
-                    "sZeroRecords": "لم يعثر على أية سجلات",
-                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
-                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
-                    "sInfoPostFix": "",
-                    "sSearch": "ابحث:",
-                    "sUrl": "",
-                    "oPaginate": {
-                        "sFirst": "الأول",
-                        "sPrevious": "السابق",
-                        "sNext": "التالي",
-                        "sLast": "الأخير"
-                    }
-                }
-            });
-        });
-
     </script>
 @endsection

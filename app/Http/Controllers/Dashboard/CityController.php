@@ -56,7 +56,7 @@ class CityController extends Controller
         $records->name = $request->input('name');
         $records->save();
 
-        flash()->success(__('lang.doneSave'));
+        flash()->success(__('city.savedSuccessfully'));
 
         return redirect('/city');
 
@@ -107,7 +107,7 @@ class CityController extends Controller
 
         $city = City::findOrFail($request->city_id);
         $city->update($request->all());
-        flash()->success(__('lang.doneEdit'));
+        flash()->success(__('city.editedSuccessfully'));
         return redirect('/city');
     }
 
@@ -128,7 +128,7 @@ class CityController extends Controller
 
         $records = City::findOrFail($id);
         $records->delete();
-        flash()->success(__('lang.doneDelete'));
+        flash()->success(__('city.deletedSuccessfully'));
         return redirect('/city');
 
     }
