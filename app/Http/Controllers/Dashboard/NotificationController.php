@@ -59,7 +59,7 @@ class NotificationController extends Controller
         }
 
 
-        flash()->success(__('lang.doneSave'));
+        flash()->success(__('notification.sentSuccessfully'));
         return redirect()->back();
     }
 }
