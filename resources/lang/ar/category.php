@@ -19,9 +19,9 @@
         //Messages
         'savedSuccessfully'     => 'تم حفظ التصنيف بنجاح',
         'editedSuccessfully'    => 'تم تعديل التصنيف بنجاح',
-        'deletedSuccessfully'   =>'تم حذف التصنيف بنجاح',
-        'activatedSuccessfully' =>'تم تفعيل التصنيف بنجاح',
-        'blockedSuccessfully'   =>'تم تعطيل التصنيف بنجاح',
+        'deletedSuccessfully'   => 'تم حذف التصنيف بنجاح',
+        'activatedSuccessfully' => 'تم تفعيل التصنيف بنجاح',
+        'blockedSuccessfully'   => 'تم تعطيل التصنيف بنجاح',
         'noData'                => 'لا توجد بيانات',
 
         //validation

@@ -6,29 +6,16 @@
 
 @section('head')
     @section('page-title')
-            {{__('car.car')}} | {{ __('auth.bageTitle') }}
+            {{__('car.addCar')}} | {{ __('auth.bageTitle') }}
     @endsection
-    <!-- DataTables -->
-    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <style>
-        .image-upload>input {
-            display: none;
-        }
-    </style>
 @endsection
 
 
 <?php
-$ins = \App\Store::first();
-$category = $category->pluck('name', 'id')->toArray();
-$brand = $brand->pluck('name', 'id')->toArray();
-$client = $client->pluck('full_name', 'id')->toArray();
-
+    $ins = \App\Store::first();
+    $category = $category->pluck('name', 'id')->toArray();
+    $brand = $brand->pluck('name', 'id')->toArray();
+    $client = $client->pluck('full_name', 'id')->toArray();
 ?>
 
 @section('content')
@@ -175,7 +162,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="driver_licenseInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -208,7 +195,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="car_licenseInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -243,7 +230,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="image_car_backInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -275,9 +262,8 @@ $client = $client->pluck('full_name', 'id')->toArray();
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="image_car_frontInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
-                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -309,9 +295,8 @@ $client = $client->pluck('full_name', 'id')->toArray();
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="personal_idInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
-                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -345,9 +330,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">terms of service</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                    <p>
@@ -389,28 +372,6 @@ $client = $client->pluck('full_name', 'id')->toArray();
     
 @endsection
 @section('scripts')
-    <!-- Required datatable js -->
-    <script src="{{ asset('dashboard/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-
-    <!-- Buttons examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- Responsive examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
-    <!-- Datatable init js -->
-    <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
-
-    {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
-
     <script>
         $('.check').on('click', function() {
             console.log("###")
@@ -425,10 +386,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
                 reader.onload = function(e) {
-                    // $('#logo').attr('src', e.target.result);
-
                     $(input).next('img').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]); // convert to base64 string

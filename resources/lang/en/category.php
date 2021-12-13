@@ -19,9 +19,9 @@
         //Messages
         'savedSuccessfully'     => 'The Category has been saved Successfully',
         'editedSuccessfully'    => 'The Category has been updated Successfully',
-        'deletedSuccessfully'   =>'The Category has been deleted successfully',
-        'activatedSuccessfully' =>'The Category has been activated successfully',
-        'blockedSuccessfully'   =>'The Category has been blocked successfully',
+        'deletedSuccessfully'   => 'The Category has been deleted successfully',
+        'activatedSuccessfully' => 'The Category has been activated successfully',
+        'blockedSuccessfully'   => 'The Category has been blocked successfully',
         'noData'                => 'No Records',
 
         //validation
