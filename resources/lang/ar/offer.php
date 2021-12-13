@@ -21,7 +21,12 @@
         'activeOffer'   => 'تفعيل',
         'blockOffer'    => 'حظر',
         'waitingOffer'  => 'قيد الانتظار',
+        'finished'      => 'منتهي',
+        'notStarted'    => 'لم يبدأ',
+        'workingNow'    =>'يعمل الان',
 
         //Messages
-        'noData' => 'لا توجد بيانات',
+        'deletedSuccessfully'       => 'تم حذف العرض بنجاح',
+        'activatedSuccessfully'     => 'تم تفعيل العرض بنجاح',
+        'blockedSuccessfully'       => 'تم تعطيل العرض بنجاح',
     ];

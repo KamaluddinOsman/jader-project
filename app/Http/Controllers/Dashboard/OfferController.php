@@ -87,7 +87,7 @@ class OfferController extends Controller
 
       $records = Offer::findOrFail($id);
       $records->delete();
-      flash()->success(__('lang.doneDelete'));
+      flash()->success(__('offer.deletedSuccessfully'));
       return redirect('/offer');
   }
 
@@ -99,11 +99,12 @@ class OfferController extends Controller
         $offer = Offer::findOrFail($id);
         if ($offer->status == 1) {
             $offer->status = 0;
+            flash()->success(__('offer.blockedSuccessfully'));
         } else {
             $offer->status = 1;
+            flash()->success(__('offer.activatedSuccessfully'));
         }
         $offer->save();
-        flash()->success(__('lang.doneActive'));
         return back();
     }
 }

@@ -21,7 +21,12 @@
         'activeOffer'   => 'Active',
         'blockOffer'    => 'Block',
         'waitingOffer'  => 'Waiting',
+        'finished'      => 'Finished',
+        'notStarted'    => 'Not Started',
+        'workingNow'    => 'Working Now',
 
         //Messages
-        'noData' => 'لا توجد بيانات',
+        'deletedSuccessfully'       => 'The offer has been deleted successfully',
+        'activatedSuccessfully'     => 'The offer has been activated successfully',
+        'blockedSuccessfully'       => 'The offer has been disabled successfully',
     ];
