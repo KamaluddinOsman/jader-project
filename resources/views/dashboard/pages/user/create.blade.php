@@ -1,24 +1,10 @@
 @extends('dashboard.layouts.main')
 @section('head')
     @section('page-title')
-        {{ __('user.user') }} | {{ __('auth.bageTitle') }}             
+        {{ __('user.addUser') }} | {{ __('auth.bageTitle') }}             
     @endsection
-    <!-- DataTables -->
-    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    
-    <!-- Sweet Alert-->
-    <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    {{-- <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert2/sweetalert.css') }}"> --}}
 @endsection
 @inject('model','App\User')
-
-@include('admin.layouts.flash-message')
-@include('flash::message')
-
 @section('content')
     <div class="page-content">
 
@@ -39,19 +25,17 @@
         </div>
         <!-- end page title -->
 
+        @include('dashboard.layouts.flash-message')
+        @include('flash::message')
+        
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        {!! Form::model( $model, ['action' => 'Dashboard\UserController@store']) !!}
-                            @include('/dashboard/pages/user/form')
-
-                            <div class="form-group col-md-12">
-                                <button class="btn btn-primary" type="submit">{{__('user.addUser')}}</button>
-                            </div>            
-                        {!! Form::close() !!}
-                    </div>
-                </div>
+                {!! Form::model( $model, ['action' => 'Dashboard\UserController@store']) !!}
+                    @include('/dashboard/pages/user/form')
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-primary" type="submit">{{__('user.addUser')}}</button>
+                    </div>            
+                {!! Form::close() !!}
             </div>
         </div>
 
