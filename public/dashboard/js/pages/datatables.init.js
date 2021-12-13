@@ -21,6 +21,7 @@ $(function () {
         // "buttons": ["copy", "csv", "excel", "pdf", "print"],
         "buttons": false,
         "responsive": true,
+        "scrollX": true,
         "language": {
             "sProcessing": processing_val,
             "sLengthMenu": lengthMenu_val,
