@@ -60,7 +60,7 @@ class UserController extends Controller
         $user = User::create($request->except('roles_list'));
         $user->roles()->attach($request->input('roles_list'));
 
-        flash()->success('تم الحفظ بنجاح');
+        flash()->success( __('user.savedSuccessfully') );
         return redirect('/user');
     }
 
@@ -119,7 +119,7 @@ class UserController extends Controller
         $user->roles()->sync((array) $request->input('roles_list'));
         $update = $user->update($request->all());
 
-        flash()->success('تم التعديل بنجاح');
+        flash()->success( __('user.editedSuccessfully') );
         return redirect('user');
     }
 
@@ -140,7 +140,7 @@ class UserController extends Controller
 
         $records = User::findOrFail($id);
         $records->delete();
-        flash()->success('تم الحذف بنجاح');
+        flash()->success( __('user.deletedSuccessfully') );
         return redirect('/user');
 
     }
@@ -177,12 +177,12 @@ class UserController extends Controller
             $user = bcrypt($data['password']);
             User::where('id',Auth::User()->id)->update(['password'=>$user]);
 
-            flash()->success('تم تعديل كلمة السر');
+            flash()->success( __('user.passwordChangedSuccessfully') );
 
             return back();
 
         }else{
-            flash()->error('كلمة المرور القديمة ليست متطابقة');
+            flash()->error( __('user.passwordCheck') );
             return back();
         }
 

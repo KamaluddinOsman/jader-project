@@ -78,10 +78,7 @@ class CarController extends Controller
         $car->name_card = $request->name_card;
         $car->ipan = $request->ipan;
         $car->activated = '1';
-
-        // if ($file = $request->file('personal_image')) {
-        //     $car->personal_image = uploadImage($file, 'car');
-        // }
+        
         if ($file = $request->file('personal_id')) {
             $fileName = time().'personal_id'.$file->getClientOriginalName();
             if($file->move('img/cars/',$fileName)){
@@ -118,7 +115,7 @@ class CarController extends Controller
         }
 
         $car->save();
-        flash()->success(__('lang.doneSave'));
+        flash()->success(__('car.savedSuccessfully'));
         return redirect('/car');
     }
 
@@ -200,10 +197,6 @@ class CarController extends Controller
         $car->name_card = $request->name_card;
         $car->ipan = $request->ipan;
 
-        // if ($file = $request->file('personal_image')) {
-        //     $car->personal_image = uploadImage($file, 'car');
-        // }
-
         if ($file = $request->file('personal_id')) {
             if (File::exists($car->personal_id)){
                 @unlink(public_path().'/'.$car->personal_id);
@@ -255,7 +248,7 @@ class CarController extends Controller
         }
 
         $car->save();
-        flash()->success(__('lang.doneSave'));
+        flash()->success(__('car.editedSuccessfully'));
         return redirect('/car');
     }
 
@@ -291,7 +284,7 @@ class CarController extends Controller
         }
 
         $records->delete();
-        flash()->success(__('lang.doneDelete'));
+        flash()->success(__('car.deletedSuccessfully'));
         return redirect('/car');
     }
 
@@ -315,11 +308,12 @@ class CarController extends Controller
         $car = Car::findOrFail($id);
         if ($car->activated == 1) {
             $car->activated = 0;
+            flash()->success(__('car.blockedSuccessfully'));
         } else {
             $car->activated = 1;
+            flash()->success(__('car.activatedSuccessfully'));
         }
         $car->save();
-        flash()->success(__('lang.doneActive'));
         return redirect()->back();
     }
 
@@ -349,9 +343,8 @@ class CarController extends Controller
             $send = notifyByFirebase($title,$body,$tokens, $data);
         };
 
-
-        flash()->success(__('lang.doneCancel'));
-        return back();
+        flash()->success(__('car.canceledSuccessfully'));
+        return redirect()->back();
     }
 
 }

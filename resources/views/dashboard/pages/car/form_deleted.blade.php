@@ -2,17 +2,12 @@
 @inject('category','App\Category')
 @inject('brand','App\Brand')
 @inject('client','App\Client')
-<style>
-    .image-upload>input {
-        display: none;
-    }
-</style>
-<?php
-$ins = \App\Store::first();
-$category = $category->pluck('name', 'id')->toArray();
-$brand = $brand->pluck('name', 'id')->toArray();
-$client = $client->pluck('full_name', 'id')->toArray();
 
+<?php
+    $ins = \App\Store::first();
+    $category = $category->pluck('name', 'id')->toArray();
+    $brand = $brand->pluck('name', 'id')->toArray();
+    $client = $client->pluck('full_name', 'id')->toArray();
 ?>
 
 <!-- Main content -->
@@ -37,16 +32,12 @@ $client = $client->pluck('full_name', 'id')->toArray();
 
                     <div class="form-group">
                         <label for="inputName">{{__('lang.number')}}</label>
-                        {!! Form::text('number',null,[
-                      'class' => 'form-control',
-                    ]) !!}
+                        {!! Form::text('number',null,['class' => 'form-control']) !!}
                     </div>
 
                     <div class="form-group">
                         <label for="inputName">{{__('lang.stc_pay')}}</label>
-                        {!! Form::text('stc_pay',null,[
-                      'class' => 'form-control',
-                    ]) !!}
+                        {!! Form::text('stc_pay',null,['class' => 'form-control']) !!}
                     </div>
 
                     <div class="form-group">
@@ -68,16 +59,12 @@ $client = $client->pluck('full_name', 'id')->toArray();
 
                     <div class="form-group">
                         <label for="inputEstimatedBudget">{{__('lang.car_model')}} </label>
-                        {!! Form::text('car_model',null,[
-                          'class' => 'form-control',
-                        ]) !!}
+                        {!! Form::text('car_model',null,['class' => 'form-control']) !!}
                     </div>
 
                     <div class="form-group">
                         <label for="inputEstimatedBudget">{{__('lang.stc_pay')}} </label>
-                        {!! Form::text('stc_pay',null,[
-                          'class' => 'form-control',
-                        ]) !!}
+                        {!! Form::text('stc_pay',null,['class' => 'form-control']) !!}
                     </div>
 
                     <div class="form-group">

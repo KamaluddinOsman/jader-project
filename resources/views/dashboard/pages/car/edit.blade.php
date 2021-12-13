@@ -6,20 +6,8 @@
 
 @section('head')
     @section('page-title')
-            {{__('car.car')}} | {{ __('auth.bageTitle') }}
+            {{__('car.editCar')}} | {{ __('auth.bageTitle') }}
     @endsection
-    <!-- DataTables -->
-    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <style>
-        .image-upload>input {
-            display: none;
-        }
-    </style>
 @endsection
 
 <?php
@@ -35,12 +23,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">{{ __('car.addCar') }}</h4>
+                    <h4 class="page-title mb-0 font-size-18">{{ __('car.editCar') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('car.addCar') }}</li>
+                            <li class="breadcrumb-item active">{{ __('car.editCar') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -51,8 +39,8 @@
         @include('dashboard.layouts.flash-message')
         @include('flash::message')
 
-            <div class="row">
-                <div class="col-xl-12">
+        <div class="row">
+            <div class="col-xl-12">
                 {!! Form::model($records,[ 'action' => ['Dashboard\CarController@update',$records->id], 'method' => 'put', 'enctype' => 'multipart/form-data']) !!}
                     <div class="card">
                         <div class="card-body">
@@ -173,7 +161,7 @@
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="driver_licenseInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -206,7 +194,7 @@
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="car_licenseInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -241,7 +229,7 @@
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="image_car_backInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -273,9 +261,8 @@
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="image_car_frontInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
-                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -307,9 +294,8 @@
                                                             <div class="input-group">
                                                                 <label class="btn btn-success col fileinput-button" for="personal_idInp">
                                                                     <i class="fas fa-plus"></i>
-                                                                    <span>Add files</span>
+                                                                    <span>{{ __('car.addFile') }}</span>
                                                                 </label>
-                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -320,12 +306,6 @@
                                         <!-- /.card-body -->
                                     </div>
                                     <!-- /.card -->
-                                    {{-- <div class="form-group mb-0">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="terms" class="custom-control-input check" id="exampleCheck1">
-                                            <label class="custom-control-label" for="exampleCheck1">I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#modal-lg">terms of service</a>.</label>
-                                        </div>
-                                    </div> --}}
                                     <div class="form-group text-center">
                                         <button class="btn btn-primary submit-btn" type="submit">{{__('car.editCar')}}</button>
                                     </div>
@@ -335,6 +315,7 @@
                     </div>
                 {!! Form::close() !!}
             </div>
+        </div>
     </div>
 @endsection
 @section('scripts')
@@ -342,10 +323,7 @@
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
                 reader.onload = function(e) {
-                    // $('#logo').attr('src', e.target.result);
-
                     $(input).next('img').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]); // convert to base64 string
