@@ -16,7 +16,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $records = Role::paginate(20);
+        $records = Role::all();
         return view('dashboard.pages.role.index')->with(compact('records'));
     }
 
@@ -41,22 +41,22 @@ class RoleController extends Controller
         RequestLog::create(['content' => $request->except('_token'), 'service' => 'create Role']);
 
         $rules = [
-            'name'=> 'required|unique:roles,name' ,
-            'display_name'=> 'required',
-            'permissions_list'=> 'required|array' ,
+            'name'              => 'required|unique:roles,name' ,
+            'display_name'      => 'required',
+            'permissions_list'  => 'required|array' ,
         ];
 
         $message = [
-            'name.required'=> 'يجب ادخال اسم الرتبة' ,
-            'name.unique'=> 'هذا الاسم مستخدم من قبل' ,
-            'display_name.required'=> 'هذا الاسم المعروض يجب ادخاله' ,
-            'permissions_list.required'=> 'يجب ادخال الصلاحية' ,
+            'name.required'             => 'يجب ادخال اسم الرتبة' ,
+            'name.unique'               => 'هذا الاسم مستخدم من قبل' ,
+            'display_name.required'     => 'هذا الاسم المعروض يجب ادخاله' ,
+            'permissions_list.required' => 'يجب ادخال الصلاحية' ,
         ];
 
         $this->validate($request,$rules,$message);
         $records = Role::create($request->all());
         $records->permissions()->attach($request->permissions_list);
-        flash()->success('تم الحفظ بنجاح');
+        flash()->success( __('role.savedSuccessfully') );
         return redirect('/role');
     }
 
@@ -95,16 +95,16 @@ class RoleController extends Controller
         RequestLog::create(['content' => $request->except('_token', 'display_name'), 'service' => 'Update Role']);
 
         $rules = [
-            'name'=> 'required|unique:roles,name,'.$id ,
-            'display_name'=> 'required',
-            'permissions_list'=> 'required|array' ,
+            'name'              => 'required|unique:roles,name,'.$id ,
+            'display_name'      => 'required',
+            'permissions_list'  => 'required|array' ,
         ];
 
         $message = [
-            'name.required'=> 'يجب ادخال اسم الرتبة' ,
-            'name.unique'=> 'هذا الاسم مستخدم من قبل' ,
-            'display_name.required'=> 'هذا الاسم المعروض يجب ادخاله' ,
-            'permissions_list.required'=> 'يجب ادخال الصلاحية' ,
+            'name.required'             => 'يجب ادخال اسم الرتبة' ,
+            'name.unique'               => 'هذا الاسم مستخدم من قبل' ,
+            'display_name.required'     => 'هذا الاسم المعروض يجب ادخاله' ,
+            'permissions_list.required' => 'يجب ادخال الصلاحية' ,
         ];
 
         $this->validate($request,$rules,$message);
@@ -113,7 +113,7 @@ class RoleController extends Controller
         $records->update($request->all());
         $records->permissions()->sync($request->permissions_list);
 
-        flash()->success('تم التعديل بنجاح');
+        flash()->success( __('role.editedSuccessfully') );
         return redirect('/role');
     }
 
@@ -134,7 +134,7 @@ class RoleController extends Controller
 
         $records = Role::findOrFail($id);
         $records->delete();
-        flash()->success('تم الحذف بنجاح');
+        flash()->success( __('role.deletedSuccessfully') );
         return redirect('/role');
 
     }

@@ -6,18 +6,14 @@
 
 @section('head')
     @section('page-title')
-        {{ __('user.user') }} | {{ __('auth.bageTitle') }}             
+        {{ __('role.editRole') }} | {{ __('auth.bageTitle') }}             
     @endsection
     <!-- DataTables -->
     <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    
+
     <!-- Sweet Alert-->
     <link href="{{ asset('dashboard/libs/sweetalert2/sweetalert.css') }}" rel="stylesheet" type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    {{-- <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert2/sweetalert.css') }}"> --}}
 @endsection
 @section('content')
 <div class="page-content">
@@ -25,12 +21,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="page-title mb-0 font-size-18">{{ __('user.addUser') }}</h4>
+                <h4 class="page-title mb-0 font-size-18">{{ __('user.editUser') }}</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">{{ __('dashboard.dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">{{ __('user.addUser') }}</li>
+                        <li class="breadcrumb-item active">{{ __('user.editUser') }}</li>
                     </ol>
                 </div>
             </div>
@@ -46,9 +42,9 @@
             @include('/dashboard/pages/role/form')
             <br>
             <div class="form-group">
-                <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">الصلاحيات </label>
+                <label style="color:#000;font-size: 15px;padding-bottom: 15px" class="label">{{ __('role.permissions') }}</label>
                 <br>
-                <label style="margin-top: 19px;font-weight: bold"><input {{ $records->id == 1 ? 'disabled' : ''}} type="checkbox" id="select_all" /> اختيار الكل</label>
+                <label style="margin-top: 19px;font-weight: bold"><input {{ $records->id == 1 ? 'disabled' : ''}} type="checkbox" id="select_all" />{{ __('role.selectAll') }}</label>
 
                 <div class="row">
                     @foreach($perm->all() as $permission)
@@ -57,11 +53,9 @@
                             <div class="checkbox">
                                 <label>
                                     <input {{ $records->id == 1 ? 'disabled' : ''}}  type="checkbox" name="permissions_list[]" value="{{$permission->id}}"
-
                                         @if($records->hasPermission($permission->name))
-                                        checked
+                                            checked
                                         @endif
-
                                     > {{$permission->display_name}}
                                 </label>
                             </div>
