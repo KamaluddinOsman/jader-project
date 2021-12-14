@@ -141,7 +141,7 @@ Route::group(
                 Route::group(['prefix' => 'client'], function () {
                     Route::get('/', 'ClientController@index')->name('client.index');
                     Route::get('/create', 'ClientController@create')->name('client.create');
-                    Route::post('/', 'ClientController@institution')->name('client.store');
+                    Route::post('/', 'ClientController@store')->name('client.store');
                     Route::get('/{id}', 'ClientController@show')->name('client.show');
                     Route::get('/{id}/edit', 'ClientController@edit')->name('client.edit');
                     Route::put('/{id}', 'ClientController@update')->name('client.update');
