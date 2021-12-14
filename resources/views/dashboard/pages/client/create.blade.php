@@ -3,18 +3,6 @@
     @section('page-title')
             {{__('client.addClient')}} | {{ __('auth.bageTitle') }}
     @endsection
-    <!-- DataTables -->
-    <link href="{{ asset('dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('dashboard/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('dashboard/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <style>
-        .image-upload>input {
-            display: none;
-        }
-    </style>
 @endsection
 @inject('model','App\Client')
 
@@ -47,17 +35,14 @@
                         {!! Form::model( $model, ['action' => 'Dashboard\ClientController@store','enctype' => 'multipart/form-data' ]) !!}
                             <div class="col">
                                 @include('/dashboard/pages/client/form')
-                                <div class="clearfix"></div>
-                                
-                                <br>
                                 <div class="col-md-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">الرقم السرى</h3>
+                                            <h3 class="card-title">{{ __('client.password') }}</h3>
                                         </div>
                                         <div class="card-body">
                                             <div class="mb-3 row">
-                                                <label for="inputName" class="col-md-2 col-form-label">{{__('lang.password')}}</label>
+                                                <label for="inputName" class="col-md-2 col-form-label">{{__('client.password')}}</label>
                                                 <div class="col-md-8">
                                                     {!! Form::password('password',['class' => 'form-control' ]) !!}
                                                 </div>
@@ -71,7 +56,7 @@
                             <div class="form-group">
                                 <br>
                 
-                                <button class="btn btn-primary" type="submit">{{__('lang.save')}}</button>
+                                <button class="btn btn-primary" type="submit">{{__('client.addClient')}}</button>
                             </div>
                         {!! Form::close() !!}
                     </div>
@@ -81,36 +66,12 @@
     </div>
 @endsection
 @section('scripts')
-    <!-- Required datatable js -->
-    <script src="{{ asset('dashboard/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-
-    <!-- Buttons examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- Responsive examples -->
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboard/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
-    <!-- Datatable init js -->
-    <script src="{{ asset('dashboard/js/pages/datatables.init.js') }}"></script>
-
-    {{-- <script src="{{ asset('dashboard/js/app.js') }}"></script> --}}
-
     <script>
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function(e) {
-                    // $('#logo').attr('src', e.target.result);
-
                     $(input).next('img').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]); // convert to base64 string

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Cart;
+use App\City;
 use App\Client;
 use App\District;
 use App\Order;
@@ -12,8 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Image;
-use File;
-
+use Illuminate\Support\Facades\File;
 
 class ClientController extends Controller
 {
@@ -35,8 +35,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $district = District::all()->sortBy('name',SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
-        return view('dashboard.pages.client.create',compact('district'));
+        $cities = City::all()->sortBy('name',SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
+        return view('dashboard.pages.client.create',compact('cities'));
     }
 
     /**
@@ -75,7 +75,7 @@ class ClientController extends Controller
         }
 
         $client->save();
-        flash()->success(__('lang.doneSave'));
+        flash()->success( __('client.savedSuccessfully') );
         return redirect('client');
     }
 
@@ -102,8 +102,9 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
+        $cities = City::all()->sortBy('name',SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
         $records = Client::findOrFail($id);
-        return view('dashboard.pages.client.edit')->with(compact('records'));
+        return view('dashboard.pages.client.edit')->with(compact('records', 'cities'));
     }
 
     /**
@@ -135,7 +136,7 @@ class ClientController extends Controller
 
         if ($file = $request->file('image')) {
             if (File::exists($client->image)){
-                @unlink(public_path().'/'.$car->personal_id);
+                @unlink(public_path().'/'.$client->personal_id);
             }
             $fileName = time().'image'.$file->getClientOriginalName();
             if($file->move('img/clients/',$fileName)){
@@ -144,7 +145,7 @@ class ClientController extends Controller
         }
 
         $client->save();
-        flash()->success(__('lang.doneSave'));
+        flash()->success(__('client.editedSuccessfully'));
 
         return redirect('client');
     }
@@ -157,12 +158,13 @@ class ClientController extends Controller
 
         if($client->activated == 1){
             $client->activated = 0;
+            flash()->success(__('client.blockedSuccessfully'));
         } else {
             $client->activated = 1;
+            flash()->success(__('client.activatedSuccessfully'));
         }
         $client->save();
-        flash()->success(__('lang.doneActive'));
-        return back();
+        return redirect()->back();
     }
 
     /**
@@ -181,7 +183,7 @@ class ClientController extends Controller
             @unlink(public_path().'/'.$records->image);
         }
         $records->delete();
-        flash()->success(__('lang.doneDelete'));
+        flash()->success(__('client.deletedSuccessfully'));
         return redirect('/client');
     }
 

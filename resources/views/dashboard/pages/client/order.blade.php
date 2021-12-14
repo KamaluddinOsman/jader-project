@@ -155,10 +155,6 @@
     }
 </style>
 
-
-
-
-
 <div class="container">
     <article class="card">
         <header class="card-header" style="height: 49px; line-height: 2"> My Orders / Tracking </header>

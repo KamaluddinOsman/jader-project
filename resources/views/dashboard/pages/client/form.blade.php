@@ -1,18 +1,13 @@
 @inject('model','App\Store')
 @inject('category','App\Category')
-@inject('district','App\District')
+@inject('city','App\City')
 @inject('client','App\Client')
-<style>
-    .image-upload>input {
-        display: none;
-    }
-</style>
-<?php
-$ins = \App\Store::first();
-$category = $category->Active()->pluck('name', 'id')->toArray();
-$district = $district->pluck('name', 'id')->toArray();
-$client = $client->pluck('full_name', 'id')->toArray();
 
+<?php
+    $ins = \App\Store::first();
+    $category = $category->Active()->pluck('name', 'id')->toArray();
+    // $district = $district->pluck('name', 'id')->toArray();
+    $client = $client->pluck('full_name', 'id')->toArray();
 ?>
 
 <!-- Main content -->
@@ -20,7 +15,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
     <div class="col-md-12">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">بيانات عامة</h3>
+                <h3 class="card-title">{{ __('client.generalDetails') }}</h3>
             </div>
             <div class="card-body">
                 <div class="mb-3 row">
@@ -61,7 +56,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
                 <div class="mb-3 row">
                     <label for="inputProjectLeader" class="col-md-2 col-form-label">{{ __('client.district') }}</label>
                     <div class="col-md-8">
-                        {{ Form::select('district_id', $district, null, array('class'=>'form-select select2', 'placeholder'=>'الحى')) }}
+                        {{ Form::select('district_id', $cities, null, array('class'=>'form-select select2', 'placeholder'=>'الحى')) }}
                     </div>
                 </div>
 
@@ -78,8 +73,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
                                     @if(!empty($records->image))
                                         <img id="logo_old" style="width: 220px;margin-top: 12px;border: 1px solid #000000" src="{{ asset($records->image) }}">
                                     @else
-                                        <img id="logoNoImage" style="width: 220px;margin-top: 12px;border: 1px solid #000000"
-                                                src="{{ asset('img/no_image.png') }}">
+                                        <img id="logoNoImage" style="width: 220px;margin-top: 12px;border: 1px solid #000000" src="{{ asset('img/no_image.png') }}">
                                     @endif
                                 </div>
                             </div>                                                
@@ -88,7 +82,7 @@ $client = $client->pluck('full_name', 'id')->toArray();
                                     <div class="input-group">
                                         <label class="btn btn-success fileinput-button" for="logoInp">
                                             <i class="fas fa-plus"></i>
-                                            <span>Add files</span>
+                                            <span>{{ __('client.addFile') }}</span>
                                         </label>
                                     </div>
                                 </div>
